@@ -3,7 +3,7 @@ use crate::events::transcription::{PartialTranscriptionEvent, StreamingStateChan
 use crate::settings::{get_settings, write_settings, ModelUnloadTimeout};
 use serde::Serialize;
 use specta::Type;
-use tauri::{AppHandle, State};
+use tauri::{AppHandle, State, Manager, Emitter};
 
 #[derive(Serialize, Type)]
 pub struct ModelLoadStatus {

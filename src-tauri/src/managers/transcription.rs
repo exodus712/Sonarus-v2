@@ -8,7 +8,6 @@ use crate::settings::{
 use anyhow::Result;
 use log::{debug, error, info, warn};
 use serde::Serialize;
-use specta::Type;
 use std::panic::{catch_unwind, AssertUnwindSafe};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{Arc, Condvar, Mutex, MutexGuard};
@@ -723,7 +722,8 @@ impl TranscriptionManager {
 
     pub fn transcribe_chunk(&self, audio_chunk: Vec<f32>) -> Result<String> {
         // Add chunk to buffer
-        self.streaming_state.add_audio_chunk(audio_chunk)?;
+        self.streaming_state.add_audio_chunk(audio_chunk)
+            .map_err(|e| anyhow::anyhow!("Failed to add audio chunk: {}", e))?;
         
         // Get current buffer for transcription
         let buffer = self.streaming_state.get_buffer();
@@ -753,8 +753,6 @@ fn force_cpu_only_mode() {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn test_cpu_only_mode_enforced() {
         // This test will verify CPU-only mode is enforced
