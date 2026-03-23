@@ -35,7 +35,7 @@ Before you begin, ensure you have the following installed:
 3. **Add upstream remote**:
 
    ```bash
-   git remote add upstream git@github.com:cjpais/Handy.git
+   git remote add upstream git@github.com:exodus712/Sonarus-v2.git
    ```
 
 4. **Install dependencies**:

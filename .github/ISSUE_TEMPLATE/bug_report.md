@@ -4,11 +4,12 @@ about: Create a report to help us improve Handy
 title: "[BUG] "
 labels: ["bug"]
 assignees: ""
+
 ---
 
 ## Before You Submit
 
-**Please search [existing issues](https://github.com/cjpais/Handy/issues) to avoid duplicates.** Your bug may already be reported! Right now it's just me maintaining this project so many issues can be overwhelming! Help me out by checking first.
+**Please search [existing issues](https://github.com/exodus712/Sonarus-v2/issues) to avoid duplicates.** Go to [Discussions](https://github.com/exodus712/Sonarus-v2/discussions) to ask questions and discuss Sonarus with the community. Your bug may already be reported! Right now it's just me maintaining this project so many issues can be overwhelming! Help me out by checking first.
 
 ## Bug Description
 

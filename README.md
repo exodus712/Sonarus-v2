@@ -1,21 +1,17 @@
-# Handy
+# Sonarus
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/WVBeWsNXK4)
 
 **A free, open source, and extensible speech-to-text application that works completely offline.**
+Sonarus is a cross-platform desktop application that provides simple, privacy-focused speech transcription. Press a shortcut, speak, and have your words appear in any text field. This happens on your own computer without sending any information to the cloud.
 
-Handy is a cross-platform desktop application that provides simple, privacy-focused speech transcription. Press a shortcut, speak, and have your words appear in any text field. This happens on your own computer without sending any information to the cloud.
-
-## Why Handy?
-
-Handy was created to fill the gap for a truly open source, extensible speech-to-text tool. As stated on [handy.computer](https://handy.computer):
-
+## Why Sonarus?
+Sonarus was created to fill the gap for a truly open source, extensible speech-to-text tool. As stated on [sonarus.computer](https://sonarus.computer):
 - **Free**: Accessibility tooling belongs in everyone's hands, not behind a paywall
-- **Open Source**: Together we can build further. Extend Handy for yourself and contribute to something bigger
+- **Open Source**: Together we can build further. Extend Sonarus for yourself and contribute to something bigger
 - **Private**: Your voice stays on your computer. Get transcriptions without sending audio to the cloud
 - **Simple**: One tool, one job. Transcribe what you say and put it into a text box
-
-Handy isn't trying to be the best speech-to-text app—it's trying to be the most forkable one.
+- **Forkable**: Sonarus isn't trying to be the best speech-to-text app—it's trying to be the most forkable one.
 
 ## How It Works
 
@@ -28,18 +24,18 @@ The process is entirely local:
 
 - Silence is filtered using VAD (Voice Activity Detection) with Silero
 - Transcription uses your choice of models:
-  - **Whisper models** (Small/Medium/Turbo/Large) with GPU acceleration when available
-  - **Parakeet V3** - CPU-optimized model with excellent performance and automatic language detection
+  - **Whisper models** (Small/Medium/Turbo/Large) with CPU-only mode for maximum stability
+- **Parakeet V3** - CPU-optimized model with excellent performance and automatic language detection
 - Works on Windows, macOS, and Linux
 
 ## Quick Start
 
 ### Installation
 
-1. Download the latest release from the [releases page](https://github.com/cjpais/Handy/releases) or the [website](https://handy.computer)
-   - **macOS**: Also available via [Homebrew cask](https://formulae.brew.sh/cask/handy): `brew install --cask handy`
-   - **Windows**: Also available via [winget](https://github.com/microsoft/winget-pkgs): `winget install cjpais.Handy` \
-     **Note:** The Homebrew cask and winget package are not maintained by the Handy developers.
+1. Download the latest release from the [releases page](https://github.com/exodus712/Sonarus-v2/releases) or [website](https://sonarus.computer)
+   - **macOS**: Also available via [Homebrew cask](https://formulae.brew.sh/cask/sonarus): `brew install --cask sonarus`
+   - **Windows**: Also available via [winget](https://github.com/microsoft/winget-pkgs): `winget install exodus712.Sonarus` \
+     **Note:** The Homebrew cask and winget package are not maintained by the Sonarus developers.
 2. Install the application
 3. Launch Handy and grant necessary system permissions (microphone, accessibility)
 4. Configure your preferred keyboard shortcuts in Settings
@@ -113,15 +109,14 @@ handy --start-hidden --no-tray
 
 ## Known Issues & Current Limitations
 
-This project is actively being developed and has some [known issues](https://github.com/cjpais/Handy/issues). We believe in transparency about the current state:
+This project is actively being developed and has some [known issues](https://github.com/exodus712/Sonarus-v2/issues). We believe in transparency about the current state:
 
 ### Major Issues (Help Wanted)
 
-**Whisper Model Crashes:**
-
+- **Whisper Model Crashes:**
 - Whisper models crash on certain system configurations (Windows and Linux)
 - Does not affect all systems - issue is configuration-dependent
-  - If you experience crashes and are a developer, please help to fix and provide debug logs!
+- If you experience crashes and are a developer, please help to fix and provide debug logs!
 
 **Wayland Support (Linux):**
 
@@ -405,7 +400,7 @@ The goal is to create both a useful tool and a foundation for others to build up
 
 ## Related Projects
 
-- **[Handy CLI](https://github.com/cjpais/handy-cli)** - The original Python command-line version
+- **Sonarus CLI**: The original Python command-line version
 - **[handy.computer](https://handy.computer)** - Project website with demos and documentation
 
 ## License
@@ -417,5 +412,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - **Whisper** by OpenAI for the speech recognition model
 - **whisper.cpp and ggml** for amazing cross-platform whisper inference/acceleration
 - **Silero** for great lightweight VAD
-- **Tauri** team for the excellent Rust-based app framework
+- **Tauri** team for excellent Rust-based app framework
 - **Community contributors** helping make Handy better
+- **Handy** - The original project that serves as foundation and inspiration for Sonarus

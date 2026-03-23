@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    handy.url = "github:exodus712/Sonarus-v2";
 
     # bun2nix: generates per-package Nix fetchurl expressions from bun.lock,
     # replacing the old FOD approach where a single hash covered the entire

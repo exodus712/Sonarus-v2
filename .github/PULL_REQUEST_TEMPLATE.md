@@ -1,15 +1,19 @@
 ## Before Submitting This PR
 
 <!--
-HANDY IS UNDERGOING A FEATURE FREEZE. IF YOU ARE SUBMITTING A PR WHICH IS A NEW FEATURE THAT THE COMMUNITY HAS NOT ASKED FOR: PREPARE TO BE REJECTED. IF THE COMMUNITY HAS ASKED FOR IT, OR YOU HAVE EXPLICITLY GATEHRED SUPPORT IT MAY STILL BE CONSIDERED.
+This is critical: Before writing any code, please do the following:
+1. Search existing issues and PRs - Check both open AND closed issues and pull requests at [exodus712/Sonarus-v2](https://github.com/exodus712/Sonarus-v2)
+2. Check discussions at [exodus712/Sonarus-v2/discussions](https://github.com/exodus712/Sonarus-v2/discussions)
+3. Try latest release to see if issue has been fixed
+4. Enable debug mode (`Cmd/Ctrl+Shift+D`) to gather diagnostic information
 
 BUG FIXES ARE THE TOP PRIORITY. THERE ARE 60+ ISSUES TO FIX.
 -->
 
 **Please confirm you have done the following:**
 
-- [ ] I have searched [existing issues](https://github.com/cjpais/Handy/issues) and [pull requests](https://github.com/cjpais/Handy/pulls) (including closed ones) to ensure this isn't a duplicate
-- [ ] I have read [CONTRIBUTING.md](https://github.com/cjpais/Handy/blob/main/CONTRIBUTING.md)
+- [ ] I have searched [existing issues](https://github.com/exodus712/Sonarus-v2/issues) and [pull requests](https://github.com/exodus712/Sonarus-v2/pulls) (including closed ones) to ensure this isn't a duplicate
+- [ ] I have read [CONTRIBUTING.md](https://github.com/exodus712/Sonarus-v2/blob/main/CONTRIBUTING.md)
 
 **If this is a feature or change that was previously closed/rejected:**
 
@@ -45,7 +49,7 @@ For features: Link to a discussion where community members have expressed intere
 For bug fixes: Link to the issue where others have confirmed the bug.
 
 If you haven't gathered feedback yet, consider starting a discussion first:
-https://github.com/cjpais/Handy/discussions
+https://github.com/exodus712/Sonarus-v2/discussions
 
 It is not explicitly required to gather feedback, but it certainly helps your PR get merged.
 -->
