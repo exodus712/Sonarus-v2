@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { readFile } from "@tauri-apps/plugin-fs";
-import { Check, Copy, FolderOpen, RotateCcw, Star, Trash2 } from "lucide-react";
+import { Check, Copy, FolderOpen, Star, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import {
@@ -14,6 +14,7 @@ import { useOsType } from "@/hooks/useOsType";
 import { formatDateTime } from "@/utils/dateFormat";
 import { AudioPlayer } from "../../ui/AudioPlayer";
 import { Button } from "../../ui/Button";
+import AnimatedRefreshButton from "../../icons/AnimatedRefreshButton";
 
 const IconButton: React.FC<{
   onClick: () => void;
@@ -25,10 +26,10 @@ const IconButton: React.FC<{
   <button
     onClick={onClick}
     disabled={disabled}
-    className={`p-1.5 rounded-md flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed disabled:text-text/20 ${
+    className={`p-1.5 rounded-md flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed disabled:text-text-secondary ${
       active
         ? "text-logo-primary hover:text-logo-primary/80"
-        : "text-text/50 hover:text-logo-primary"
+        : "text-text-secondary hover:text-logo-primary"
     }`}
     title={title}
   >
@@ -238,13 +239,13 @@ export const HistorySettings: React.FC = () => {
 
   if (loading) {
     content = (
-      <div className="px-4 py-3 text-center text-text/60">
+      <div className="px-4 py-3 text-center text-text-secondary">
         {t("settings.history.loading")}
       </div>
     );
   } else if (entries.length === 0) {
     content = (
-      <div className="px-4 py-3 text-center text-text/60">
+      <div className="px-4 py-3 text-center text-text-secondary">
         {t("settings.history.empty")}
       </div>
     );
@@ -275,7 +276,7 @@ export const HistorySettings: React.FC = () => {
       <div className="space-y-2">
         <div className="px-4 flex items-center justify-between">
           <div>
-            <h2 className="text-xs font-medium text-mid-gray uppercase tracking-wide">
+            <h2 className="text-xs font-medium text-text-secondary uppercase tracking-wide">
               {t("settings.history.title")}
             </h2>
           </div>
@@ -385,21 +386,15 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
               fill={entry.saved ? "currentColor" : "none"}
             />
           </IconButton>
-          <IconButton
+          <AnimatedRefreshButton
+            direction="ccw"
             onClick={handleRetranscribe}
             disabled={retrying}
-            title={t("settings.history.retranscribe")}
-          >
-            <RotateCcw
-              width={16}
-              height={16}
-              style={
-                retrying
-                  ? { animation: "spin 1s linear infinite reverse" }
-                  : undefined
-              }
-            />
-          </IconButton>
+            ariaLabel={t("settings.history.retranscribe")}
+            size={16}
+            isAnimating={retrying}
+            className="p-1.5"
+          />
           <IconButton
             onClick={handleDeleteEntry}
             disabled={retrying}
@@ -415,8 +410,8 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
           retrying
             ? ""
             : hasTranscription
-              ? "text-text/90 select-text cursor-text whitespace-pre-wrap break-words"
-              : "text-text/40"
+              ? "text-text-primary select-text cursor-text whitespace-pre-wrap wrap-break-word"
+              : "text-text-secondary"
         }`}
         style={
           retrying
