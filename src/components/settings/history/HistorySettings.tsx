@@ -271,7 +271,7 @@ export const HistorySettings: React.FC = () => {
   }
 
   return (
-    <div className="max-w-3xl w-full mx-auto space-y-6">
+    <div className="max-w-3xl w-full mx-auto space-y-6 group">
       <div className="space-y-2">
         <div className="px-4 flex items-center justify-between">
           <div>
@@ -284,7 +284,7 @@ export const HistorySettings: React.FC = () => {
             label={t("settings.history.openFolder")}
           />
         </div>
-        <div className="group bg-background border border-mid-gray/20 rounded-lg overflow-visible">
+        <div className="bg-background border border-mid-gray/20 rounded-lg overflow-visible">
           {content}
         </div>
       </div>
