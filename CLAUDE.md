@@ -2,6 +2,27 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Project Overview
+
+**Sonarus** is a premium speech-to-text desktop application that builds on the Handy foundation. While Handy focuses on being the most forkable speech-to-text tool, Sonarus focuses on being the most finished one — betting on experience over extensibility as its primary value.
+
+### Design Philosophy
+
+Sonarus draws from four reference points, synthesized into a single coherent identity:
+
+- **Superwhisper —** The recording state is a moment. High contrast, the waveform is everything when you're speaking.
+- **Notion —** Typography is the UI. Generous whitespace. History feels like a journal, not a database table.
+- **Raycast —** Speed is a feature. Every interaction has a keyboard shortcut. Power users never touch the mouse.
+- **Apple HIG —** Trust is earned through consistency and restraint. The app gets out of your way, and you notice that.
+
+### Design Principles
+
+- **Nothing decorative.** Every visual element either communicates state or guides action.
+- **Motion has meaning.** Every animation tells you something. No animation is eye candy.
+- **Typography carries weight.** History panel uses a larger base size. Transcription text is readable at a glance.
+- **Dual mode, not afterthought.** Dark and light are designed in parallel. Dark mode uses warm neutrals, not pure black.
+- **The overlay is the brand.** More users see the recording pill than the settings panel. It must be extraordinary.
+
 ## Development Commands
 
 **Prerequisites:** [Rust](https://rustup.rs/) (latest stable), [Bun](https://bun.sh/)
@@ -43,13 +64,15 @@ Handy is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rust 
   - `audio.rs` - Audio recording and device management
   - `model.rs` - Model downloading and management
   - `transcription.rs` - Speech-to-text processing pipeline
-  - `history.rs` - Transcription history storage
+  - `history.rs` - Transcription history storage (NEW for Sonarus)
 - `audio_toolkit/` - Low-level audio processing:
   - `audio/` - Device enumeration, recording, resampling
   - `vad/` - Voice Activity Detection (Silero VAD)
 - `commands/` - Tauri command handlers for frontend communication
 - `shortcut.rs` - Global keyboard shortcut handling
 - `settings.rs` - Application settings management
+- `sound.rs` - Audio feedback system (NEW for Sonarus)
+- `app_context.rs` - Active application detection (NEW for Sonarus)
 
 ### Frontend Structure (src/)
 
@@ -57,8 +80,14 @@ Handy is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rust 
 - `components/settings/` - Settings UI (35+ files)
 - `components/model-selector/` - Model management interface
 - `components/onboarding/` - First-run experience
+- `components/overlay/` - Recording overlay pill (REDESIGNED for Sonarus)
+- `components/history/` - Transcription history panel (NEW for Sonarus)
+- `components/sound/` - Audio feedback management (NEW for Sonarus)
 - `hooks/useSettings.ts`, `useModels.ts` - State management hooks
+- `hooks/useHistory.ts` - History management hook (NEW for Sonarus)
+- `hooks/useSound.ts` - Sound feedback hook (NEW for Sonarus)
 - `stores/settingsStore.ts` - Zustand store for settings
+- `stores/historyStore.ts` - Zustand store for history (NEW for Sonarus)
 - `bindings.ts` - Auto-generated Tauri type bindings (via tauri-specta)
 - `overlay/` - Recording overlay window code
 
@@ -68,9 +97,52 @@ Handy is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rust 
 
 **Command-Event Architecture:** Frontend → Backend via Tauri commands; Backend → Frontend via events.
 
-**Pipeline Processing:** Audio → VAD → Whisper/Parakeet → Text output → Clipboard/Paste
+**Pipeline Processing:** Audio → VAD → Whisper/Parakeet → Text output → Post-Processing → Clipboard/Paste
 
 **State Flow:** Zustand → Tauri Command → Rust State → Persistence (tauri-plugin-store)
+
+## Sonarus-Specific Patterns
+
+### Recording Overlay (The Pill)
+
+The recording overlay is the most-seen surface in Sonarus. It must be extraordinary:
+
+- Three distinct visual states: idle (invisible), recording (live waveform), transcribing (animated dots)
+- Smooth morphing transitions between states — no abrupt snaps
+- Configurable position: top-center, bottom-center, corners
+- Respects system reduced motion preferences
+- Always on top, never steals focus
+
+### History System
+
+Every transcription is saved automatically in a local SQLite database:
+
+- Stores: full text, timestamp, app context, character count, duration
+- Full-text search across all entries with highlighting
+- Organized by day with date separators
+- Pin/star entries to surface them at the top
+- Export to .md or .csv formats
+- Accessible via keyboard shortcut from anywhere
+
+### Sound Design System
+
+Every state transition has a corresponding audio cue:
+
+- Recording start — clean, short tone
+- Recording stop — slightly lower tone
+- Transcription complete — brief resolving sound
+- Error — neutral, distinct tone
+- All sounds are ≤ 400ms, bundled assets, follow system volume
+- "Silent" mode toggle disables all audio feedback
+
+### App Context Detection
+
+Sonarus detects the active application and applies transcription profiles:
+
+- Built-in profiles for common apps: Slack, email clients, VS Code, browsers
+- Default profile for unrecognized apps
+- User can create custom profiles via no-code rule builder
+- Profile activation is instant and silent
 
 ## Internationalization (i18n)
 
@@ -101,6 +173,8 @@ src/i18n/
 - Run `cargo fmt` and `cargo clippy` before committing
 - Handle errors explicitly (avoid unwrap in production)
 - Use descriptive names, add doc comments for public APIs
+- Follow Sonarus design principles in UI-related code
+- Keep audio processing code performant and memory-safe
 
 **TypeScript/React:**
 
@@ -108,6 +182,21 @@ src/i18n/
 - Functional components with hooks
 - Tailwind CSS for styling
 - Path aliases: `@/` → `./src/`
+- Follow "Quiet Confidence" design language:
+  - System fonts only (SF Pro on macOS, Segoe UI on Windows)
+  - Two weights only: Regular (400) and Medium (500)
+  - Generous whitespace, Notion-style typography
+  - All transitions ≤ 300ms, respect reduced motion
+  - Dark mode uses warm neutrals (`#0E0E14`), not pure black
+
+**UI/UX Guidelines:**
+
+- Every primary action has a keyboard shortcut
+- Settings are applied immediately — no save/apply button pattern
+- Error states are calm and specific
+- Destructive actions require confirmation
+- Typography is the UI — avoid decorative elements
+- Motion has meaning, never just for show
 
 ## Commit Guidelines
 
@@ -154,6 +243,29 @@ Access debug features: `Cmd+Shift+D` (macOS) or `Ctrl+Shift+D` (Windows/Linux)
 
 ## Platform Notes
 
-- **macOS**: Metal acceleration, accessibility permissions required
-- **Windows**: Vulkan acceleration, code signing
+- **macOS**: Metal acceleration, accessibility permissions required, native feel with system fonts
+- **Windows**: Vulkan acceleration, code signing, Segoe UI typography
 - **Linux**: OpenBLAS + Vulkan, limited Wayland support, overlay disabled by default
+
+## Sonarus V1 Feature Requirements
+
+When working on V1 features, ensure:
+
+- Recording overlay has three distinct states with smooth transitions
+- All transcriptions are saved to SQLite history automatically
+- Sound cues are present for all state transitions
+- History panel is searchable and keyboard-navigable
+- Settings UI follows the "Quiet Confidence" design language
+- Performance targets: ≤ 2s app launch, ≤ 200ms history panel open, ≤ 100ms search
+- Privacy: All processing local, no telemetry in V1
+- Accessibility: Full keyboard navigation, WCAG AA contrast, screen reader support
+
+## Future Architecture Considerations
+
+V1 code should not block V1.x/V2 features:
+
+- Post-processing pipeline must be pluggable for rule-based → LLM transition
+- App context detection should support user-defined profiles
+- History system should support additional metadata fields
+- Sound system should support custom sound packs
+- Settings architecture should support profile management

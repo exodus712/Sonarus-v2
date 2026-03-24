@@ -1,17 +1,30 @@
-# Contributing to Handy
+# Contributing to Sonarus
 
-Thank you for your interest in contributing to Handy! This guide will help you get started with contributing to this open source speech-to-text application.
+Thank you for your interest in contributing to Sonarus! This guide will help you get started with contributing to this premium speech-to-text application.
 
-## 📖 Philosophy
+## Philosophy
 
-Handy aims to be the most forkable speech-to-text app. The goal is to create both a useful tool and a foundation for others to build upon—a well-patterned, simple codebase that serves the community. We prioritize:
+Sonarus builds on the solid foundation of the Handy project but focuses on **experience over extensibility** as our primary value. While Handy aims to be the most forkable speech-to-text tool, Sonarus aims to be the most finished one.
 
-- **Simplicity**: Clear, maintainable code over clever solutions
-- **Extensibility**: Make it easy for others to fork and customize
-- **Privacy**: Keep everything local and offline
-- **Accessibility**: Free tooling that belongs in everyone's hands
+We prioritize:
 
-## 🚀 Getting Started
+- **Extraordinary UX**: Every interaction should feel thoughtful and polished
+- **Privacy First**: Keep everything local and offline
+- **Keyboard-Driven**: Power users should never need to touch the mouse
+- **Quiet Confidence**: Design language that is calm, capable, and trustworthy
+- **Performance**: Fast, responsive, and reliable
+
+## Design Principles
+
+When contributing to Sonarus, keep these principles in mind:
+
+- **Nothing decorative.** Every visual element either communicates state or guides action.
+- **Motion has meaning.** Every animation tells you something. No animation is eye candy.
+- **Typography carries weight.** History panel uses a larger base size. Text should be readable at a glance.
+- **The overlay is the brand.** The recording pill is the most-seen surface and must be extraordinary.
+- **Accessibility is not optional.** Full keyboard navigation, screen reader support, and WCAG AA contrast.
+
+## Getting Started
 
 ### Prerequisites
 
@@ -28,8 +41,8 @@ Before you begin, ensure you have the following installed:
 2. **Clone your fork**:
 
    ```bash
-   git clone git@github.com:YOUR_USERNAME/Handy.git
-   cd Handy
+   git clone git@github.com:YOUR_USERNAME/Sonarus-v2.git
+   cd Sonarus-v2
    ```
 
 3. **Add upstream remote**:
@@ -60,34 +73,41 @@ Before you begin, ensure you have the following installed:
 
 For detailed platform-specific setup instructions, see [BUILD.md](BUILD.md).
 
-### Understanding the Codebase
+### Understanding Codebase
 
-Handy follows a clean architecture pattern:
+Sonarus follows the Handy architecture with additional experience layers:
 
 **Backend (Rust - `src-tauri/src/`):**
 
 - `lib.rs` - Main application entry point with Tauri setup
-- `managers/` - Core business logic (audio, model, transcription)
+- `managers/` - Core business logic (audio, model, transcription, history)
 - `audio_toolkit/` - Low-level audio processing (recording, VAD)
 - `commands/` - Tauri command handlers for frontend communication
 - `shortcut.rs` - Global keyboard shortcut handling
 - `settings.rs` - Application settings management
+- `sound.rs` - Audio feedback system (Sonarus addition)
+- `app_context.rs` - Active application detection (Sonarus addition)
 
 **Frontend (React/TypeScript - `src/`):**
 
 - `App.tsx` - Main application component
-- `components/` - React UI components
+- `components/` - React UI components:
+  - `overlay/` - Recording overlay pill (redesigned for Sonarus)
+  - `history/` - Transcription history panel (new for Sonarus)
+  - `sound/` - Audio feedback management (new for Sonarus)
+  - `settings/` - Settings UI (refreshed for Sonarus)
 - `hooks/` - Reusable React hooks
+- `stores/` - Zustand stores for state management
 - `lib/types.ts` - Shared TypeScript types
 
-For more details, see the Architecture section in [README.md](README.md) or [AGENTS.md](AGENTS.md).
+For more details, see Architecture section in [README.md](README.md) or [CLAUDE.md](CLAUDE.md).
 
-## 🐛 Reporting Bugs
+## Reporting Bugs
 
 ### Before Submitting a Bug Report
 
-1. **Search existing issues** at [github.com/cjpais/Handy/issues](https://github.com/cjpais/Handy/issues)
-2. **Check discussions** at [github.com/cjpais/Handy/discussions](https://github.com/cjpais/Handy/discussions)
+1. **Search existing issues** at [github.com/exodus712/Sonarus-v2/issues](https://github.com/exodus712/Sonarus-v2/issues)
+2. **Check discussions** at [github.com/exodus712/Sonarus-v2/discussions](https://github.com/exodus712/Sonarus-v2/discussions)
 3. **Try the latest release** to see if the issue has been fixed
 4. **Enable debug mode** (`Cmd/Ctrl+Shift+D`) to gather diagnostic information
 
@@ -113,48 +133,49 @@ When creating a bug report, please include:
 
 Use the [Bug Report template](.github/ISSUE_TEMPLATE/bug_report.md) when creating an issue.
 
-## 💡 Suggesting Features
+## Suggesting Features
 
 We use GitHub Discussions for feature requests rather than issues. This keeps issues focused on bugs and actionable tasks while allowing more open-ended conversations about features.
 
 ### Before Suggesting a Feature
 
-1. **Search existing discussions** at [github.com/cjpais/Handy/discussions](https://github.com/cjpais/Handy/discussions)
+1. **Search existing discussions** at [github.com/exodus712/Sonarus-v2/discussions](https://github.com/exodus712/Sonarus-v2/discussions)
 2. **Check common feature requests**:
-   - [Post-processing / Editing Transcripts](https://github.com/cjpais/Handy/discussions/168)
-   - [Keyboard Shortcuts / Hotkeys](https://github.com/cjpais/Handy/discussions/211)
+   - [Post-processing / Editing Transcripts](https://github.com/exodus712/Sonarus-v2/discussions/168)
+   - [Keyboard Shortcuts / Hotkeys](https://github.com/exodus712/Sonarus-v2/discussions/211)
 
 ### Submitting a Feature Request
 
-1. Go to [Discussions](https://github.com/cjpais/Handy/discussions)
+1. Go to [Discussions](https://github.com/exodus712/Sonarus-v2/discussions)
 2. Click "New discussion"
 3. Choose the appropriate category (Ideas, Feature Requests, etc.)
 4. Describe your feature idea including:
    - The problem you're trying to solve
    - Your proposed solution
    - Any alternatives you've considered
-   - How it fits with Handy's philosophy
+   - How it fits with Sonarus' philosophy
 
-## 🔧 Making Code Contributions
+## Making Code Contributions
 
 ### Before You Start
 
 **This is critical:** Before writing any code, please do the following:
 
-1. **Search existing issues and PRs** - Check both open AND closed issues and pull requests. Someone may have already addressed this, or there may be a reason it was closed.
-   - [Open issues](https://github.com/cjpais/Handy/issues)
-   - [Closed issues](https://github.com/cjpais/Handy/issues?q=is%3Aissue+is%3Aclosed)
-   - [Open PRs](https://github.com/cjpais/Handy/pulls)
-   - [Closed PRs](https://github.com/cjpais/Handy/pulls?q=is%3Apr+is%3Aclosed)
+1. **Read the Sonarus PRD** - Understand our vision for the premium experience layer
+2. **Search existing issues and PRs** - Check both open AND closed issues and pull requests. Someone may have already addressed this, or there may be a reason it was closed.
+   - [Open issues](https://github.com/exodus712/Sonarus-v2/issues)
+   - [Closed issues](https://github.com/exodus712/Sonarus-v2/issues?q=is%3Aissue+is%3Aclosed)
+   - [Open PRs](https://github.com/exodus712/Sonarus-v2/pulls)
+   - [Closed PRs](https://github.com/exodus712/Sonarus-v2/pulls?q=is%3Apr+is%3Aclosed)
 
-2. **If something was previously closed** - If you want to revisit a closed issue or PR, you need to:
+3. **If something was previously closed** - If you want to revisit a closed issue or PR, you need to:
    - Provide a strong argument for why it should be reconsidered
-   - Gather community feedback first via [Discussions](https://github.com/cjpais/Handy/discussions)
+   - Gather community feedback first via [Discussions](https://github.com/exodus712/Sonarus-v2/discussions)
    - Link to that discussion in your PR
 
-3. **Get community feedback for features** - PRs with demonstrated community interest are **much more likely to be merged**. Start a discussion, get feedback, and link to it in your PR. This helps ensure Handy stays focused and useful for the most people without becoming bloated.
+4. **Get community feedback for features** - PRs with demonstrated community interest are **much more likely to be merged**. Start a discussion, get feedback, and link to it in your PR. This helps ensure Sonarus stays focused and premium without becoming bloated.
 
-Community feedback is essential to keeping Handy the best it can be for everyone. It helps prioritize what matters most and prevents feature creep.
+5. **Consider the user experience** - How does your contribution enhance the "extraordinary when you do" philosophy? Does it follow our design principles?
 
 ### Development Workflow
 
@@ -241,6 +262,7 @@ In your PR description, please include:
 - Use descriptive variable and function names
 - Add doc comments for public APIs
 - Handle errors explicitly (avoid unwrap in production code)
+- Follow Sonarus design principles in UI-related code
 
 **TypeScript/React:**
 
@@ -249,13 +271,21 @@ In your PR description, please include:
 - Use functional components
 - Keep components small and focused
 - Use Tailwind CSS for styling
+- Follow "Quiet Confidence" design language:
+  - System fonts only (SF Pro on macOS, Segoe UI on Windows)
+  - Two weights only: Regular (400) and Medium (500)
+  - Generous whitespace, Notion-style typography
+  - All transitions ≤ 300ms, respect reduced motion
+  - Dark mode uses warm neutrals (`#0E0E14`), not pure black
 
-**General:**
+**UI/UX:**
 
-- Write self-documenting code
-- Add comments for non-obvious logic
-- Keep functions small and single-purpose
-- Prioritize readability over cleverness
+- Every primary action has a keyboard shortcut
+- Settings are applied immediately — no save/apply button pattern
+- Error states are calm and specific
+- Destructive actions require confirmation
+- Typography is the UI — avoid decorative elements
+- Motion has meaning, never just for show
 
 ### Testing Your Changes
 
@@ -300,17 +330,18 @@ Look for issues labeled `good first issue` or `help wanted` if you're new to the
 - Well-defined and scoped
 - Good for learning the codebase
 - Mentor support available
+- Focused on V1 experience features
 
 ## 📞 Getting Help
 
 - **Discord**: Join our [Discord community](https://discord.com/invite/WVBeWsNXK4)
-- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/cjpais/Handy/discussions)
-- **Email**: Reach out at [contact@handy.computer](mailto:contact@handy.computer)
+- **Discussions**: Ask questions in [GitHub Discussions](https://github.com/exodus712/Sonarus-v2/discussions)
+- **Email**: Reach out at [contact@sonarus.computer](mailto:contact@sonarus.computer)
 
 ## 📜 License
 
-By contributing to Handy, you agree that your contributions will be licensed under the MIT License. See [LICENSE](LICENSE) for details.
+By contributing to Sonarus, you agree that your contributions will be licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
-**Thank you for contributing to Handy!** Your efforts help make speech-to-text technology more accessible, private, and extensible for everyone.
+**Thank you for contributing to Sonarus!** Your efforts help make speech-to-text technology more accessible, private, and extraordinary for everyone.

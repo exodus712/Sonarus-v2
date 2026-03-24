@@ -2,31 +2,46 @@
 
 [![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/invite/WVBeWsNXK4)
 
-**A free, open source, and extensible speech-to-text application that works completely offline.**
-Sonarus is a cross-platform desktop application that provides simple, privacy-focused speech transcription. Press a shortcut, speak, and have your words appear in any text field. This happens on your own computer without sending any information to the cloud.
+**The speech-to-text tool you'll actually love using.**
+
+Sonarus is a premium speech-to-text desktop application that combines the power of the open-source Handy project with an extraordinary user experience. Press a shortcut, speak, and have your words appear in any text field — entirely offline and private.
+
+> *"Invisible until you need it. Extraordinary when you do."*
 
 ## Why Sonarus?
-Sonarus was created to fill the gap for a truly open source, extensible speech-to-text tool. As stated on [sonarus.computer](https://sonarus.computer):
-- **Free**: Accessibility tooling belongs in everyone's hands, not behind a paywall
-- **Open Source**: Together we can build further. Extend Sonarus for yourself and contribute to something bigger
-- **Private**: Your voice stays on your computer. Get transcriptions without sending audio to the cloud
-- **Simple**: One tool, one job. Transcribe what you say and put it into a text box
-- **Forkable**: Sonarus isn't trying to be the best speech-to-text app—it's trying to be the most forkable one.
+
+Sonarus is a fork of the Handy project that bets on **experience over extensibility** as its primary value. Where Handy aims to be the most forkable speech-to-text tool, Sonarus aims to be the most finished one.
+
+### The Premium Experience
+
+- **Extraordinary Design**: A redesigned recording overlay, rich transcription history, and satisfying sound design
+- **Privacy First**: All audio processing is local. No audio data leaves your device under any circumstance
+- **Keyboard-Driven**: Every interaction has a shortcut. Power users never need to touch the mouse
+- **Thoughtful UX**: Inspired by Superwhisper, Notion, Raycast, and Apple HIG
+- **Open Source**: Built on the foundation of Handy, preserving everything that makes it excellent
+
+### What Makes Sonarus Different
+
+- **The Recording Pill**: The most-seen surface is extraordinary — a floating overlay with live waveform visualization
+- **Rich History**: Every transcription saved in a searchable, journal-like interface
+- **Sound Design**: Every state transition has a satisfying audio cue
+- **App-Aware Intelligence**: Context-aware transcription profiles (V1.x)
+- **Local LLM Post-Processing**: Future-proof architecture for AI-powered enhancements
 
 ## How It Works
 
-1. **Press** a configurable keyboard shortcut to start/stop recording (or use push-to-talk mode)
-2. **Speak** your words while the shortcut is active
-3. **Release** and Handy processes your speech using Whisper
+1. **Press** a configurable keyboard shortcut to start recording
+2. **Speak** your words while the recording pill appears with live waveform
+3. **Release** and watch the pill morph into a transcribing state
 4. **Get** your transcribed text pasted directly into whatever app you're using
 
-The process is entirely local:
+The process is entirely local and enhanced:
 
-- Silence is filtered using VAD (Voice Activity Detection) with Silero
-- Transcription uses your choice of models:
-  - **Whisper models** (Small/Medium/Turbo/Large) with CPU-only mode for maximum stability
-- **Parakeet V3** - CPU-optimized model with excellent performance and automatic language detection
-- Works on Windows, macOS, and Linux
+- **Voice Activity Detection**: Silence is filtered using Silero VAD
+- **Premium Models**: Choose from Whisper (Small/Medium/Turbo/Large) or Parakeet V3
+- **GPU Acceleration**: Metal on macOS, Vulkan on Windows/Linux
+- **Rich History**: Every transcription saved automatically with full-text search
+- **Sound Feedback**: Satisfying audio cues for every state transition
 
 ## Quick Start
 
@@ -55,7 +70,9 @@ Control Handy from [Raycast](https://www.raycast.com) — start/stop recording, 
 
 ## Architecture
 
-Handy is built as a Tauri application combining:
+Sonarus builds on the solid foundation of Handy, maintaining the same technical architecture while adding premium experience layers:
+
+### Core Foundation (Preserved from Handy)
 
 - **Frontend**: React + TypeScript with Tailwind CSS for the settings UI
 - **Backend**: Rust for system integration, audio processing, and ML inference
@@ -66,6 +83,14 @@ Handy is built as a Tauri application combining:
   - `vad-rs`: Voice Activity Detection
   - `rdev`: Global keyboard shortcuts and system events
   - `rubato`: Audio resampling
+
+### Sonarus Experience Layer
+
+- **Recording Overlay**: Floating pill with live waveform visualization and smooth state transitions
+- **History System**: SQLite-based transcription history with search and export
+- **Sound Design**: Bundled audio assets for state feedback
+- **App Context**: Active application detection for profile switching
+- **Post-Processing Pipeline**: Pluggable architecture for rule-based and LLM transforms
 
 ### Debug Mode
 
@@ -204,29 +229,32 @@ Without these tools, Handy falls back to enigo which may have limited compatibil
 
   `pkill` here simply delivers the signal—it does not terminate the process.
 
-### Platform Support
+## Platform Support
 
-- **macOS (both Intel and Apple Silicon)**
-- **x64 Windows**
-- **x64 Linux**
+- **macOS**: 12 Monterey minimum (Intel + Apple Silicon)
+- **Windows**: Windows 10 x64 minimum
+- **Linux**: Inherited Handy support preserved but not a V1 priority
 
-### System Requirements/Recommendations
+## System Requirements
 
-The following are recommendations for running Handy on your own machine. If you don't meet the system requirements, the performance of the application may be degraded. We are working on improving the performance across all kinds of computers and hardware.
+**Recommended for optimal performance:**
 
-**For Whisper Models:**
+### macOS
+- Apple Silicon M1/M2/M3 or Intel Mac
+- 8GB RAM minimum, 16GB recommended
+- macOS 12 Monterey or later
 
-- **macOS**: M series Mac, Intel Mac
-- **Windows**: Intel, AMD, or NVIDIA GPU
-- **Linux**: Intel, AMD, or NVIDIA GPU
-  - Ubuntu 22.04, 24.04
+### Windows
+- Intel i5/AMD Ryzen 5 or better
+- 8GB RAM minimum, 16GB recommended
+- Windows 10 x64 or later
+- Optional: NVIDIA/AMD GPU for acceleration
 
-**For Parakeet V3 Model:**
-
-- **CPU-only operation** - runs on a wide variety of hardware
-- **Minimum**: Intel Skylake (6th gen) or equivalent AMD processors
-- **Performance**: ~5x real-time speed on mid-range hardware (tested on i5)
-- **Automatic language detection** - no manual language selection required
+### Linux
+- Intel i5/AMD Ryzen 5 or better
+- 8GB RAM minimum
+- Ubuntu 22.04+ or equivalent
+- GPU acceleration available where supported
 
 ## Roadmap & Active Development
 
