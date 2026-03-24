@@ -39,10 +39,8 @@ export const ResetButton: React.FC<ResetButtonProps> = React.memo(
         disabled={disabled}
       >
         {children ?? (
-          <div className={`transition-transform duration-200 ${isAnimating ? "animate-spin" : ""}`}>
-            <div className="group-hover:rotate-45">
-              <ResetIcon animateOnHover={false} />
-            </div>
+          <div className={`transition-transform duration-200 hover:rotate-45 ${isAnimating ? "animate-spin" : ""}`}>
+            <ResetIcon animateOnHover={false} />
           </div>
         )}
       </button>

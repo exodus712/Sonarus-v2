@@ -271,7 +271,7 @@ export const HistorySettings: React.FC = () => {
   }
 
   return (
-    <div className="max-w-3xl w-full mx-auto space-y-6 group">
+    <div className="max-w-3xl w-full mx-auto space-y-6">
       <div className="space-y-2">
         <div className="px-4 flex items-center justify-between">
           <div>
@@ -390,13 +390,11 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
             disabled={retrying}
             title={t("settings.history.retranscribe")}
           >
-            <div className={`transition-transform duration-200 ${retrying ? "animate-[spin_1s_linear_infinite_reverse]" : ""}`}>
-              <div className="group-hover:-rotate-45">
-                <RotateCcw
-                  width={16}
-                  height={16}
-                />
-              </div>
+            <div className={`transition-transform duration-200 hover:-rotate-45 ${retrying ? "animate-[spin_1s_linear_infinite_reverse]" : ""}`}>
+              <RotateCcw
+                width={16}
+                height={16}
+              />
             </div>
           </IconButton>
           <IconButton
