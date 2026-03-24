@@ -33,14 +33,14 @@ export const ResetButton: React.FC<ResetButtonProps> = React.memo(
         className={`p-1 rounded-md border border-transparent transition-all duration-150 ${
           disabled
             ? "opacity-50 cursor-not-allowed text-text-secondary"
-            : "hover:bg-logo-primary/30 active:bg-logo-primary/50 active:translate-y-px hover:cursor-pointer hover:border-logo-primary text-text-primary"
+            : "hover:bg-logo-primary/30 active:bg-logo-primary/50 active:translate-y-px hover:cursor-pointer hover:border-logo-primary text-text-primary hover:rotate-45"
         } ${className}`}
         onClick={handleClick}
         disabled={disabled}
       >
         {children ?? (
           <div className={isAnimating ? "animate-spin" : ""}>
-            <ResetIcon />
+            <ResetIcon animateOnHover={false} />
           </div>
         )}
       </button>
