@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* Design tokens */
+  /* Design tokens - will be updated by theme system */
   --color-text: #0f0f0f;
   --color-background: #fbfbfb;
   --color-background-ui: #da5893;
@@ -17,12 +17,20 @@
   line-height: 24px;
   font-weight: 400;
 
-  /* Colors - Light Theme */
-  /* --color-text: #0f0f0f;
+  /* Light theme colors */
+  --color-text-primary: #0f0f0f;
+  --color-text-secondary: #808080;
+  --color-bg-primary: #fbfbfb;
+  --color-bg-secondary: #f6f6f6;
+  --color-accent: #da5893;
+  --color-border-primary: rgba(0, 0, 0, 0.1);
+
+  /* Legacy colors for backward compatibility */
+  --color-text: #0f0f0f;
   --color-background: #fbfbfb;
   --color-logo-primary: #FAA2CA;
   --color-logo-stroke: #382731;
-  --color-text-stroke: #f6f6f6; */
+  --color-text-stroke: #f6f6f6;
 
   /* Typography settings */
   font-synthesis: none;
@@ -41,6 +49,22 @@
   /* Apply colors */
   color: var(--color-text);
   background-color: var(--color-background);
+}
+
+/* Dark theme with warm neutrals */
+.dark {
+  --color-text-primary: #fbfbfb;
+  --color-text-secondary: #b8b8b8;
+  --color-bg-primary: #2c2b29;
+  --color-bg-secondary: #383735;
+  --color-accent: #f28cbb;
+  --color-border-primary: rgba(255, 255, 255, 0.1);
+
+  /* Update legacy colors */
+  --color-text: #fbfbfb;
+  --color-background: #2c2b29;
+  --color-logo-primary: #f28cbb;
+  --color-logo-stroke: #fad1ed;
 }
 
 .container {
