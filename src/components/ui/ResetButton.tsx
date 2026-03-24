@@ -16,14 +16,14 @@ export const ResetButton: React.FC<ResetButtonProps> = React.memo(
     const handleClick = async () => {
       if (disabled) return;
       
-      // Start animation
+      // Start animation - exactly one rotation
       setIsAnimating(true);
       
       // Call the original onClick
       await onClick();
       
-      // Stop animation after a short delay
-      setTimeout(() => setIsAnimating(false), 500);
+      // Stop animation after exactly one rotation (1 second)
+      setTimeout(() => setIsAnimating(false), 1000);
     };
 
     return (
