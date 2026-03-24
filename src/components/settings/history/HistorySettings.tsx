@@ -25,7 +25,7 @@ const IconButton: React.FC<{
   <button
     onClick={onClick}
     disabled={disabled}
-    className={`p-1.5 rounded-md flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed disabled:text-text-secondary ${
+    className={`group p-1.5 rounded-md flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed disabled:text-text-secondary ${
       active
         ? "text-logo-primary hover:text-logo-primary/80"
         : "text-text-secondary hover:text-logo-primary"
@@ -390,11 +390,13 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
             disabled={retrying}
             title={t("settings.history.retranscribe")}
           >
-            <div className={`transition-transform duration-200 ${retrying ? "animate-[spin_1s_linear_infinite_reverse]" : "hover:-rotate-45"}`}>
-              <RotateCcw
-                width={16}
-                height={16}
-              />
+            <div className={`transition-transform duration-200 ${retrying ? "animate-[spin_1s_linear_infinite_reverse]" : ""}`}>
+              <div className="group-hover:-rotate-45">
+                <RotateCcw
+                  width={16}
+                  height={16}
+                />
+              </div>
             </div>
           </IconButton>
           <IconButton

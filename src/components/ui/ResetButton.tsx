@@ -30,7 +30,7 @@ export const ResetButton: React.FC<ResetButtonProps> = React.memo(
       <button
         type="button"
         aria-label={ariaLabel}
-        className={`p-1 rounded-md border border-transparent transition-all duration-150 ${
+        className={`group p-1 rounded-md border border-transparent transition-all duration-150 ${
           disabled
             ? "opacity-50 cursor-not-allowed text-text-secondary"
             : "hover:bg-logo-primary/30 active:bg-logo-primary/50 active:translate-y-px hover:cursor-pointer hover:border-logo-primary text-text-primary"
@@ -39,8 +39,10 @@ export const ResetButton: React.FC<ResetButtonProps> = React.memo(
         disabled={disabled}
       >
         {children ?? (
-          <div className={`transition-transform duration-200 ${isAnimating ? "animate-spin" : "hover:rotate-45"}`}>
-            <ResetIcon animateOnHover={false} />
+          <div className={`transition-transform duration-200 ${isAnimating ? "animate-spin" : ""}`}>
+            <div className="group-hover:rotate-45">
+              <ResetIcon animateOnHover={false} />
+            </div>
           </div>
         )}
       </button>
