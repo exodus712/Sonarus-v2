@@ -25,7 +25,7 @@ const IconButton: React.FC<{
   <button
     onClick={onClick}
     disabled={disabled}
-    className={`group p-1.5 rounded-md flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed disabled:text-text-secondary ${
+    className={`p-1.5 rounded-md flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed disabled:text-text-secondary ${
       active
         ? "text-logo-primary hover:text-logo-primary/80"
         : "text-text-secondary hover:text-logo-primary"
@@ -284,7 +284,7 @@ export const HistorySettings: React.FC = () => {
             label={t("settings.history.openFolder")}
           />
         </div>
-        <div className="bg-background border border-mid-gray/20 rounded-lg overflow-visible">
+        <div className="group bg-background border border-mid-gray/20 rounded-lg overflow-visible">
           {content}
         </div>
       </div>
