@@ -2,9 +2,7 @@ use crate::audio_toolkit::{apply_custom_words, filter_transcription_output};
 use crate::managers::audio::AudioRecordingManager;
 use crate::managers::model::{EngineType, ModelManager};
 use crate::managers::streaming::StreamingState;
-use crate::settings::{
-    get_settings, ModelUnloadTimeout,
-};
+use crate::settings::{get_settings, ModelUnloadTimeout};
 use anyhow::Result;
 use log::{debug, error, info, warn};
 use serde::Serialize;
@@ -722,12 +720,13 @@ impl TranscriptionManager {
 
     pub fn transcribe_chunk(&self, audio_chunk: Vec<f32>) -> Result<String> {
         // Add chunk to buffer
-        self.streaming_state.add_audio_chunk(audio_chunk)
+        self.streaming_state
+            .add_audio_chunk(audio_chunk)
             .map_err(|e| anyhow::anyhow!("Failed to add audio chunk: {}", e))?;
-        
+
         // Get current buffer for transcription
         let buffer = self.streaming_state.get_buffer();
-        
+
         if buffer.is_empty() {
             return Ok(String::new());
         }
@@ -744,7 +743,7 @@ impl TranscriptionManager {
 /// Force CPU-only mode for all transcription engines
 fn force_cpu_only_mode() {
     use transcribe_rs::accel;
-    
+
     // Force CPU-only for all engines
     accel::set_whisper_accelerator(accel::WhisperAccelerator::CpuOnly);
     accel::set_ort_accelerator(accel::OrtAccelerator::CpuOnly);

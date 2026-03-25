@@ -15,13 +15,13 @@ export const ResetButton: React.FC<ResetButtonProps> = React.memo(
 
     const handleClick = async () => {
       if (disabled) return;
-      
+
       // Start animation - exactly one rotation
       setIsAnimating(true);
-      
+
       // Call the original onClick
       await onClick();
-      
+
       // Stop animation after exactly one rotation (1 second)
       setTimeout(() => setIsAnimating(false), 1000);
     };
@@ -39,7 +39,9 @@ export const ResetButton: React.FC<ResetButtonProps> = React.memo(
         disabled={disabled}
       >
         {children ?? (
-          <div className={`transition-transform duration-200 hover:rotate-45 ${isAnimating ? "animate-spin" : ""}`}>
+          <div
+            className={`transition-transform duration-200 hover:rotate-45 ${isAnimating ? "animate-spin" : ""}`}
+          >
             <ResetIcon animateOnHover={false} />
           </div>
         )}

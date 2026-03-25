@@ -4,7 +4,6 @@ about: Create a report to help us improve Handy
 title: "[BUG] "
 labels: ["bug"]
 assignees: ""
-
 ---
 
 ## Before You Submit

@@ -1,11 +1,11 @@
 # SONARUS
 
-*Product Requirements Document*
+_Product Requirements Document_
 
 Version 1.0 · March 2026
 Platform: macOS · Windows · Open Source (MIT)
 
-> ***"The speech-to-text tool you'll actually love using."***
+> **_"The speech-to-text tool you'll actually love using."_**
 
 ---
 
@@ -19,7 +19,7 @@ Sonarus keeps everything that makes Handy excellent: fully offline processing, W
 
 ### 1.2 The One-Sentence Pitch
 
-> *"Invisible until you need it. Extraordinary when you do."*
+> _"Invisible until you need it. Extraordinary when you do."_
 
 ### 1.3 Design Philosophy
 
@@ -59,12 +59,12 @@ Sonarus adds to this foundation — it does not remove or replace the core pipel
 
 ### 2.2 Tech Stack
 
-| Layer | Stack |
-|---|---|
-| Frontend | React + TypeScript + Tailwind CSS (unchanged from Handy) |
-| Backend | Rust via Tauri v2 (unchanged from Handy) |
-| Audio | cpal, vad-rs (Silero), rubato, whisper-rs, transcription-rs |
-| Build | Bun + Vite, same as Handy |
+| Layer      | Stack                                                           |
+| ---------- | --------------------------------------------------------------- |
+| Frontend   | React + TypeScript + Tailwind CSS (unchanged from Handy)        |
+| Backend    | Rust via Tauri v2 (unchanged from Handy)                        |
+| Audio      | cpal, vad-rs (Silero), rubato, whisper-rs, transcription-rs     |
+| Build      | Bun + Vite, same as Handy                                       |
 | Future LLM | llama.cpp or equivalent, bundled optionally for post-processing |
 
 ---
@@ -77,19 +77,19 @@ Sonarus targets general-purpose desktop users on macOS and Windows who want to s
 
 ### 3.2 User Scenarios
 
-| User | Scenario | Priority |
-|---|---|---|
-| Student | Dictates lecture notes and paper drafts. Uses history to review and search past dictations. | Core |
-| Developer | Speaks commit messages, code comments, Slack replies. Uses keyboard-only flow exclusively. | Core |
-| Professional | Composes emails and documents by voice. Relies on app-aware profiles for appropriate tone. | V1+ |
-| Accessibility user | Relies on voice input as a primary input method. Needs rock-solid reliability. | Core |
-| Power user | Customizes everything: shortcuts, profiles, sound packs, post-process rules. | V2 |
+| User               | Scenario                                                                                    | Priority |
+| ------------------ | ------------------------------------------------------------------------------------------- | -------- |
+| Student            | Dictates lecture notes and paper drafts. Uses history to review and search past dictations. | Core     |
+| Developer          | Speaks commit messages, code comments, Slack replies. Uses keyboard-only flow exclusively.  | Core     |
+| Professional       | Composes emails and documents by voice. Relies on app-aware profiles for appropriate tone.  | V1+      |
+| Accessibility user | Relies on voice input as a primary input method. Needs rock-solid reliability.              | Core     |
+| Power user         | Customizes everything: shortcuts, profiles, sound packs, post-process rules.                | V2       |
 
 ---
 
 ## 4. V1 Feature Requirements
 
-*V1 ships the experience layer. Intelligence layer follows in V1.x / V2.*
+_V1 ships the experience layer. Intelligence layer follows in V1.x / V2._
 
 ### 4.1 Recording Overlay — The Pill
 
@@ -156,20 +156,20 @@ The history panel should feel like a journal, not a database. Generous line heig
 
 The following features ship in V1 with updated UI treatment but unchanged underlying behavior:
 
-| Feature | Description | Status |
-|---|---|---|
-| Model selection | Whisper (S/M/Turbo/Large) and Parakeet V3. Same download + switching logic. | Preserved |
-| Global shortcuts | Configurable hotkeys for record toggle and push-to-talk. | Preserved |
-| VAD filtering | Silero-based silence detection, same parameters. | Preserved |
-| Paste behavior | Direct type or clipboard paste, user-configurable. | Preserved |
-| Settings panel | Rebuilt UI, same settings surface area. Keyboard-navigable. | UI refresh |
-| Debug mode | Cmd/Ctrl+Shift+D debug panel preserved. | Preserved |
+| Feature          | Description                                                                 | Status     |
+| ---------------- | --------------------------------------------------------------------------- | ---------- |
+| Model selection  | Whisper (S/M/Turbo/Large) and Parakeet V3. Same download + switching logic. | Preserved  |
+| Global shortcuts | Configurable hotkeys for record toggle and push-to-talk.                    | Preserved  |
+| VAD filtering    | Silero-based silence detection, same parameters.                            | Preserved  |
+| Paste behavior   | Direct type or clipboard paste, user-configurable.                          | Preserved  |
+| Settings panel   | Rebuilt UI, same settings surface area. Keyboard-navigable.                 | UI refresh |
+| Debug mode       | Cmd/Ctrl+Shift+D debug panel preserved.                                     | Preserved  |
 
 ---
 
 ## 5. V1.x Feature Roadmap
 
-*Planned for releases after V1 launch. Architecture decisions in V1 should not block these.*
+_Planned for releases after V1 launch. Architecture decisions in V1 should not block these._
 
 ### 5.1 App-Aware Profiles
 
@@ -240,13 +240,13 @@ The highest-value future feature. A bundled or on-demand small language model (P
 
 ### 7.1 Color
 
-| Token | Value |
-|---|---|
-| Dark mode bg | Near-black with warm undertone — never pure `#000000`. Suggested: `#0E0E14` |
-| Light mode bg | Off-white, never pure `#FFFFFF`. Suggested: `#F7F7F9` |
-| Accent | A single signature color used sparingly for active states and CTAs. Purple-adjacent. |
-| Text | High contrast primary, soft secondary, very soft tertiary. No mid-gray ambiguity. |
-| Surfaces | Three elevation levels only: base, raised (cards/panels), floating (pill/overlays). |
+| Token         | Value                                                                                |
+| ------------- | ------------------------------------------------------------------------------------ |
+| Dark mode bg  | Near-black with warm undertone — never pure `#000000`. Suggested: `#0E0E14`          |
+| Light mode bg | Off-white, never pure `#FFFFFF`. Suggested: `#F7F7F9`                                |
+| Accent        | A single signature color used sparingly for active states and CTAs. Purple-adjacent. |
+| Text          | High contrast primary, soft secondary, very soft tertiary. No mid-gray ambiguity.    |
+| Surfaces      | Three elevation levels only: base, raised (cards/panels), floating (pill/overlays).  |
 
 ### 7.2 Typography
 
@@ -326,7 +326,7 @@ The highest-value future feature. A bundled or on-demand small language model (P
 
 ## 10. Success Metrics
 
-*As an open-source project, success is measured by adoption, community response, and qualitative feedback.*
+_As an open-source project, success is measured by adoption, community response, and qualitative feedback._
 
 - **Launch:** GitHub stars and forks relative to Handy baseline within 30 days of release.
 - **Retention:** Users who return to the app more than 5 days after first install (measured via opt-in analytics in V1.x).
@@ -338,14 +338,14 @@ The highest-value future feature. A bundled or on-demand small language model (P
 
 ## Appendix: Reference Projects
 
-| Project | Role | Notes |
-|---|---|---|
-| Handy | Foundation codebase | Tauri + Whisper + VAD. MIT licensed. |
-| superwhisper | UI/UX inspiration | Premium STT for macOS. Recording state design. |
-| Notion | Design philosophy | Whitespace, typography, calm UI. |
-| Raycast | Interaction model | Productivity-first, keyboard-driven, invisible-to-present. |
-| Apple HIG | Design values | Emotional attachment, trust through consistency, sound design. |
+| Project      | Role                | Notes                                                          |
+| ------------ | ------------------- | -------------------------------------------------------------- |
+| Handy        | Foundation codebase | Tauri + Whisper + VAD. MIT licensed.                           |
+| superwhisper | UI/UX inspiration   | Premium STT for macOS. Recording state design.                 |
+| Notion       | Design philosophy   | Whitespace, typography, calm UI.                               |
+| Raycast      | Interaction model   | Productivity-first, keyboard-driven, invisible-to-present.     |
+| Apple HIG    | Design values       | Emotional attachment, trust through consistency, sound design. |
 
 ---
 
-*Sonarus · Open Source (MIT) · github.com/[your-handle]/sonarus*
+_Sonarus · Open Source (MIT) · github.com/[your-handle]/sonarus_

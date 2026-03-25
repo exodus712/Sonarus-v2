@@ -2,29 +2,33 @@
 
 **Date:** 2026-03-23  
 **Feature:** Light/Dark Theme System  
-**Status:** Implementation Complete  
+**Status:** Implementation Complete
 
 ## Testing Checklist
 
 ### ✅ System Preference Behavior
+
 - [x] App defaults to system preference on first install
 - [x] System light mode → app uses light theme
 - [x] System dark mode → app uses dark theme
 - [x] Follows system preference changes when set to "System"
 
-### ✅ Manual Override Behavior  
+### ✅ Manual Override Behavior
+
 - [x] Manual selection persists after app restart
 - [x] "Light" selection overrides system dark preference
 - [x] "Dark" selection overrides system light preference
 - [x] "System" selection returns to following system preference
 
 ### ✅ Theme Switching
+
 - [x] Immediate visual changes without page reload
 - [x] Smooth transitions between themes
 - [x] All UI elements update correctly
 - [x] Settings persistence works across sessions
 
 ### ✅ UI Components
+
 - [x] Theme toggle appears in General settings
 - [x] Three options: System, Light, Dark
 - [x] Visual indication of selected theme
@@ -32,12 +36,14 @@
 - [x] Toast notifications use theme colors
 
 ### ✅ Design Tokens
+
 - [x] Light theme uses specified colors (#0f0f0f, #fbfbfb, #da5893)
 - [x] Dark theme uses warm neutrals (#2c2b29, #383735, #f28cbb)
 - [x] Text contrast ratios meet accessibility standards
 - [x] Border and background colors update appropriately
 
 ### ✅ Cross-Platform
+
 - [x] Works on Windows (tested)
 - [x] Works on macOS (if available)
 - [x] Consistent behavior across platforms

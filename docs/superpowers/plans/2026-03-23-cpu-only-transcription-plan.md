@@ -13,6 +13,7 @@
 ## Chunk 1: Remove GPU Dependencies from Cargo.toml
 
 **Files:**
+
 - Modify: `src-tauri/Cargo.toml`
 
 - [ ] **Step 1: Backup current Cargo.toml**
@@ -24,11 +25,13 @@ cp src-tauri/Cargo.toml src-tauri/Cargo.toml.backup
 - [ ] **Step 2: Remove Windows GPU features**
 
 Find and remove these lines from the `[target.'cfg(windows)'.dependencies]` section:
+
 ```toml
 transcribe-rs = { version = "0.3.2", features = ["whisper-vulkan", "ort-directml"] }
 ```
 
 Replace with:
+
 ```toml
 transcribe-rs = { version = "0.3.2", features = ["whisper-cpp", "onnx"] }
 ```
@@ -36,11 +39,13 @@ transcribe-rs = { version = "0.3.2", features = ["whisper-cpp", "onnx"] }
 - [ ] **Step 3: Remove macOS GPU features**
 
 Find and remove this line from the `[target.'cfg(target_os = "macos")'.dependencies]` section:
+
 ```toml
 transcribe-rs = { version = "0.3.2", features = ["whisper-metal"] }
 ```
 
 Replace with:
+
 ```toml
 transcribe-rs = { version = "0.3.2", features = ["whisper-cpp", "onnx"] }
 ```
@@ -48,11 +53,13 @@ transcribe-rs = { version = "0.3.2", features = ["whisper-cpp", "onnx"] }
 - [ ] **Step 4: Remove Linux GPU features**
 
 Find and remove this line from the `[target.'cfg(target_os = "linux")'.dependencies]` section:
+
 ```toml
 transcribe-rs = { version = "0.3.2", features = ["whisper-vulkan"] }
 ```
 
 Replace with:
+
 ```toml
 transcribe-rs = { version = "0.3.2", features = ["whisper-cpp", "onnx"] }
 ```
@@ -60,6 +67,7 @@ transcribe-rs = { version = "0.3.2", features = ["whisper-cpp", "onnx"] }
 - [ ] **Step 5: Verify base dependencies**
 
 Ensure the main dependencies section has:
+
 ```toml
 transcribe-rs = { version = "0.3.2", features = ["whisper-cpp", "onnx"] }
 ```
@@ -85,11 +93,13 @@ git commit -m "feat: remove GPU acceleration features from transcribe-rs depende
 ## Chunk 2: Simplify Settings Structure
 
 **Files:**
+
 - Modify: `src-tauri/src/settings.rs`
 
 - [ ] **Step 1: Write failing test for GPU settings removal**
 
 Create test file `src-tauri/src/settings_test.rs`:
+
 ```rust
 #[cfg(test)]
 mod tests {
@@ -124,6 +134,7 @@ Expected: FAIL with compilation errors about missing fields
 - [ ] **Step 3: Remove GPU accelerator enums**
 
 Remove these entire sections from `settings.rs`:
+
 ```rust
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
 #[serde(rename_all = "snake_case")]
@@ -160,6 +171,7 @@ impl Default for OrtAcceleratorSetting {
 - [ ] **Step 4: Add CPU-only setting**
 
 Add to settings.rs:
+
 ```rust
 #[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq, Type)]
 pub struct ForceCpuTranscription {
@@ -176,12 +188,14 @@ impl Default for ForceCpuTranscription {
 - [ ] **Step 5: Update AppSettings struct**
 
 Remove these fields from `AppSettings`:
+
 ```rust
 pub whisper_accelerator: WhisperAcceleratorSetting,
 pub ort_accelerator: OrtAcceleratorSetting,
 ```
 
 Add this field:
+
 ```rust
 pub force_cpu_transcription: bool,
 ```
@@ -189,12 +203,14 @@ pub force_cpu_transcription: bool,
 - [ ] **Step 6: Update default settings function**
 
 In `default_app_settings()`, remove:
+
 ```rust
 whisper_accelerator: WhisperAcceleratorSetting::default(),
 ort_accelerator: OrtAcceleratorSetting::default(),
 ```
 
 Add:
+
 ```rust
 force_cpu_transcription: true,
 ```
@@ -220,11 +236,13 @@ git commit -m "feat: remove GPU accelerator settings, add CPU-only option"
 ## Chunk 3: Update TranscriptionManager for CPU-Only
 
 **Files:**
+
 - Modify: `src-tauri/src/managers/transcription.rs`
 
 - [ ] **Step 1: Write failing test for CPU-only enforcement**
 
 Add to transcription.rs:
+
 ```rust
 #[cfg(test)]
 mod tests {
@@ -241,6 +259,7 @@ mod tests {
 - [ ] **Step 2: Remove GPU acceleration functions**
 
 Remove these functions from transcription.rs:
+
 ```rust
 pub fn apply_accelerator_settings(app: &tauri::AppHandle) {
     // Entire function implementation
@@ -254,6 +273,7 @@ pub fn get_available_accelerators() -> AvailableAccelerators {
 - [ ] **Step 3: Remove AvailableAccelerators struct**
 
 Remove:
+
 ```rust
 #[derive(Serialize, Clone, Debug, Type)]
 pub struct AvailableAccelerators {
@@ -265,11 +285,12 @@ pub struct AvailableAccelerators {
 - [ ] **Step 4: Add CPU-only enforcement**
 
 Add to transcription.rs:
+
 ```rust
 /// Force CPU-only mode for all transcription engines
 fn force_cpu_only_mode() {
     use transcribe_rs::accel;
-    
+
     // Force CPU-only for all engines
     accel::set_whisper_accelerator(accel::WhisperAccelerator::CpuOnly);
     accel::set_ort_accelerator(accel::OrtAccelerator::CpuOnly);
@@ -280,6 +301,7 @@ fn force_cpu_only_mode() {
 - [ ] **Step 5: Call CPU-only enforcement at startup**
 
 In `TranscriptionManager::new()`, add after manager creation:
+
 ```rust
 // Force CPU-only mode to prevent GPU-related crashes
 force_cpu_only_mode();
@@ -288,6 +310,7 @@ force_cpu_only_mode();
 - [ ] **Step 6: Remove GPU-related imports**
 
 Remove from imports:
+
 ```rust
 use transcribe_rs::accel;
 ```
@@ -295,6 +318,7 @@ use transcribe_rs::accel;
 - [ ] **Step 7: Update lib.rs to remove GPU settings call**
 
 In `src-tauri/src/lib.rs`, remove:
+
 ```rust
 transcription::apply_accelerator_settings(&app);
 ```
@@ -320,12 +344,14 @@ git commit -m "feat: force CPU-only mode in transcription manager"
 ## Chunk 4: Add Streaming Foundation
 
 **Files:**
+
 - Modify: `src-tauri/src/managers/transcription.rs`
 - Create: `src-tauri/src/managers/streaming.rs`
 
 - [ ] **Step 1: Write failing test for streaming state**
 
 Create `src-tauri/src/managers/streaming_test.rs`:
+
 ```rust
 use crate::managers::streaming::StreamingState;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -358,6 +384,7 @@ Expected: FAIL with "module not found"
 - [ ] **Step 3: Create streaming module**
 
 Create `src-tauri/src/managers/streaming.rs`:
+
 ```rust
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{Arc, Mutex};
@@ -421,6 +448,7 @@ impl StreamingState {
 - [ ] **Step 4: Add streaming module to mod.rs**
 
 Update `src-tauri/src/managers/mod.rs`:
+
 ```rust
 pub mod streaming;
 pub use streaming::StreamingState;
@@ -429,16 +457,19 @@ pub use streaming::StreamingState;
 - [ ] **Step 5: Add streaming to TranscriptionManager**
 
 In transcription.rs, add to imports:
+
 ```rust
 use crate::managers::streaming::StreamingState;
 ```
 
 Add to TranscriptionManager struct:
+
 ```rust
 streaming_state: Arc<StreamingState>,
 ```
 
 Add to TranscriptionManager::new():
+
 ```rust
 streaming_state: Arc::new(StreamingState::new()),
 ```
@@ -446,6 +477,7 @@ streaming_state: Arc::new(StreamingState::new()),
 - [ ] **Step 6: Add streaming methods**
 
 Add to TranscriptionManager:
+
 ```rust
 pub fn start_streaming(&self) -> Result<()> {
     self.streaming_state.start_streaming();
@@ -462,10 +494,10 @@ pub fn stop_streaming(&self) -> Result<()> {
 pub fn transcribe_chunk(&self, audio_chunk: Vec<f32>) -> Result<String> {
     // Add chunk to buffer
     self.streaming_state.add_audio_chunk(audio_chunk)?;
-    
+
     // Get current buffer for transcription
     let buffer = self.streaming_state.get_buffer();
-    
+
     if buffer.is_empty() {
         return Ok(String::new());
     }
@@ -500,12 +532,14 @@ git commit -m "feat: add streaming foundation for real-time transcription"
 ## Chunk 5: Update Commands and Events
 
 **Files:**
+
 - Modify: `src-tauri/src/commands/transcription.rs`
 - Create: `src-tauri/src/events/transcription.rs`
 
 - [ ] **Step 1: Write failing test for streaming commands**
 
 Add to transcription commands test file:
+
 ```rust
 #[test]
 fn test_streaming_command_handling() {
@@ -516,6 +550,7 @@ fn test_streaming_command_handling() {
 - [ ] **Step 2: Create transcription events module**
 
 Create `src-tauri/src/events/transcription.rs`:
+
 ```rust
 use serde::Serialize;
 
@@ -536,6 +571,7 @@ pub struct StreamingStateChangedEvent {
 - [ ] **Step 3: Add events to mod.rs**
 
 Update `src-tauri/src/events/mod.rs`:
+
 ```rust
 pub mod transcription;
 pub use transcription::{PartialTranscriptionEvent, StreamingStateChangedEvent};
@@ -544,6 +580,7 @@ pub use transcription::{PartialTranscriptionEvent, StreamingStateChangedEvent};
 - [ ] **Step 4: Add streaming commands**
 
 Update `src-tauri/src/commands/transcription.rs`:
+
 ```rust
 use crate::events::transcription::{PartialTranscriptionEvent, StreamingStateChangedEvent};
 
@@ -554,7 +591,7 @@ pub async fn start_streaming_transcription(
     let transcription_manager = app.state::<Arc<TranscriptionManager>>();
     transcription_manager.start_streaming()
         .map_err(|e| e.to_string())?;
-    
+
     // Emit streaming state changed event
     let event = StreamingStateChangedEvent {
         is_streaming: true,
@@ -563,10 +600,10 @@ pub async fn start_streaming_transcription(
             .unwrap()
             .as_secs(),
     };
-    
+
     app.emit("streaming-state-changed", event)
         .map_err(|e| e.to_string())?;
-    
+
     Ok(())
 }
 
@@ -577,7 +614,7 @@ pub async fn stop_streaming_transcription(
     let transcription_manager = app.state::<Arc<TranscriptionManager>>();
     transcription_manager.stop_streaming()
         .map_err(|e| e.to_string())?;
-    
+
     // Emit streaming state changed event
     let event = StreamingStateChangedEvent {
         is_streaming: false,
@@ -586,10 +623,10 @@ pub async fn stop_streaming_transcription(
             .unwrap()
             .as_secs(),
     };
-    
+
     app.emit("streaming-state-changed", event)
         .map_err(|e| e.to_string())?;
-    
+
     Ok(())
 }
 
@@ -599,10 +636,10 @@ pub async fn transcribe_audio_chunk(
     audio_chunk: Vec<f32>,
 ) -> Result<String, String> {
     let transcription_manager = app.state::<Arc<TranscriptionManager>>();
-    
+
     let result = transcription_manager.transcribe_chunk(audio_chunk)
         .map_err(|e| e.to_string())?;
-    
+
     // Emit partial transcription event
     let event = PartialTranscriptionEvent {
         partial_text: result.clone(),
@@ -612,10 +649,10 @@ pub async fn transcribe_audio_chunk(
             .unwrap()
             .as_secs(),
     };
-    
+
     app.emit("partial-transcription", event)
         .map_err(|e| e.to_string())?;
-    
+
     Ok(result)
 }
 
@@ -631,6 +668,7 @@ pub async fn is_streaming_active(
 - [ ] **Step 5: Register new commands**
 
 Update `src-tauri/src/lib.rs` in the invoke handler:
+
 ```rust
 .invoke_handler(tauri::generate_handler![
     // ... existing commands ...
@@ -662,11 +700,13 @@ git commit -m "feat: add streaming commands and events for real-time transcripti
 ## Chunk 6: Integration Testing
 
 **Files:**
+
 - Modify: Various (integration tests)
 
 - [ ] **Step 1: Create integration test**
 
 Create `src-tauri/tests/cpu_only_transcription.rs`:
+
 ```rust
 use handy_app_lib::*;
 use std::time::Duration;
@@ -702,6 +742,7 @@ Expected: PASS
 - [ ] **Step 3: Manual testing checklist**
 
 Create manual testing checklist:
+
 - [ ] Application starts without GPU-related errors
 - [ ] Model loading works on CPU
 - [ ] Transcription produces accurate results
@@ -713,6 +754,7 @@ Create manual testing checklist:
 - [ ] **Step 4: Performance benchmarking**
 
 Create simple benchmark script to measure:
+
 - Model loading time (CPU vs expected GPU)
 - Transcription speed for typical audio lengths
 - Memory usage patterns
@@ -770,6 +812,7 @@ git commit -m "feat: complete CPU-only transcription migration with streaming fo
 ## Rollback Instructions
 
 If issues arise, rollback by:
+
 1. Restore `Cargo.toml.backup` to `src-tauri/Cargo.toml`
 2. Revert settings.rs changes from git history
 3. Revert transcription.rs changes from git history

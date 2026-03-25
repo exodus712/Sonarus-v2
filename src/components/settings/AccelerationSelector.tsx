@@ -63,15 +63,19 @@ export const AccelerationSelector: FC<AccelerationSelectorProps> = ({
     // });
 
     // Temporary static options until backend is implemented
-    const staticWhisperOptions: DropdownOption[] = Object.entries(WHISPER_LABELS).map(([value, label]) => ({
+    const staticWhisperOptions: DropdownOption[] = Object.entries(
+      WHISPER_LABELS,
+    ).map(([value, label]) => ({
       value,
       label,
     }));
-    const staticOrtOptions: DropdownOption[] = Object.entries(ORT_LABELS).map(([value, label]) => ({
-      value,
-      label,
-    }));
-    
+    const staticOrtOptions: DropdownOption[] = Object.entries(ORT_LABELS).map(
+      ([value, label]) => ({
+        value,
+        label,
+      }),
+    );
+
     setWhisperOptions(staticWhisperOptions);
     setOrtOptions(staticOrtOptions);
   }, []);
@@ -100,7 +104,10 @@ export const AccelerationSelector: FC<AccelerationSelectorProps> = ({
             //   "whisper_accelerator",
             //   value as WhisperAcceleratorSetting,
             // )
-            console.log("Whisper accelerator setting not yet implemented:", value);
+            console.log(
+              "Whisper accelerator setting not yet implemented:",
+              value,
+            );
           }}
           disabled={false} // TODO: use isUpdating("whisper_accelerator") when implemented
         />
@@ -119,7 +126,10 @@ export const AccelerationSelector: FC<AccelerationSelectorProps> = ({
             onSelect={(value) => {
               // TODO: Implement ort_accelerator setting in backend
               // updateSetting("ort_accelerator", value as OrtAcceleratorSetting)
-              console.log("ORT accelerator setting not yet implemented:", value);
+              console.log(
+                "ORT accelerator setting not yet implemented:",
+                value,
+              );
             }}
             disabled={false} // TODO: use isUpdating("ort_accelerator") when implemented
           />

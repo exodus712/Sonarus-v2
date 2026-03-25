@@ -1,9 +1,9 @@
-use crate::managers::transcription::TranscriptionManager;
 use crate::events::transcription::{PartialTranscriptionEvent, StreamingStateChangedEvent};
+use crate::managers::transcription::TranscriptionManager;
 use crate::settings::{get_settings, write_settings, ModelUnloadTimeout};
 use serde::Serialize;
 use specta::Type;
-use tauri::{AppHandle, State, Manager, Emitter};
+use tauri::{AppHandle, Emitter, Manager, State};
 
 #[derive(Serialize, Type)]
 pub struct ModelLoadStatus {
@@ -42,13 +42,12 @@ pub fn unload_model_manually(
 
 #[tauri::command]
 #[specta::specta]
-pub async fn start_streaming_transcription(
-    app: AppHandle,
-) -> Result<(), String> {
+pub async fn start_streaming_transcription(app: AppHandle) -> Result<(), String> {
     let transcription_manager = app.state::<std::sync::Arc<TranscriptionManager>>();
-    transcription_manager.start_streaming()
+    transcription_manager
+        .start_streaming()
         .map_err(|e| e.to_string())?;
-    
+
     // Emit streaming state changed event
     let event = StreamingStateChangedEvent {
         is_streaming: true,
@@ -57,22 +56,21 @@ pub async fn start_streaming_transcription(
             .unwrap()
             .as_secs(),
     };
-    
+
     app.emit("streaming-state-changed", event)
         .map_err(|e| e.to_string())?;
-    
+
     Ok(())
 }
 
 #[tauri::command]
 #[specta::specta]
-pub async fn stop_streaming_transcription(
-    app: AppHandle,
-) -> Result<(), String> {
+pub async fn stop_streaming_transcription(app: AppHandle) -> Result<(), String> {
     let transcription_manager = app.state::<std::sync::Arc<TranscriptionManager>>();
-    transcription_manager.stop_streaming()
+    transcription_manager
+        .stop_streaming()
         .map_err(|e| e.to_string())?;
-    
+
     // Emit streaming state changed event
     let event = StreamingStateChangedEvent {
         is_streaming: false,
@@ -81,10 +79,10 @@ pub async fn stop_streaming_transcription(
             .unwrap()
             .as_secs(),
     };
-    
+
     app.emit("streaming-state-changed", event)
         .map_err(|e| e.to_string())?;
-    
+
     Ok(())
 }
 
@@ -95,10 +93,11 @@ pub async fn transcribe_audio_chunk(
     audio_chunk: Vec<f32>,
 ) -> Result<String, String> {
     let transcription_manager = app.state::<std::sync::Arc<TranscriptionManager>>();
-    
-    let result = transcription_manager.transcribe_chunk(audio_chunk)
+
+    let result = transcription_manager
+        .transcribe_chunk(audio_chunk)
         .map_err(|e| e.to_string())?;
-    
+
     // Emit partial transcription event
     let event = PartialTranscriptionEvent {
         partial_text: result.clone(),
@@ -108,18 +107,16 @@ pub async fn transcribe_audio_chunk(
             .unwrap()
             .as_secs(),
     };
-    
+
     app.emit("partial-transcription", event)
         .map_err(|e| e.to_string())?;
-    
+
     Ok(result)
 }
 
 #[tauri::command]
 #[specta::specta]
-pub async fn is_streaming_active(
-    app: AppHandle,
-) -> Result<bool, String> {
+pub async fn is_streaming_active(app: AppHandle) -> Result<bool, String> {
     let transcription_manager = app.state::<std::sync::Arc<TranscriptionManager>>();
     Ok(transcription_manager.is_streaming())
 }

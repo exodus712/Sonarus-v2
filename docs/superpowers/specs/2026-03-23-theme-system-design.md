@@ -21,7 +21,7 @@ Design and implementation of a light/dark theme system for Sonarus that follows 
 ### Core Components
 
 1. **ThemeProvider** - React context managing theme state
-2. **Tauri Store Integration** - Persistent theme setting storage  
+2. **Tauri Store Integration** - Persistent theme setting storage
 3. **Tailwind Configuration** - Updated for class-based dark mode
 4. **Settings UI** - Theme toggle component
 5. **CSS Design Tokens** - Sonarus color system
@@ -41,37 +41,39 @@ Design and implementation of a light/dark theme system for Sonarus that follows 
 ```javascript
 // tailwind.config.js
 export default {
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        'text-primary': 'var(--color-text-primary)',
-        'text-secondary': 'var(--color-text-secondary)',
-        'bg-primary': 'var(--color-bg-primary)',
-        'bg-secondary': 'var(--color-bg-secondary)',
-        'accent': 'var(--color-accent)',
-        'border-primary': 'var(--color-border-primary)',
-        'mid-gray': 'var(--color-mid-gray)',
-      }
-    }
-  }
-}
+        "text-primary": "var(--color-text-primary)",
+        "text-secondary": "var(--color-text-secondary)",
+        "bg-primary": "var(--color-bg-primary)",
+        "bg-secondary": "var(--color-bg-secondary)",
+        accent: "var(--color-accent)",
+        "border-primary": "var(--color-border-primary)",
+        "mid-gray": "var(--color-mid-gray)",
+      },
+    },
+  },
+};
 ```
 
 ### 2. Theme Provider
 
 ```typescript
 interface ThemeContextType {
-  theme: 'system' | 'light' | 'dark';
-  effectiveTheme: 'light' | 'dark';
-  setTheme: (theme: 'system' | 'light' | 'dark') => void;
+  theme: "system" | "light" | "dark";
+  effectiveTheme: "light" | "dark";
+  setTheme: (theme: "system" | "light" | "dark") => void;
 }
 
-const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   // Read from Tauri store, default to 'system' on first install
   // Apply .dark class to document.documentElement when needed
   // Listen for system preference changes when theme === 'system'
-}
+};
 ```
 
 ### 3. CSS Design Tokens
@@ -110,27 +112,28 @@ const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 ### 5. Component Styling
 
 **Before:**
+
 ```jsx
 <div className="bg-background border border-mid-gray/20">
 ```
 
 **After:**
+
 ```jsx
 <div className="bg-bg-primary border-border-primary">
 ```
 
 **Conditional styling:**
+
 ```jsx
-<button className="bg-accent hover:bg-accent/80 text-white">
-  Recording
-</button>
+<button className="bg-accent hover:bg-accent/80 text-white">Recording</button>
 ```
 
 ## Implementation Steps
 
 1. **Update Tailwind config** for class-based dark mode
 2. **Create ThemeProvider** with Tauri store integration
-3. **Define Sonarus color tokens** in CSS variables  
+3. **Define Sonarus color tokens** in CSS variables
 4. **Add theme setting** to Tauri store with 'system' default
 5. **Build theme toggle UI** in settings panel
 6. **Migrate existing components** to use new color tokens

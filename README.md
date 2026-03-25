@@ -6,7 +6,7 @@
 
 Sonarus is a premium speech-to-text desktop application that combines the power of the open-source Handy project with an extraordinary user experience. Press a shortcut, speak, and have your words appear in any text field — entirely offline and private.
 
-> *"Invisible until you need it. Extraordinary when you do."*
+> _"Invisible until you need it. Extraordinary when you do."_
 
 ## Why Sonarus?
 
@@ -240,17 +240,20 @@ Without these tools, Handy falls back to enigo which may have limited compatibil
 **Recommended for optimal performance:**
 
 ### macOS
+
 - Apple Silicon M1/M2/M3 or Intel Mac
 - 8GB RAM minimum, 16GB recommended
 - macOS 12 Monterey or later
 
 ### Windows
+
 - Intel i5/AMD Ryzen 5 or better
 - 8GB RAM minimum, 16GB recommended
 - Windows 10 x64 or later
 - Optional: NVIDIA/AMD GPU for acceleration
 
 ### Linux
+
 - Intel i5/AMD Ryzen 5 or better
 - 8GB RAM minimum
 - Ubuntu 22.04+ or equivalent

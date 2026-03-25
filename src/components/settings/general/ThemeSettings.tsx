@@ -1,5 +1,5 @@
 // src/components/settings/general/ThemeSettings.tsx
-import React from 'react';
+import React from "react";
 import { SettingsGroup } from "../../ui/SettingsGroup";
 import ThemeToggle from "../ThemeToggle";
 

@@ -24,7 +24,15 @@ const IconButton: React.FC<{
   children: React.ReactNode;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
-}> = ({ onClick, title, disabled, active, children, onMouseEnter, onMouseLeave }) => (
+}> = ({
+  onClick,
+  title,
+  disabled,
+  active,
+  children,
+  onMouseEnter,
+  onMouseLeave,
+}) => (
   <button
     onClick={onClick}
     disabled={disabled}
@@ -407,11 +415,10 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
             disabled={retrying}
             title={t("settings.history.retranscribe")}
           >
-            <div className={`transition-transform duration-200 hover:-rotate-45 ${retrying ? "animate-[spin_1s_linear_infinite_reverse]" : ""}`}>
-              <RotateCcw
-                width={16}
-                height={16}
-              />
+            <div
+              className={`transition-transform duration-200 hover:-rotate-45 ${retrying ? "animate-[spin_1s_linear_infinite_reverse]" : ""}`}
+            >
+              <RotateCcw width={16} height={16} />
             </div>
           </IconButton>
           <IconButton

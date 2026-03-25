@@ -3,7 +3,7 @@
 **Date:** 2026-03-23  
 **Author:** Cascade  
 **Status:** Approved  
-**Target:** Handy Speech-to-Text Application  
+**Target:** Handy Speech-to-Text Application
 
 ## Problem Statement
 
@@ -16,12 +16,14 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ## Architecture Overview
 
 ### Current State
+
 - Uses `transcribe-rs` with multiple GPU acceleration features
 - Supports Whisper, Parakeet, Moonshine, SenseVoice, GigaAM, Canary engines
 - Complex GPU settings management per platform
 - Batch-only transcription processing
 
 ### Target State
+
 - CPU-only `transcribe-rs` with all GPU features removed
 - Same engine support but CPU-optimized
 - Simplified settings (no GPU options)
@@ -32,12 +34,14 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ### Phase 1: Remove GPU Dependencies
 
 **Files to modify:**
+
 - `src-tauri/Cargo.toml`
 
 **Changes:**
+
 1. Remove platform-specific GPU features:
    - Remove `whisper-vulkan` from Linux dependencies
-   - Remove `ort-directml` from Windows dependencies  
+   - Remove `ort-directml` from Windows dependencies
    - Remove `whisper-metal` from macOS dependencies
    - Remove `whisper-vulkan` from Windows dependencies
 
@@ -49,15 +53,18 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ### Phase 2: Simplify Settings
 
 **Files to modify:**
+
 - `src-tauri/src/settings.rs`
 - Frontend settings components
 
 **Changes:**
+
 1. Remove GPU accelerator enums:
    - Remove `WhisperAcceleratorSetting` enum
    - Remove `OrtAcceleratorSetting` enum
 
 2. Replace with simple CPU-only setting:
+
    ```rust
    pub force_cpu_transcription: bool, // default: true
    ```
@@ -71,17 +78,20 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ### Phase 3: Update TranscriptionManager
 
 **Files to modify:**
+
 - `src-tauri/src/managers/transcription.rs`
 
 **Changes:**
+
 1. Remove GPU acceleration functions:
    - Remove `apply_accelerator_settings()` function
    - Remove `get_available_accelerators()` function
 
 2. Force CPU-only mode at startup:
+
    ```rust
    use transcribe_rs::accel;
-   
+
    // Force CPU-only for all engines
    accel::set_whisper_accelerator(accel::WhisperAccelerator::CpuOnly);
    accel::set_ort_accelerator(accel::OrtAccelerator::CpuOnly);
@@ -94,11 +104,14 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ### Phase 4: Add Streaming Foundation
 
 **Files to modify:**
+
 - `src-tauri/src/managers/transcription.rs`
 - `src-tauri/src/commands/transcription.rs`
 
 **Changes:**
+
 1. Add streaming state management:
+
    ```rust
    pub struct StreamingState {
        is_streaming: AtomicBool,
@@ -108,6 +121,7 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
    ```
 
 2. Implement chunked transcription interface:
+
    ```rust
    pub fn transcribe_chunk(&self, audio_chunk: Vec<f32>) -> Result<String>
    pub fn start_streaming(&self) -> Result<()>
@@ -115,6 +129,7 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
    ```
 
 3. Add events for partial results:
+
    ```rust
    pub struct PartialTranscriptionEvent {
        pub partial_text: String,
@@ -127,12 +142,14 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ## Benefits
 
 ### Immediate Benefits
+
 - **System Stability**: Eliminates GPU-related crashes
 - **Simplified Architecture**: Removes complex GPU dependency management
 - **Predictable Performance**: CPU-only performance is consistent across systems
 - **Reduced Complexity**: Fewer settings, fewer failure modes
 
 ### Future Benefits
+
 - **Streaming Ready**: Foundation for real-time transcription
 - **Easy GPU Re-enable**: Can be added back later if issues are resolved
 - **Better Testing**: CPU-only is easier to test and debug
@@ -141,16 +158,19 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ## Risk Assessment
 
 ### Low Risk
+
 - Removing GPU features is non-breaking for CPU functionality
 - Existing transcription logic remains unchanged
 - Settings simplification reduces complexity
 
 ### Medium Risk
+
 - Performance will be slower than GPU (but more stable)
 - Need to test all model types work on CPU
 - Streaming addition requires careful buffer management
 
 ### Mitigation Strategies
+
 - Comprehensive testing of all engines in CPU mode
 - Gradual rollout of streaming features
 - Performance benchmarking to set expectations
@@ -158,21 +178,25 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ## Testing Strategy
 
 ### Unit Tests
+
 - Test CPU-only mode enforcement
 - Verify all model types load and transcribe on CPU
 - Test streaming chunk processing
 
 ### Integration Tests
+
 - Full transcription pipeline with CPU-only
 - Model loading/unloading cycles
 - Memory usage under sustained load
 
 ### Performance Tests
+
 - Transcription speed benchmarks (CPU vs expected GPU)
 - Memory usage patterns
 - Latency measurements for streaming chunks
 
 ### User Acceptance Tests
+
 - Verify no GPU-related crashes
 - Test transcription accuracy remains high
 - Validate simplified settings interface
@@ -180,6 +204,7 @@ Remove all GPU acceleration from `transcribe-rs` to achieve system stability whi
 ## Rollback Plan
 
 If issues arise, the changes can be easily rolled back by:
+
 1. Restoring GPU features in Cargo.toml
 2. Reverting settings structure changes
 3. Restoring GPU acceleration code
@@ -197,6 +222,7 @@ The modular nature of the changes makes rollback straightforward.
 ## Next Steps
 
 After implementing this CPU-only approach:
+
 1. Test thoroughly on user's system
 2. Implement real-time streaming features
 3. Consider GPU re-enablement if stability issues are resolved in future `transcribe-rs` versions
@@ -205,10 +231,12 @@ After implementing this CPU-only approach:
 ## Dependencies
 
 ### External Dependencies
+
 - `transcribe-rs` crate (CPU-only features)
 - No new dependencies required
 
 ### Internal Dependencies
+
 - Existing transcription manager architecture
 - Current settings system
 - Audio recording infrastructure
@@ -225,4 +253,4 @@ After implementing this CPU-only approach:
 
 ---
 
-*This design document has been approved and is ready for implementation.*
+_This design document has been approved and is ready for implementation._

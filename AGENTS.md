@@ -151,7 +151,7 @@ Sonarus detects the active application and applies transcription profiles:
 - `rubato` - Audio resampling
 - `rodio` - Audio playback for feedback sounds
 
-**Platform-Specific## Platform Notes
+\*\*Platform-Specific## Platform Notes
 
 - **macOS**: Metal acceleration, accessibility permissions required, native feel with system fonts
 - **Windows**: Vulkan acceleration, code signing, Segoe UI typography

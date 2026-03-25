@@ -273,7 +273,6 @@ impl Default for TypingTool {
     }
 }
 
-
 /* still handy for composing the initial JSON in the store ------------- */
 #[derive(Serialize, Deserialize, Debug, Clone, Type)]
 pub struct AppSettings {

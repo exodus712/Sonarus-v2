@@ -16,7 +16,7 @@ const ResetIcon: React.FC<ResetIconProps> = ({
   animateOnHover = true,
 }) => {
   return (
-    <RotateCw 
+    <RotateCw
       width={width}
       height={height}
       className={`${className} ${animateOnHover ? "hover:rotate-45" : ""} transition-transform duration-200`}

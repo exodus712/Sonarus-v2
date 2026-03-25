@@ -29,24 +29,64 @@ interface IconProps {
 }
 
 // Wrapper components to adapt animated icons to our interface
-const AnimatedAudioLinesIcon: React.FC<IconProps> = ({ size, className, ...props }) => (
-  <AudioLinesIcon size={typeof size === 'string' ? parseInt(size) : size} className={className} {...props} />
+const AnimatedAudioLinesIcon: React.FC<IconProps> = ({
+  size,
+  className,
+  ...props
+}) => (
+  <AudioLinesIcon
+    size={typeof size === "string" ? parseInt(size) : size}
+    className={className}
+    {...props}
+  />
 );
 
-const AnimatedCpuIcon: React.FC<IconProps> = ({ size, className, ...props }) => (
-  <CpuIcon size={typeof size === 'string' ? parseInt(size) : size} className={className} {...props} />
+const AnimatedCpuIcon: React.FC<IconProps> = ({
+  size,
+  className,
+  ...props
+}) => (
+  <CpuIcon
+    size={typeof size === "string" ? parseInt(size) : size}
+    className={className}
+    {...props}
+  />
 );
 
-const AnimatedCogIcon: React.FC<IconProps> = ({ size, className, ...props }) => (
-  <CogIcon size={typeof size === 'string' ? parseInt(size) : size} className={className} {...props} />
+const AnimatedCogIcon: React.FC<IconProps> = ({
+  size,
+  className,
+  ...props
+}) => (
+  <CogIcon
+    size={typeof size === "string" ? parseInt(size) : size}
+    className={className}
+    {...props}
+  />
 );
 
-const AnimatedHistoryIcon: React.FC<IconProps> = ({ size, className, ...props }) => (
-  <HistoryIcon size={typeof size === 'string' ? parseInt(size) : size} className={className} {...props} />
+const AnimatedHistoryIcon: React.FC<IconProps> = ({
+  size,
+  className,
+  ...props
+}) => (
+  <HistoryIcon
+    size={typeof size === "string" ? parseInt(size) : size}
+    className={className}
+    {...props}
+  />
 );
 
-const AnimatedCircleHelpIcon: React.FC<IconProps> = ({ size, className, ...props }) => (
-  <CircleHelpIcon size={typeof size === 'string' ? parseInt(size) : size} className={className} {...props} />
+const AnimatedCircleHelpIcon: React.FC<IconProps> = ({
+  size,
+  className,
+  ...props
+}) => (
+  <CircleHelpIcon
+    size={typeof size === "string" ? parseInt(size) : size}
+    className={className}
+    {...props}
+  />
 );
 
 interface SectionConfig {

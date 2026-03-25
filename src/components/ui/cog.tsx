@@ -37,7 +37,7 @@ const CogIcon = forwardRef<CogIconHandle, CogIconProps>(
           controls.start("animate");
         }
       },
-      [controls, onMouseEnter]
+      [controls, onMouseEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -48,7 +48,7 @@ const CogIcon = forwardRef<CogIconHandle, CogIconProps>(
           controls.start("normal");
         }
       },
-      [controls, onMouseLeave]
+      [controls, onMouseLeave],
     );
     return (
       <div
@@ -95,7 +95,7 @@ const CogIcon = forwardRef<CogIconHandle, CogIconProps>(
         </motion.svg>
       </div>
     );
-  }
+  },
 );
 
 CogIcon.displayName = "CogIcon";

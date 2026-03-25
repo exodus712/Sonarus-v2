@@ -32,6 +32,7 @@ src/
 ### Task 1: Update Tailwind Configuration
 
 **Files:**
+
 - Modify: `tailwind.config.js`
 
 - [ ] **Step 1: Update Tailwind config for class-based dark mode**
@@ -40,7 +41,7 @@ src/
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: 'class', // Enable class-based dark mode
+  darkMode: "class", // Enable class-based dark mode
   theme: {
     extend: {
       colors: {
@@ -53,7 +54,7 @@ export default {
         "text-secondary": "var(--color-text-secondary)",
         "bg-primary": "var(--color-bg-primary)",
         "bg-secondary": "var(--color-bg-secondary)",
-        "accent": "var(--color-accent)",
+        accent: "var(--color-accent)",
         "border-primary": "var(--color-border-primary)",
         "mid-gray": "var(--color-mid-gray)",
       },
@@ -78,6 +79,7 @@ git commit -m "feat: configure Tailwind for class-based dark mode"
 ### Task 2: Update CSS Design Tokens
 
 **Files:**
+
 - Modify: `src/App.css`
 
 - [ ] **Step 1: Update CSS variables for theme system**
@@ -113,7 +115,7 @@ git commit -m "feat: configure Tailwind for class-based dark mode"
   /* Legacy colors for backward compatibility */
   --color-text: #0f0f0f;
   --color-background: #fbfbfb;
-  --color-logo-primary: #FAA2CA;
+  --color-logo-primary: #faa2ca;
   --color-logo-stroke: #382731;
   --color-text-stroke: #f6f6f6;
 
@@ -226,6 +228,7 @@ git commit -m "feat: add CSS design tokens for theme system"
 ### Task 3: Create Theme Context
 
 **Files:**
+
 - Create: `src/contexts/ThemeProvider.tsx`
 
 - [ ] **Step 1: Write failing test for ThemeProvider**
@@ -371,6 +374,7 @@ git commit -m "feat: implement ThemeProvider with context and store integration"
 ### Task 4: Create Theme Hook
 
 **Files:**
+
 - Create: `src/hooks/useTheme.ts`
 
 - [ ] **Step 1: Write failing test for useTheme hook**
@@ -415,7 +419,7 @@ Expected: FAIL with "useThemeValue not found"
 
 ```typescript
 // src/hooks/useTheme.ts
-import { useTheme as useThemeContext } from '../contexts/ThemeProvider';
+import { useTheme as useThemeContext } from "../contexts/ThemeProvider";
 
 export const useTheme = () => {
   return useThemeContext();
@@ -444,6 +448,7 @@ git commit -m "feat: create useTheme hook for theme access"
 ### Task 5: Create Theme Toggle Component
 
 **Files:**
+
 - Create: `src/components/settings/ThemeToggle.tsx`
 
 - [ ] **Step 1: Write failing test for ThemeToggle**
@@ -553,6 +558,7 @@ git commit -m "feat: create ThemeToggle component with system/light/dark options
 ### Task 6: Add Theme Toggle to Settings
 
 **Files:**
+
 - Modify: `src/components/Sidebar.tsx` (or wherever settings sections are defined)
 
 - [ ] **Step 1: Find settings section configuration**
@@ -586,6 +592,7 @@ git commit -m "feat: add theme toggle to settings panel"
 ### Task 7: Wrap App with ThemeProvider
 
 **Files:**
+
 - Modify: `src/App.tsx`
 
 - [ ] **Step 1: Update App.tsx to use ThemeProvider**
@@ -645,6 +652,7 @@ Expected: App renders successfully with theme system active
 - [ ] **Step 3: Test theme switching**
 
 In the running app:
+
 1. Open settings
 2. Click "Dark" theme option
 3. Verify app switches to dark theme
@@ -661,6 +669,7 @@ git commit -m "feat: wrap App with ThemeProvider for theme system"
 ### Task 8: Add Theme Translations
 
 **Files:**
+
 - Modify: `src/i18n/locales/en.json` (and other locale files)
 
 - [ ] **Step 1: Add theme translations to English**
@@ -671,7 +680,7 @@ git commit -m "feat: wrap App with ThemeProvider for theme system"
     "theme": {
       "title": "Theme",
       "system": "System",
-      "light": "Light", 
+      "light": "Light",
       "dark": "Dark",
       "description": "Choose your preferred theme"
     }
@@ -702,24 +711,27 @@ git commit -m "feat: add theme translations"
 ### Task 9: End-to-End Theme Testing
 
 **Files:**
+
 - Create: `tests/e2e/theme.spec.ts` (if using Playwright)
 
 - [ ] **Step 1: Write E2E test for theme switching**
 
 ```typescript
 // tests/e2e/theme.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Theme System', () => {
-  test('should default to system preference on first launch', async ({ page }) => {
-    await page.goto('/');
-    
+test.describe("Theme System", () => {
+  test("should default to system preference on first launch", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
     // Check initial theme based on system preference
-    const html = page.locator('html');
-    const systemPrefersDark = await page.evaluate(() => 
-      window.matchMedia('(prefers-color-scheme: dark)').matches
+    const html = page.locator("html");
+    const systemPrefersDark = await page.evaluate(
+      () => window.matchMedia("(prefers-color-scheme: dark)").matches,
     );
-    
+
     if (systemPrefersDark) {
       await expect(html).toHaveClass(/dark/);
     } else {
@@ -727,37 +739,37 @@ test.describe('Theme System', () => {
     }
   });
 
-  test('should switch to dark theme when selected', async ({ page }) => {
-    await page.goto('/');
-    
+  test("should switch to dark theme when selected", async ({ page }) => {
+    await page.goto("/");
+
     // Navigate to settings
     await page.click('[data-testid="settings-button"]');
     await page.click('[data-testid="theme-section"]');
-    
+
     // Select dark theme
     await page.click('[data-testid="theme-dark"]');
-    
+
     // Verify dark theme is applied
-    const html = page.locator('html');
+    const html = page.locator("html");
     await expect(html).toHaveClass(/dark/);
-    
+
     // Reload page and verify persistence
     await page.reload();
     await expect(html).toHaveClass(/dark/);
   });
 
-  test('should switch to light theme when selected', async ({ page }) => {
-    await page.goto('/');
-    
+  test("should switch to light theme when selected", async ({ page }) => {
+    await page.goto("/");
+
     // Navigate to settings and select light theme
     await page.click('[data-testid="settings-button"]');
     await page.click('[data-testid="theme-section"]');
     await page.click('[data-testid="theme-light"]');
-    
+
     // Verify light theme is applied
-    const html = page.locator('html');
+    const html = page.locator("html");
     await expect(html).not.toHaveClass(/dark/);
-    
+
     // Reload page and verify persistence
     await page.reload();
     await expect(html).not.toHaveClass(/dark/);

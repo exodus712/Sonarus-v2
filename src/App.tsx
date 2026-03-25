@@ -234,44 +234,44 @@ function App() {
   }
 
   return (
-  <ThemeProvider>
-    <div
-      dir={direction}
-      className="h-screen flex flex-col select-none cursor-default"
-    >
-      <Toaster
-        theme="system"
-        toastOptions={{
-          unstyled: true,
-          classNames: {
-            toast:
-              "bg-bg-primary border border-border-primary rounded-lg shadow-lg px-4 py-3 flex items-center gap-3 text-sm",
-            title: "font-medium",
-            description: "text-text-secondary",
-          },
-        }}
-      />
-      {/* Main content area that takes remaining space */}
-      <div className="flex-1 flex overflow-hidden">
-        <Sidebar
-          activeSection={currentSection}
-          onSectionChange={setCurrentSection}
+    <ThemeProvider>
+      <div
+        dir={direction}
+        className="h-screen flex flex-col select-none cursor-default"
+      >
+        <Toaster
+          theme="system"
+          toastOptions={{
+            unstyled: true,
+            classNames: {
+              toast:
+                "bg-bg-primary border border-border-primary rounded-lg shadow-lg px-4 py-3 flex items-center gap-3 text-sm",
+              title: "font-medium",
+              description: "text-text-secondary",
+            },
+          }}
         />
-        {/* Scrollable content area */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto">
-            <div className="flex flex-col items-center p-4 gap-4">
-              <AccessibilityPermissions />
-              {renderSettingsContent(currentSection)}
+        {/* Main content area that takes remaining space */}
+        <div className="flex-1 flex overflow-hidden">
+          <Sidebar
+            activeSection={currentSection}
+            onSectionChange={setCurrentSection}
+          />
+          {/* Scrollable content area */}
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 overflow-y-auto">
+              <div className="flex flex-col items-center p-4 gap-4">
+                <AccessibilityPermissions />
+                {renderSettingsContent(currentSection)}
+              </div>
             </div>
           </div>
         </div>
+        {/* Fixed footer at bottom */}
+        <Footer />
       </div>
-      {/* Fixed footer at bottom */}
-      <Footer />
-    </div>
-  </ThemeProvider>
-);
+    </ThemeProvider>
+  );
 }
 
 export default App;

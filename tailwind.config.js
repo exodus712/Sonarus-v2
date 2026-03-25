@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: 'class', // Enable class-based dark mode
+  darkMode: "class", // Enable class-based dark mode
   theme: {
     extend: {
       colors: {
@@ -14,7 +14,7 @@ export default {
         "text-secondary": "var(--color-text-secondary)",
         "bg-primary": "var(--color-bg-primary)",
         "bg-secondary": "var(--color-bg-secondary)",
-        "accent": "var(--color-accent)",
+        accent: "var(--color-accent)",
         "border-primary": "var(--color-border-primary)",
         "mid-gray": "var(--color-mid-gray)",
       },
