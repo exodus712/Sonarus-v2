@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { readFile } from "@tauri-apps/plugin-fs";
-import { Check, Copy, FolderOpen, RotateCcw, Star, Trash2 } from "lucide-react";
+import { Check, Copy, FolderOpen, RotateCcw, Trash2 } from "lucide-react";
+import AnimatedStar from "../../icons/AnimatedStar";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import {
@@ -21,10 +22,14 @@ const IconButton: React.FC<{
   disabled?: boolean;
   active?: boolean;
   children: React.ReactNode;
-}> = ({ onClick, title, disabled, active, children }) => (
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}> = ({ onClick, title, disabled, active, children, onMouseEnter, onMouseLeave }) => (
   <button
     onClick={onClick}
     disabled={disabled}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
     className={`p-1.5 rounded-md flex items-center justify-center transition-colors cursor-pointer disabled:cursor-not-allowed disabled:text-text-secondary ${
       active
         ? "text-logo-primary hover:text-logo-primary/80"
@@ -312,6 +317,8 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
   const { t, i18n } = useTranslation();
   const [showCopied, setShowCopied] = useState(false);
   const [retrying, setRetrying] = useState(false);
+  const [starHover, setStarHover] = useState(false);
+  const [starTap, setStarTap] = useState(false);
 
   const hasTranscription = entry.transcription_text.trim().length > 0;
 
@@ -351,6 +358,12 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
     }
   };
 
+  const handleStarClick = () => {
+    setStarTap(true);
+    onToggleSaved();
+    setTimeout(() => setStarTap(false), 600);
+  };
+
   const formattedDate = formatDateTime(String(entry.timestamp), i18n.language);
 
   return (
@@ -370,7 +383,7 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
             )}
           </IconButton>
           <IconButton
-            onClick={onToggleSaved}
+            onClick={handleStarClick}
             disabled={retrying}
             active={entry.saved}
             title={
@@ -378,11 +391,15 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
                 ? t("settings.history.unsave")
                 : t("settings.history.save")
             }
+            onMouseEnter={() => setStarHover(true)}
+            onMouseLeave={() => setStarHover(false)}
           >
-            <Star
-              width={16}
-              height={16}
+            <AnimatedStar
+              size={16}
               fill={entry.saved ? "currentColor" : "none"}
+              isSaved={entry.saved}
+              onHover={starHover}
+              onTap={starTap}
             />
           </IconButton>
           <IconButton
