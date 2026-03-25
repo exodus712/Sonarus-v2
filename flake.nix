@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    sonarus.url = "github:exodus712/Sonarus-v2";
 
     # bun2nix: generates per-package Nix fetchurl expressions from bun.lock,
     # replacing the old FOD approach where a single hash covered the entire
@@ -116,8 +115,8 @@
           lib = pkgs.lib;
         in
         {
-          handy = pkgs.rustPlatform.buildRustPackage {
-            pname = "handy";
+          sonarus = pkgs.rustPlatform.buildRustPackage {
+            pname = "sonarus";
             inherit version;
             src = self;
 
@@ -225,14 +224,14 @@
 
             meta = {
               description = "A free, open source, and extensible speech-to-text application that works completely offline";
-              homepage = "https://github.com/cjpais/Handy";
+              homepage = "https://github.com/exodus712/Sonarus-v2";
               license = lib.licenses.mit;
-              mainProgram = "handy";
+              mainProgram = "sonarus";
               platforms = supportedSystems;
             };
           };
 
-          default = self.packages.${system}.handy;
+          default = self.packages.${system}.sonarus;
         }
       );
 
@@ -241,7 +240,7 @@
         { lib, pkgs, ... }:
         {
           imports = [ ./nix/module.nix ];
-          programs.handy.package = lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.handy;
+          programs.sonarus.package = lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.sonarus;
         };
 
       # Home-manager module for per-user service
@@ -249,7 +248,7 @@
         { lib, pkgs, ... }:
         {
           imports = [ ./nix/hm-module.nix ];
-          services.handy.package = lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.handy;
+          services.sonarus.package = lib.mkDefault self.packages.${pkgs.stdenv.hostPlatform.system}.sonarus;
         };
 
       # Development shell for building from source
@@ -292,7 +291,7 @@
             XDG_DATA_DIRS = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}:${pkgs.gtk3}/share/gsettings-schemas/${pkgs.gtk3.name}:${pkgs.hicolor-icon-theme}/share";
 
             shellHook = ''
-              echo "Handy development environment"
+              echo "Sonarus development environment"
               bun install
               echo "Run 'bun run tauri dev' to start"
             '';
