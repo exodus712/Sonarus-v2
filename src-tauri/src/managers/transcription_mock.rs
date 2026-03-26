@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 // CI-only mock TranscriptionManager - avoids whisper/Vulkan dependencies.
 // This file is copied over transcription.rs during CI tests.
 // Existing tests don't exercise transcription, so this is safe.
@@ -6,6 +8,7 @@ use crate::managers::model::ModelManager;
 use anyhow::Result;
 use serde::Serialize;
 use specta::Type;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use tauri::AppHandle;
 
@@ -24,12 +27,14 @@ pub struct LoadingGuard;
 pub struct TranscriptionManager {
     #[allow(dead_code)]
     app_handle: AppHandle,
+    is_streaming: Arc<AtomicBool>,
 }
 
 impl TranscriptionManager {
     pub fn new(app_handle: &AppHandle, _model_manager: Arc<ModelManager>) -> Result<Self> {
         Ok(Self {
             app_handle: app_handle.clone(),
+            is_streaming: Arc::new(AtomicBool::new(false)),
         })
     }
 
@@ -59,6 +64,24 @@ impl TranscriptionManager {
 
     pub fn transcribe(&self, _audio: Vec<f32>) -> Result<String> {
         Ok(String::new())
+    }
+
+    pub fn start_streaming(&self) -> Result<()> {
+        self.is_streaming.store(true, Ordering::Relaxed);
+        Ok(())
+    }
+
+    pub fn stop_streaming(&self) -> Result<()> {
+        self.is_streaming.store(false, Ordering::Relaxed);
+        Ok(())
+    }
+
+    pub fn transcribe_chunk(&self, _audio_chunk: Vec<f32>) -> Result<String> {
+        Ok(String::new())
+    }
+
+    pub fn is_streaming(&self) -> bool {
+        self.is_streaming.load(Ordering::Relaxed)
     }
 }
 

@@ -25,9 +25,9 @@ export default defineConfig(async () => ({
         overlay: resolve(__dirname, "src/overlay/index.html"),
       },
       manualChunks: {
-        'vendor': ['vendor.js'],
-        'index.html': ['index.html']
-      }
+        vendor: ["vendor.js"],
+        "index.html": ["index.html"],
+      },
     },
   },
 

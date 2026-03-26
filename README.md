@@ -203,8 +203,8 @@ Without these tools, Sonarus falls back to enigo which may have limited compatib
 
 - You can also manage global shortcuts outside of Sonarus via Unix signals, which lets Wayland window managers or other hotkey daemons keep ownership of keybindings:
 
-  | Signal    | Action                                    | Example                |
-  | --------- | ----------------------------------------- | ---------------------- |
+  | Signal    | Action                                    | Example                  |
+  | --------- | ----------------------------------------- | ------------------------ |
   | `SIGUSR2` | Toggle transcription                      | `pkill -USR2 -n Sonarus` |
   | `SIGUSR1` | Toggle transcription with post-processing | `pkill -USR1 -n Sonarus` |
 

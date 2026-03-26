@@ -43,6 +43,11 @@ on:
         required: false
         type: boolean
         default: false
+    secrets:
+      TAURI_SIGNING_PRIVATE_KEY:
+        required: false
+      TAURI_SIGNING_PRIVATE_KEY_PASSWORD:
+        required: false
 
 env:
   TSC_VERSION: "0.9.0"
@@ -301,11 +306,27 @@ jobs:
             '.bundle.linux.deb.files["/usr/lib/libonnxruntime.so"] = $so | .bundle.linux.deb.files["/usr/lib/libonnxruntime.so.1"] = $so1 | .bundle.linux.deb.files["/usr/lib/libonnxruntime.so.1.24.2"] = $sov' \
             src-tauri/tauri.conf.json > tmp.json && mv tmp.json src-tauri/tauri.conf.json
 
+      - name: Configure updater artifact signing
+        shell: bash
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        run: |
+          if [[ -n "$TAURI_SIGNING_PRIVATE_KEY" && -n "$TAURI_SIGNING_PRIVATE_KEY_PASSWORD" ]]; then
+            echo "Updater signing enabled for this build."
+            exit 0
+          fi
+
+          echo "Updater signing secrets are not fully configured; disabling updater artifact generation."
+          jq '.bundle.createUpdaterArtifacts = false' \
+            src-tauri/tauri.conf.json > tmp.json && mv tmp.json src-tauri/tauri.conf.json
+
       - name: Build with Tauri
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAURI_SIGNING_PRIVATE_KEY: "dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5Zk1hU3ltamFKNEZaZFVRY0lRQjh6NlBFOWs0eTNTOHl1cUFyM1QyMXNCRUFBQkFBQUFBQUFBQUFBQUlBQUFBQUxmeWp3QkZpQjhHYWQ3dnMzdFBJSkJvcXh2TkhYaDQ3RXJhVlVJNDBpOHZjbmhhYjE3NjdBTk9Fd0ZrUmswZmFXcTk5UWxoTmlZOVhJcFROVEdPNU8zbkRGNmZvZ1dIcUVKemNBejNlZXllcEtwY1FDQjR1ZndvUXQyTVltemFPSWhDU1BUbXJxT2c9Cg=="
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
           WHISPER_NO_AVX: ${{ contains(inputs.platform, 'ubuntu') && !contains(inputs.platform, 'arm') && 'ON' || '' }}
           WHISPER_NO_AVX2: ${{ contains(inputs.platform, 'ubuntu') && !contains(inputs.platform, 'arm') && 'ON' || '' }}
         with:
