@@ -4,15 +4,10 @@ import { listen } from "@tauri-apps/api/event";
 import type {
   AppSettings as Settings,
   AudioDevice,
-  // TODO: Add these types when backend is implemented
-  // WhisperAcceleratorSetting,
-  // OrtAcceleratorSetting,
+  WhisperAcceleratorSetting,
+  OrtAcceleratorSetting,
 } from "@/bindings";
 import { commands } from "@/bindings";
-
-// Temporary types until backend is implemented
-type WhisperAcceleratorSetting = "auto" | "cpu" | "gpu";
-type OrtAcceleratorSetting = "auto" | "cpu" | "gpu";
 
 interface SettingsStore {
   settings: Settings | null;
@@ -150,13 +145,14 @@ const settingUpdaters: {
     commands.changeLazyStreamCloseSetting(value as boolean),
   show_tray_icon: (value) =>
     commands.changeShowTrayIconSetting(value as boolean),
-  // TODO: Implement accelerator commands in backend
-  // whisper_accelerator: (value) =>
-  //   commands.changeWhisperAcceleratorSetting(
-  //     value as WhisperAcceleratorSetting,
-  //   ),
-  // ort_accelerator: (value) =>
-  //   commands.changeOrtAcceleratorSetting(value as OrtAcceleratorSetting),
+  whisper_accelerator: (value) =>
+    commands.changeWhisperAcceleratorSetting(
+      value as WhisperAcceleratorSetting,
+    ),
+  ort_accelerator: (value) =>
+    commands.changeOrtAcceleratorSetting(value as OrtAcceleratorSetting),
+  whisper_gpu_device: (value) =>
+    commands.changeWhisperGpuDevice(value as number),
   extra_recording_buffer_ms: (value) =>
     commands.changeExtraRecordingBufferSetting(value as number),
 };
