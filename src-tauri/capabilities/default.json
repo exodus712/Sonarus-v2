@@ -17,6 +17,7 @@
     "macos-permissions:default",
     "fs:read-files",
     "fs:allow-resource-read-recursive",
+    "mcp-bridge:default",
     {
       "identifier": "fs:scope",
       "allow": [{ "path": "$APPDATA" }, { "path": "$APPDATA/**/*" }]

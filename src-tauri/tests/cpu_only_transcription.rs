@@ -1,6 +1,3 @@
-use handy_app_lib::*;
-use std::time::Duration;
-
 #[test]
 fn test_cpu_only_transcription_workflow() {
     // Test that transcription works in CPU-only mode
