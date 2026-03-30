@@ -155,7 +155,10 @@ impl TranscriptionManager {
                 }
                 debug!("Idle watcher thread shutting down gracefully");
             });
-            *manager.watcher_handle.lock().unwrap_or_else(|e| e.into_inner()) = Some(handle);
+            *manager
+                .watcher_handle
+                .lock()
+                .unwrap_or_else(|e| e.into_inner()) = Some(handle);
         }
 
         // Force CPU-only mode to prevent GPU-related crashes
@@ -203,7 +206,10 @@ impl TranscriptionManager {
             *engine = None;
         }
         {
-            let mut current_model = self.current_model_id.lock().unwrap_or_else(|e| e.into_inner());
+            let mut current_model = self
+                .current_model_id
+                .lock()
+                .unwrap_or_else(|e| e.into_inner());
             *current_model = None;
         }
 
@@ -378,7 +384,10 @@ impl TranscriptionManager {
             *engine = Some(loaded_engine);
         }
         {
-            let mut current_model = self.current_model_id.lock().unwrap_or_else(|e| e.into_inner());
+            let mut current_model = self
+                .current_model_id
+                .lock()
+                .unwrap_or_else(|e| e.into_inner());
             *current_model = Some(model_id.to_string());
         }
 
@@ -419,14 +428,20 @@ impl TranscriptionManager {
             if let Err(e) = self_clone.load_model(&settings.selected_model) {
                 error!("Failed to load model: {}", e);
             }
-            let mut is_loading = self_clone.is_loading.lock().unwrap_or_else(|e| e.into_inner());
+            let mut is_loading = self_clone
+                .is_loading
+                .lock()
+                .unwrap_or_else(|e| e.into_inner());
             *is_loading = false;
             self_clone.loading_condvar.notify_all();
         });
     }
 
     pub fn get_current_model(&self) -> Option<String> {
-        let current_model = self.current_model_id.lock().unwrap_or_else(|e| e.into_inner());
+        let current_model = self
+            .current_model_id
+            .lock()
+            .unwrap_or_else(|e| e.into_inner());
         current_model.clone()
     }
 
@@ -468,7 +483,10 @@ impl TranscriptionManager {
                     ));
                 }
                 let remaining = LOAD_TIMEOUT - elapsed;
-                let (guard, timeout_result) = self.loading_condvar.wait_timeout(is_loading, remaining).unwrap_or_else(|e| e.into_inner());
+                let (guard, timeout_result) = self
+                    .loading_condvar
+                    .wait_timeout(is_loading, remaining)
+                    .unwrap_or_else(|e| e.into_inner());
                 is_loading = guard;
                 if timeout_result.timed_out() {
                     return Err(anyhow::anyhow!(
@@ -795,7 +813,12 @@ impl Drop for TranscriptionManager {
         self.shutdown_signal.store(true, Ordering::Relaxed);
 
         // Wait for the thread to finish gracefully
-        if let Some(handle) = self.watcher_handle.lock().unwrap_or_else(|e| e.into_inner()).take() {
+        if let Some(handle) = self
+            .watcher_handle
+            .lock()
+            .unwrap_or_else(|e| e.into_inner())
+            .take()
+        {
             if let Err(e) = handle.join() {
                 warn!("Failed to join idle watcher thread: {:?}", e);
             } else {
