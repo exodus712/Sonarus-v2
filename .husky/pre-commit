@@ -1,3 +1,11 @@
 bun run format:frontend
 bun run format:backend
+
+# Regenerate bun.nix when bun.lock changes (nix build requirement)
+if git diff --cached --name-only | grep -q "bun.lock"; then
+  bunx bun2nix -o .nix/bun.nix
+  sha256sum bun.lock | cut -d' ' -f1 > .nix/bun-lock-hash
+  git add .nix/bun.nix .nix/bun-lock-hash
+fi
+
 git add -A
