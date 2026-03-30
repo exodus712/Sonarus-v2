@@ -53,7 +53,7 @@ pub async fn start_streaming_transcription(app: AppHandle) -> Result<(), String>
         is_streaming: true,
         timestamp: std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
+            .unwrap_or_default()
             .as_secs(),
     };
 
@@ -76,7 +76,7 @@ pub async fn stop_streaming_transcription(app: AppHandle) -> Result<(), String> 
         is_streaming: false,
         timestamp: std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
+            .unwrap_or_default()
             .as_secs(),
     };
 
@@ -92,6 +92,16 @@ pub async fn transcribe_audio_chunk(
     app: AppHandle,
     audio_chunk: Vec<f32>,
 ) -> Result<String, String> {
+    // Validate chunk size to prevent memory issues
+    const MAX_CHUNK_SIZE: usize = 60 * 16000; // 60 seconds at 16kHz
+    if audio_chunk.len() > MAX_CHUNK_SIZE {
+        return Err(format!(
+            "Audio chunk too large: {} samples (max {})",
+            audio_chunk.len(),
+            MAX_CHUNK_SIZE
+        ));
+    }
+
     let transcription_manager = app.state::<std::sync::Arc<TranscriptionManager>>();
 
     let result = transcription_manager
@@ -104,7 +114,7 @@ pub async fn transcribe_audio_chunk(
         is_final: false,
         timestamp: std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
-            .unwrap()
+            .unwrap_or_default()
             .as_secs(),
     };
 
