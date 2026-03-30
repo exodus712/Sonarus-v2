@@ -52,7 +52,7 @@ jobs:
 
   comment-on-pr:
     needs: build-test
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-2vcpu-ubuntu-2404
     permissions:
       pull-requests: write
     steps:
