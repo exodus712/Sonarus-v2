@@ -2,7 +2,7 @@
 name = "sonarus"
 version = "1.0.0"
 description = "Sonarus - Real-time Speech-to-Text Application"
-authors = ["cjpais"]
+authors = ["exodus712"]
 edition = "2021"
 license = "MIT"
 default-run = "sonarus"

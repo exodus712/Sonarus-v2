@@ -31,6 +31,7 @@ dist-ssr
 /target/
 recording_*
 .crush/
+sonarus-sync-collect.ps1
 
 # Playwright
 playwright-report/

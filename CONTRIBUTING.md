@@ -201,20 +201,29 @@ We use GitHub Discussions for feature requests rather than issues. This keeps is
 
 4. **Commit your changes**:
 
+   **We use Commitizen for all commits.** You must use conventional commit message format for every commit.
+
    ```bash
+   # Use commitizen prompt (recommended)
+   cz commit
+
+   # Or manually following the format below
    git add .
    git commit -m "feat: add your feature description"
-   # or
-   git commit -m "fix: describe the bug fix"
    ```
 
-   Use conventional commit messages:
+   **Required commit format** (Conventional Commits):
    - `feat:` for new features
    - `fix:` for bug fixes
    - `docs:` for documentation changes
    - `refactor:` for code refactoring
    - `test:` for test additions/changes
    - `chore:` for maintenance tasks
+   - `style:` for code style changes (formatting, etc.)
+   - `perf:` for performance improvements
+   - `ci:` for CI/CD changes
+
+   **All commits must follow this format.** The project uses Commitizen (`cz_conventional_commits`) to enforce consistent commit messages. See `.cz.json` for configuration.
 
 5. **Keep your fork updated**:
 
