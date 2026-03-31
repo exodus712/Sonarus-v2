@@ -1,5 +1,7 @@
 # Sonarus
 
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/sonarus-app/Sonarus?utm_source=oss&utm_medium=github&utm_campaign=sonarus-app%2FSonarus&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
+
 **The speech-to-text tool you'll actually love using.**
 
 Sonarus is a premium speech-to-text desktop application that combines the power of the open-source Sonarus project with an extraordinary user experience. Press a shortcut, speak, and have your words appear in any text field — entirely offline and private.
@@ -8,7 +10,7 @@ Sonarus is a premium speech-to-text desktop application that combines the power 
 
 ## Why Sonarus?
 
-Sonarus is a fork of the Sonarus project that bets on **experience over extensibility** as its primary value. Where Sonarus aims to be the most forkable speech-to-text tool, Sonarus aims to be the most finished one.
+Sonarus is a fork of the Handy project that bets on **experience over extensibility** as its primary value. Where Handy aims to be the most forkable speech-to-text tool, Sonarus aims to be the most finished one.
 
 ### The Premium Experience
 

@@ -1,8 +1,22 @@
 repos:
-- hooks:
-  - id: commitizen
-  - id: commitizen-branch
-    stages:
-    - pre-push
-  repo: https://github.com/commitizen-tools/commitizen
-  rev: v4.13.9
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.13.9
+    hooks:
+      - id: commitizen
+      - id: commitizen-branch
+        stages:
+          - pre-push
+  - repo: local
+    hooks:
+      - id: eslint
+        name: ESLint
+        entry: bun run lint
+        language: system
+        files: \.(ts|tsx)$
+        pass_filenames: false
+      - id: prettier
+        name: Prettier
+        entry: bun run format:check
+        language: system
+        files: \.(ts|tsx|js|jsx|json|css|md)$
+        pass_filenames: false

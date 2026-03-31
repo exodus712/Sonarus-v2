@@ -53,9 +53,9 @@ Sonarus draws from four reference points, synthesized into a single coherent ide
 - **Dual mode, not afterthought.** Dark and light are designed in parallel. Dark mode uses warm neutrals, not pure black.
 - **The overlay is the brand.** More users see the recording pill than the settings panel. It must be extraordinary.
 
-## Architecture Overview
+### Architecture Overview
 
-Handy is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rust backend + React/TypeScript frontend).
+Sonarus is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rust backend + React/TypeScript frontend).
 
 ### Backend Structure (src-tauri/src/)
 
@@ -64,15 +64,15 @@ Handy is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rust 
   - `audio.rs` - Audio recording and device management
   - `model.rs` - Model downloading and management
   - `transcription.rs` - Speech-to-text processing pipeline
-  - `history.rs` - Transcription history storage (NEW for Sonarus)
+  - `history.rs` - Transcription history storage
 - `audio_toolkit/` - Low-level audio processing:
   - `audio/` - Device enumeration, recording, resampling
   - `vad/` - Voice Activity Detection (Silero VAD)
 - `commands/` - Tauri command handlers for frontend communication
 - `shortcut.rs` - Global keyboard shortcut handling
 - `settings.rs` - Application settings management
-- `sound.rs` - Audio feedback system (NEW for Sonarus)
-- `app_context.rs` - Active application detection (NEW for Sonarus)
+- `sound.rs` - Audio feedback system
+- `app_context.rs` - Active application detection
 
 ### Frontend Structure (src/)
 
@@ -80,14 +80,14 @@ Handy is a cross-platform desktop speech-to-text app built with Tauri 2.x (Rust 
 - `components/settings/` - Settings UI (35+ files)
 - `components/model-selector/` - Model management interface
 - `components/onboarding/` - First-run experience
-- `components/overlay/` - Recording overlay pill (REDESIGNED for Sonarus)
-- `components/history/` - Transcription history panel (NEW for Sonarus)
-- `components/sound/` - Audio feedback management (NEW for Sonarus)
+- `components/overlay/` - Recording overlay pill
+- `components/history/` - Transcription history panel
+- `components/sound/` - Audio feedback management
 - `hooks/useSettings.ts`, `useModels.ts` - State management hooks
-- `hooks/useHistory.ts` - History management hook (NEW for Sonarus)
-- `hooks/useSound.ts` - Sound feedback hook (NEW for Sonarus)
+- `hooks/useHistory.ts` - History management hook
+- `hooks/useSound.ts` - Sound feedback hook
 - `stores/settingsStore.ts` - Zustand store for settings
-- `stores/historyStore.ts` - Zustand store for history (NEW for Sonarus)
+- `stores/historyStore.ts` - Zustand store for history
 - `bindings.ts` - Auto-generated Tauri type bindings (via tauri-specta)
 - `overlay/` - Recording overlay window code functionality is organized into managers (Audio, Model, Transcription) that are initialized at startup and managed by Tauri's state system.
 
