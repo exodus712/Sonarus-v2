@@ -1,0 +1,17 @@
+{
+  "version": "2.9",
+  "children": [
+    {
+      "type": "frame",
+      "id": "Wut5g",
+      "x": -1184,
+      "y": -1078,
+      "name": "Frame 1",
+      "clip": true,
+      "width": "fill_container(800)",
+      "height": "fill_container(600)",
+      "fill": "#FFFFFF",
+      "layout": "none"
+    }
+  ]
+}
