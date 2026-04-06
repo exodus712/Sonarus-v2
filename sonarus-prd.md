@@ -146,7 +146,6 @@ A dedicated history panel that makes Sonarus feel like a serious tool. Every tra
 - Delete individual entries or clear all
 - Export: selected entries or full history as `.md` or `.csv`
 - History is stored in a local SQLite database (via Tauri's file system API)
-- History panel is accessible via keyboard shortcut from anywhere
 
 **UI Approach**
 

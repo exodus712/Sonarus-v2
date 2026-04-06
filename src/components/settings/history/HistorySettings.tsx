@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { readFile } from "@tauri-apps/plugin-fs";
-import { Check, Copy, FolderOpen, RotateCcw, Trash2 } from "lucide-react";
+import { Check, Copy, FolderOpen, RotateCcw, Trash2, Search, X } from "lucide-react";
 import AnimatedStar from "../../icons/AnimatedStar";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -78,16 +78,19 @@ export const HistorySettings: React.FC = () => {
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const entriesRef = useRef<HistoryEntry[]>([]);
   const loadingRef = useRef(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Keep ref in sync for use in IntersectionObserver callback
   useEffect(() => {
     entriesRef.current = entries;
   }, [entries]);
 
-  const loadPage = useCallback(async (cursor?: number) => {
+  const loadPage = useCallback(async (cursor?: number, query?: string) => {
     const isFirstPage = cursor === undefined;
     if (!isFirstPage && loadingRef.current) return;
     loadingRef.current = true;
@@ -95,16 +98,18 @@ export const HistorySettings: React.FC = () => {
     if (isFirstPage) setLoading(true);
 
     try {
-      const result = await commands.getHistoryEntries(
-        cursor ?? null,
-        PAGE_SIZE,
-      );
+      const result = query?.trim() 
+        ? await commands.searchHistoryEntries(query, cursor ?? null, PAGE_SIZE)
+        : await commands.getHistoryEntries(cursor ?? null, PAGE_SIZE);
+      
       if (result.status === "ok") {
         const { entries: newEntries, has_more } = result.data;
         setEntries((prev) =>
           isFirstPage ? newEntries : [...prev, ...newEntries],
         );
         setHasMore(has_more);
+      } else {
+        console.error("Search failed:", result.error);
       }
     } catch (error) {
       console.error("Failed to load history entries:", error);
@@ -116,8 +121,8 @@ export const HistorySettings: React.FC = () => {
 
   // Initial load
   useEffect(() => {
-    loadPage();
-  }, [loadPage]);
+    loadPage(undefined, searchQuery);
+  }, [loadPage, searchQuery]);
 
   // Infinite scroll via IntersectionObserver
   useEffect(() => {
@@ -132,7 +137,7 @@ export const HistorySettings: React.FC = () => {
         if (first.isIntersecting) {
           const lastEntry = entriesRef.current[entriesRef.current.length - 1];
           if (lastEntry) {
-            loadPage(lastEntry.id);
+            loadPage(lastEntry.id, searchQuery);
           }
         }
       },
@@ -141,7 +146,7 @@ export const HistorySettings: React.FC = () => {
 
     observer.observe(sentinel);
     return () => observer.disconnect();
-  }, [loading, hasMore, loadPage]);
+  }, [loading, hasMore, loadPage, searchQuery]);
 
   // Listen for new entries added from the transcription pipeline
   useEffect(() => {
@@ -162,6 +167,18 @@ export const HistorySettings: React.FC = () => {
       unlisten.then((fn) => fn());
     };
   }, []);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    setIsSearching(value.length > 0);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+    setIsSearching(false);
+    searchInputRef.current?.focus();
+  };
 
   const toggleSaved = async (id: number) => {
     // Optimistic update
@@ -247,6 +264,16 @@ export const HistorySettings: React.FC = () => {
     }
   };
 
+  const filteredEntries = searchQuery.trim()
+    ? entries.filter(
+        (entry) =>
+          entry.transcription_text
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          entry.title.toLowerCase().includes(searchQuery.toLowerCase()),
+      )
+    : entries;
+
   let content: React.ReactNode;
 
   if (loading) {
@@ -255,17 +282,17 @@ export const HistorySettings: React.FC = () => {
         {t("settings.history.loading")}
       </div>
     );
-  } else if (entries.length === 0) {
+  } else if (filteredEntries.length === 0) {
     content = (
       <div className="px-4 py-3 text-center text-text-secondary">
-        {t("settings.history.empty")}
+        {isSearching ? t("settings.history.noSearchResults") : t("settings.history.empty")}
       </div>
     );
   } else {
     content = (
       <>
         <div className="divide-y divide-mid-gray/20">
-          {entries.map((entry) => (
+          {filteredEntries.map((entry) => (
             <HistoryEntryComponent
               key={entry.id}
               entry={entry}
@@ -274,6 +301,7 @@ export const HistorySettings: React.FC = () => {
               getAudioUrl={getAudioUrl}
               deleteAudio={deleteAudioEntry}
               retryTranscription={retryHistoryEntry}
+              searchQuery={searchQuery}
             />
           ))}
         </div>
@@ -297,6 +325,28 @@ export const HistorySettings: React.FC = () => {
             label={t("settings.history.openFolder")}
           />
         </div>
+        {/* Search input */}
+        <div className="px-4">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+            <input
+              ref={searchInputRef}
+              type="text"
+              value={searchQuery}
+              onChange={handleSearch}
+              placeholder={t("settings.history.searchPlaceholder")}
+              className="w-full pl-10 pr-10 py-2 bg-bg-primary border border-border-primary rounded-lg text-sm text-text-primary placeholder:text-text-secondary focus:outline-none focus:ring-1 focus:ring-logo-primary"
+            />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-bg-secondary text-text-secondary hover:text-text-primary transition-colors"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+        </div>
         <div className="bg-background border border-mid-gray/20 rounded-lg overflow-visible">
           {content}
         </div>
@@ -312,6 +362,7 @@ interface HistoryEntryProps {
   getAudioUrl: (fileName: string) => Promise<string | null>;
   deleteAudio: (id: number) => Promise<void>;
   retryTranscription: (id: number) => Promise<void>;
+  searchQuery?: string;
 }
 
 const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
@@ -321,6 +372,7 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
   getAudioUrl,
   deleteAudio,
   retryTranscription,
+  searchQuery = "",
 }) => {
   const { t, i18n } = useTranslation();
   const [showCopied, setShowCopied] = useState(false);
@@ -329,6 +381,48 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
   const [starTap, setStarTap] = useState(false);
 
   const hasTranscription = entry.transcription_text.trim().length > 0;
+
+  // Function to highlight search matches in text
+  const highlightText = (text: string, query: string): React.ReactNode => {
+    if (!query.trim()) return text;
+    
+    const lowerText = text.toLowerCase();
+    const lowerQuery = query.toLowerCase();
+    const parts: React.ReactNode[] = [];
+    let lastIndex = 0;
+    let searchIndex = 0;
+    
+    while (true) {
+      const matchIndex = lowerText.indexOf(lowerQuery, searchIndex);
+      if (matchIndex === -1) break;
+      
+      // Add text before match
+      if (matchIndex > lastIndex) {
+        parts.push(text.slice(lastIndex, matchIndex));
+      }
+      
+      // Add highlighted match
+      const matchText = text.slice(matchIndex, matchIndex + query.length);
+      parts.push(
+        <mark 
+          key={matchIndex} 
+          className="bg-logo-primary/20 text-logo-primary rounded px-0.5"
+        >
+          {matchText}
+        </mark>
+      );
+      
+      lastIndex = matchIndex + query.length;
+      searchIndex = lastIndex;
+    }
+    
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+    
+    return parts;
+  };
 
   const handleLoadAudio = useCallback(
     () => getAudioUrl(entry.file_name),
@@ -456,7 +550,7 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
         {retrying
           ? t("settings.history.transcribing")
           : hasTranscription
-            ? entry.transcription_text
+            ? highlightText(entry.transcription_text, searchQuery)
             : t("settings.history.transcriptionFailed")}
       </p>
 

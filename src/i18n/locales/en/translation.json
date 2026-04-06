@@ -421,6 +421,8 @@
       "openFolder": "Open Recordings Folder",
       "loading": "Loading history...",
       "empty": "No transcriptions yet. Start recording to build your history!",
+      "searchPlaceholder": "Search transcriptions...",
+      "noSearchResults": "No transcriptions match your search.",
       "copyToClipboard": "Copy transcription to clipboard",
       "save": "Save transcription",
       "unsave": "Remove from saved",

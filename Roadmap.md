@@ -47,7 +47,6 @@ This roadmap outlines the development path for Sonarus from V1 launch through fu
   - Date separators and organization
   - Pin/star functionality
   - Export to .md and .csv formats
-  - Keyboard shortcut access from anywhere
 
 #### UI Refresh
 

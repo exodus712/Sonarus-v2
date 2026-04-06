@@ -504,6 +504,73 @@ impl HistoryManager {
         Ok(PaginatedHistory { entries, has_more })
     }
 
+    /// Search history entries by transcription text using full-text search.
+    /// Uses SQLite LIKE for pattern matching (case-insensitive).
+    pub async fn search_history_entries(
+        &self,
+        query: &str,
+        cursor: Option<i64>,
+        limit: Option<usize>,
+    ) -> Result<PaginatedHistory> {
+        let conn = self.get_connection()?;
+        let limit = limit.map(|l| l.min(100));
+        
+        // Sanitize the query for LIKE pattern (escape % and _)
+        let sanitized_query = query.replace('%', r"\%").replace('_', r"\_");
+        let pattern = format!("%{}%", sanitized_query);
+
+        let mut entries: Vec<HistoryEntry> = match (cursor, limit) {
+            (Some(cursor_id), Some(lim)) => {
+                let fetch_count = (lim + 1) as i64;
+                let mut stmt = conn.prepare(
+                    "SELECT id, file_name, timestamp, saved, title, transcription_text, post_processed_text, post_process_prompt, post_process_requested
+                     FROM transcription_history
+                     WHERE (transcription_text LIKE ?1 ESCAPE '\' OR title LIKE ?1 ESCAPE '\')
+                     AND id < ?2
+                     ORDER BY id DESC
+                     LIMIT ?3",
+                )?;
+                let result = stmt
+                    .query_map(params![pattern, cursor_id, fetch_count], Self::map_history_entry)?
+                    .collect::<std::result::Result<Vec<_>, _>>()?;
+                result
+            }
+            (None, Some(lim)) => {
+                let fetch_count = (lim + 1) as i64;
+                let mut stmt = conn.prepare(
+                    "SELECT id, file_name, timestamp, saved, title, transcription_text, post_processed_text, post_process_prompt, post_process_requested
+                     FROM transcription_history
+                     WHERE transcription_text LIKE ?1 ESCAPE '\' OR title LIKE ?1 ESCAPE '\'
+                     ORDER BY id DESC
+                     LIMIT ?2",
+                )?;
+                let result = stmt
+                    .query_map(params![pattern, fetch_count], Self::map_history_entry)?
+                    .collect::<std::result::Result<Vec<_>, _>>()?;
+                result
+            }
+            (_, None) => {
+                let mut stmt = conn.prepare(
+                    "SELECT id, file_name, timestamp, saved, title, transcription_text, post_processed_text, post_process_prompt, post_process_requested
+                     FROM transcription_history
+                     WHERE transcription_text LIKE ?1 ESCAPE '\' OR title LIKE ?1 ESCAPE '\'
+                     ORDER BY id DESC",
+                )?;
+                let result = stmt
+                    .query_map(params![pattern], Self::map_history_entry)?
+                    .collect::<std::result::Result<Vec<_>, _>>()?;
+                result
+            }
+        };
+
+        let has_more = limit.is_some_and(|lim| entries.len() > lim);
+        if has_more {
+            entries.pop();
+        }
+
+        Ok(PaginatedHistory { entries, has_more })
+    }
+
     #[cfg(test)]
     fn get_latest_entry_with_conn(conn: &Connection) -> Result<Option<HistoryEntry>> {
         let mut stmt = conn.prepare(
