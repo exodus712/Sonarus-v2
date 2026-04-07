@@ -514,7 +514,7 @@ impl HistoryManager {
     ) -> Result<PaginatedHistory> {
         let conn = self.get_connection()?;
         let limit = limit.map(|l| l.min(100));
-        
+
         // Sanitize the query for LIKE pattern (escape % and _)
         let sanitized_query = query.replace('%', r"\%").replace('_', r"\_");
         let pattern = format!("%{}%", sanitized_query);
@@ -531,7 +531,10 @@ impl HistoryManager {
                      LIMIT ?3",
                 )?;
                 let result = stmt
-                    .query_map(params![pattern, cursor_id, fetch_count], Self::map_history_entry)?
+                    .query_map(
+                        params![pattern, cursor_id, fetch_count],
+                        Self::map_history_entry,
+                    )?
                     .collect::<std::result::Result<Vec<_>, _>>()?;
                 result
             }

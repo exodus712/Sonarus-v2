@@ -1,7 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { readFile } from "@tauri-apps/plugin-fs";
-import { Check, Copy, FolderOpen, RotateCcw, Trash2, Search, X } from "lucide-react";
+import {
+  Check,
+  Copy,
+  FolderOpen,
+  RotateCcw,
+  Trash2,
+  Search,
+  X,
+} from "lucide-react";
 import AnimatedStar from "../../icons/AnimatedStar";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -98,10 +106,10 @@ export const HistorySettings: React.FC = () => {
     if (isFirstPage) setLoading(true);
 
     try {
-      const result = query?.trim() 
+      const result = query?.trim()
         ? await commands.searchHistoryEntries(query, cursor ?? null, PAGE_SIZE)
         : await commands.getHistoryEntries(cursor ?? null, PAGE_SIZE);
-      
+
       if (result.status === "ok") {
         const { entries: newEntries, has_more } = result.data;
         setEntries((prev) =>
@@ -285,7 +293,9 @@ export const HistorySettings: React.FC = () => {
   } else if (filteredEntries.length === 0) {
     content = (
       <div className="px-4 py-3 text-center text-text-secondary">
-        {isSearching ? t("settings.history.noSearchResults") : t("settings.history.empty")}
+        {isSearching
+          ? t("settings.history.noSearchResults")
+          : t("settings.history.empty")}
       </div>
     );
   } else {
@@ -385,42 +395,42 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
   // Function to highlight search matches in text
   const highlightText = (text: string, query: string): React.ReactNode => {
     if (!query.trim()) return text;
-    
+
     const lowerText = text.toLowerCase();
     const lowerQuery = query.toLowerCase();
     const parts: React.ReactNode[] = [];
     let lastIndex = 0;
     let searchIndex = 0;
-    
+
     while (true) {
       const matchIndex = lowerText.indexOf(lowerQuery, searchIndex);
       if (matchIndex === -1) break;
-      
+
       // Add text before match
       if (matchIndex > lastIndex) {
         parts.push(text.slice(lastIndex, matchIndex));
       }
-      
+
       // Add highlighted match
       const matchText = text.slice(matchIndex, matchIndex + query.length);
       parts.push(
-        <mark 
-          key={matchIndex} 
+        <mark
+          key={matchIndex}
           className="bg-logo-primary/20 text-logo-primary rounded px-0.5"
         >
           {matchText}
-        </mark>
+        </mark>,
       );
-      
+
       lastIndex = matchIndex + query.length;
       searchIndex = lastIndex;
     }
-    
+
     // Add remaining text
     if (lastIndex < text.length) {
       parts.push(text.slice(lastIndex));
     }
-    
+
     return parts;
   };
 
