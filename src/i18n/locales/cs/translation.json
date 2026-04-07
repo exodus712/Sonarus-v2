@@ -419,6 +419,8 @@
     "history": {
       "title": "Historie",
       "openFolder": "Otevřít složku nahrávek",
+      "searchPlaceholder": "Hledat v historii...",
+      "noSearchResults": "Nenalezeny žádné odpovídající položky historie",
       "loading": "Načítám historii...",
       "empty": "Zatím žádné přepisy. Začněte nahrávat a vytvořte si historii!",
       "copyToClipboard": "Kopírovat přepis do schránky",
@@ -492,6 +494,15 @@
         "title": "Implementace klávesnice",
         "description": "Zvolte backend pro klávesové zkratky.",
         "bindingsReset": "Klávesové zkratky byly nekompatibilní a byly obnoveny na výchozí hodnoty"
+      },
+      "transcribingVisualizer": {
+        "title": "Vizualizér přepisu",
+        "description": "Vyberte styl animace pro stav přepisu v překryvném okně.",
+        "options": {
+          "dots": "Tečky (pulzní vlna)",
+          "equalizer": "Mikro ekvalizér",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Data aplikace:",

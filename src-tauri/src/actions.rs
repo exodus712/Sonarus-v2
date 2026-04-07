@@ -547,6 +547,9 @@ impl ShortcutAction for TranscribeAction {
                                 transcription
                             );
 
+                            // Play completion sound after successful transcription
+                            play_feedback_sound(&ah, SoundType::Complete);
+
                             if post_process {
                                 show_processing_overlay(&ah);
                             }
@@ -594,6 +597,10 @@ impl ShortcutAction for TranscribeAction {
                         }
                         Err(err) => {
                             debug!("Global Shortcut Transcription error: {}", err);
+
+                            // Play error sound on transcription failure
+                            play_feedback_sound(&ah, SoundType::Error);
+
                             // Save entry with empty text so user can retry
                             if wav_saved {
                                 if let Err(save_err) = hm.save_entry(

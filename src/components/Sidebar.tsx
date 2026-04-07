@@ -168,6 +168,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           return (
             <div
               key={section.id}
+              data-testid={`sidebar-${section.id}`}
               className={`flex gap-2 items-center p-2 w-full rounded-lg cursor-pointer transition-colors ${
                 isActive
                   ? "bg-logo-primary/80"

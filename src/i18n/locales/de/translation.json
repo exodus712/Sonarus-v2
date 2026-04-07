@@ -419,6 +419,8 @@
     "history": {
       "title": "Verlauf",
       "openFolder": "Aufnahmeordner öffnen",
+      "searchPlaceholder": "Verlauf durchsuchen...",
+      "noSearchResults": "Keine passenden Verlaufseinträge",
       "loading": "Verlauf wird geladen...",
       "empty": "Noch keine Transkriptionen. Starte eine Aufnahme, um deinen Verlauf aufzubauen!",
       "copyToClipboard": "Transkription in Zwischenablage kopieren",
@@ -492,6 +494,15 @@
         "title": "Tastatur-Implementierung",
         "description": "Wähle das Backend für Tastaturkürzel.",
         "bindingsReset": "Tastaturkürzel waren inkompatibel und wurden auf die Standardwerte zurückgesetzt"
+      },
+      "transcribingVisualizer": {
+        "title": "Visualisierung beim Transkribieren",
+        "description": "Wählen Sie den Animationsstil für den Transkriptionsstatus im Overlay.",
+        "options": {
+          "dots": "Punkte (Pulswelle)",
+          "equalizer": "Mikro-Equalizer",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "App-Daten:",

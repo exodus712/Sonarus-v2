@@ -157,6 +157,8 @@ const settingUpdaters: {
   //   commands.changeOrtAcceleratorSetting(value as OrtAcceleratorSetting),
   extra_recording_buffer_ms: (value) =>
     commands.changeExtraRecordingBufferSetting(value as number),
+  transcribing_visualizer: (value) =>
+    commands.changeTranscribingVisualizerSetting(value as string),
 };
 
 export const useSettingsStore = create<SettingsStore>()(

@@ -419,6 +419,8 @@
     "history": {
       "title": "歷史紀錄",
       "openFolder": "開啟錄音資料夾",
+      "searchPlaceholder": "搜尋歷史紀錄...",
+      "noSearchResults": "沒有符合的歷史紀錄",
       "loading": "載入歷史紀錄中...",
       "empty": "還沒有轉錄紀錄。開始錄製以建立您的歷史紀錄！",
       "copyToClipboard": "複製轉錄到剪貼簿",
@@ -492,6 +494,15 @@
         "title": "鍵盤實作",
         "description": "選擇鍵盤快捷鍵的後端",
         "bindingsReset": "鍵盤快捷鍵不相容，已重設為預設值"
+      },
+      "transcribingVisualizer": {
+        "title": "轉錄視覺化器",
+        "description": "選擇覆蓋層中轉錄狀態的動畫樣式。",
+        "options": {
+          "dots": "圓點（脈衝波）",
+          "equalizer": "微型等化器",
+          "gradient": "極光"
+        }
       },
       "paths": {
         "appData": "應用程式資料:",

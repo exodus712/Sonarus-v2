@@ -419,6 +419,8 @@
     "history": {
       "title": "Lịch sử",
       "openFolder": "Mở thư mục ghi âm",
+      "searchPlaceholder": "Tìm kiếm lịch sử...",
+      "noSearchResults": "Không có mục lịch sử phù hợp",
       "loading": "Đang tải lịch sử...",
       "empty": "Chưa có bản ghi nào. Bắt đầu ghi âm để xây dựng lịch sử của bạn!",
       "copyToClipboard": "Sao chép bản ghi vào clipboard",
@@ -492,6 +494,15 @@
         "title": "Triển khai bàn phím",
         "description": "Chọn hệ thống xử lý phím tắt.",
         "bindingsReset": "Các phím tắt không tương thích và đã được đặt lại về mặc định"
+      },
+      "transcribingVisualizer": {
+        "title": "Trình hiển thị phiên âm",
+        "description": "Chọn kiểu hoạt ảnh cho trạng thái đang phiên âm trong lớp phủ.",
+        "options": {
+          "dots": "Các chấm (sóng xung)",
+          "equalizer": "Bộ cân bằng mini",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Dữ liệu ứng dụng:",

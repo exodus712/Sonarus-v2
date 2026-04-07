@@ -419,6 +419,8 @@
     "history": {
       "title": "History",
       "openFolder": "Open Recordings Folder",
+      "searchPlaceholder": "Search history...",
+      "noSearchResults": "No matching history entries",
       "loading": "Loading history...",
       "empty": "No transcriptions yet. Start recording to build your history!",
       "searchPlaceholder": "Search transcriptions...",
@@ -494,6 +496,15 @@
         "title": "Keyboard Implementation",
         "description": "Choose the keyboard shortcut backend.",
         "bindingsReset": "Keyboard shortcuts were incompatible and reset to defaults"
+      },
+      "transcribingVisualizer": {
+        "title": "Transcribing Visualizer",
+        "description": "Choose the animation style for the transcribing state in the overlay.",
+        "options": {
+          "dots": "Dots (Pulse Wave)",
+          "equalizer": "Micro Equalizer",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "App Data:",

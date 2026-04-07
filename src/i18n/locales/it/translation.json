@@ -419,6 +419,8 @@
     "history": {
       "title": "Cronologia",
       "openFolder": "Apri la cartella delle registrazioni",
+      "searchPlaceholder": "Cerca nella cronologia...",
+      "noSearchResults": "Nessuna voce della cronologia corrispondente",
       "loading": "Caricamento cronologia...",
       "empty": "Non ci sono ancora trascrizioni. Comincia a registrare per costruire la tua cronologia!",
       "copyToClipboard": "Copia la trascrizione negli appunti",
@@ -492,6 +494,15 @@
         "title": "Implementazione tastiera",
         "description": "Scegli il backend per le scorciatoie da tastiera.",
         "bindingsReset": "Le scorciatoie da tastiera erano incompatibili e sono state ripristinate ai valori predefiniti"
+      },
+      "transcribingVisualizer": {
+        "title": "Visualizzatore di trascrizione",
+        "description": "Scegli lo stile di animazione per lo stato di trascrizione nell'overlay.",
+        "options": {
+          "dots": "Punti (onda pulsante)",
+          "equalizer": "Micro equalizzatore",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Dati App:",

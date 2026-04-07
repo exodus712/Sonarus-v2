@@ -9,39 +9,120 @@ use std::path::{Path, PathBuf};
 use std::thread;
 use tauri::{AppHandle, Manager};
 
+#[derive(Clone, Copy, Debug)]
 pub enum SoundType {
     Start,
     Stop,
+    Complete,
+    Error,
 }
+
+const DEFAULT_START_SOUND: &str = "resources/marimba_start.wav";
+const DEFAULT_STOP_SOUND: &str = "resources/marimba_stop.wav";
 
 fn resolve_sound_path(
     app: &AppHandle,
     settings: &AppSettings,
     sound_type: SoundType,
 ) -> Option<PathBuf> {
-    let sound_file = get_sound_path(settings, sound_type);
-    let base_dir = get_sound_base_dir(settings);
+    let candidates = get_sound_path_candidates(settings, sound_type);
+    let primary = candidates.first()?.clone();
+
+    for candidate in candidates {
+        let Some(path) = resolve_candidate_path(app, settings, &candidate) else {
+            continue;
+        };
+
+        if path.is_file() {
+            if candidate != primary {
+                warn!(
+                    "Sound file '{}' is missing for {:?}. Falling back to '{}'",
+                    primary, settings.sound_theme, candidate
+                );
+            }
+            return Some(path);
+        }
+    }
+
+    warn!(
+        "No usable sound file found for {:?} ({:?}). Checked '{}'",
+        settings.sound_theme, sound_type, primary
+    );
+    None
+}
+
+fn resolve_candidate_path(
+    app: &AppHandle,
+    settings: &AppSettings,
+    sound_file: &str,
+) -> Option<PathBuf> {
+    let base_dir = match settings.sound_theme {
+        SoundTheme::Custom if !sound_file.starts_with("resources/") => {
+            tauri::path::BaseDirectory::AppData
+        }
+        _ => tauri::path::BaseDirectory::Resource,
+    };
+
     match base_dir {
         tauri::path::BaseDirectory::AppData => {
-            crate::portable::resolve_app_data(app, &sound_file).ok()
+            crate::portable::resolve_app_data(app, sound_file).ok()
         }
-        _ => app.path().resolve(&sound_file, base_dir).ok(),
+        _ => app.path().resolve(sound_file, base_dir).ok(),
     }
 }
 
 fn get_sound_path(settings: &AppSettings, sound_type: SoundType) -> String {
+    get_sound_path_candidates(settings, sound_type)
+        .into_iter()
+        .next()
+        .unwrap_or_else(|| fallback_sound_path(sound_type).to_string())
+}
+
+fn get_sound_path_candidates(settings: &AppSettings, sound_type: SoundType) -> Vec<String> {
     match (settings.sound_theme, sound_type) {
-        (SoundTheme::Custom, SoundType::Start) => "custom_start.wav".to_string(),
-        (SoundTheme::Custom, SoundType::Stop) => "custom_stop.wav".to_string(),
-        (_, SoundType::Start) => settings.sound_theme.to_start_path(),
-        (_, SoundType::Stop) => settings.sound_theme.to_stop_path(),
+        (SoundTheme::Custom, SoundType::Start) => vec![
+            "custom_start.wav".to_string(),
+            DEFAULT_START_SOUND.to_string(),
+        ],
+        (SoundTheme::Custom, SoundType::Stop) => vec![
+            "custom_stop.wav".to_string(),
+            DEFAULT_STOP_SOUND.to_string(),
+        ],
+        (SoundTheme::Custom, SoundType::Complete) => vec![
+            "custom_complete.wav".to_string(),
+            "custom_stop.wav".to_string(),
+            DEFAULT_STOP_SOUND.to_string(),
+        ],
+        (SoundTheme::Custom, SoundType::Error) => vec![
+            "custom_error.wav".to_string(),
+            "custom_stop.wav".to_string(),
+            DEFAULT_STOP_SOUND.to_string(),
+        ],
+        (_, SoundType::Start) => vec![
+            settings.sound_theme.to_start_path(),
+            DEFAULT_START_SOUND.to_string(),
+        ],
+        (_, SoundType::Stop) => vec![
+            settings.sound_theme.to_stop_path(),
+            DEFAULT_STOP_SOUND.to_string(),
+        ],
+        (_, SoundType::Complete) => vec![
+            settings.sound_theme.to_complete_path(),
+            settings.sound_theme.to_stop_path(),
+            DEFAULT_STOP_SOUND.to_string(),
+        ],
+        (_, SoundType::Error) => vec![
+            settings.sound_theme.to_error_path(),
+            settings.sound_theme.to_stop_path(),
+            DEFAULT_STOP_SOUND.to_string(),
+        ],
     }
 }
 
-fn get_sound_base_dir(settings: &AppSettings) -> tauri::path::BaseDirectory {
-    match settings.sound_theme {
-        SoundTheme::Custom => tauri::path::BaseDirectory::AppData,
-        _ => tauri::path::BaseDirectory::Resource,
+fn fallback_sound_path(sound_type: SoundType) -> &'static str {
+    match sound_type {
+        SoundType::Start => DEFAULT_START_SOUND,
+        SoundType::Stop | SoundType::Complete | SoundType::Error => DEFAULT_STOP_SOUND,
     }
 }
 
@@ -139,4 +220,33 @@ fn play_audio_file(
     sink.sleep_until_end();
 
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn default_complete_sound_has_an_existing_fallback_resource() {
+        let settings = crate::settings::get_default_settings();
+        let paths = get_sound_path_candidates(&settings, SoundType::Complete);
+
+        assert!(
+            paths.iter().any(|path| Path::new(path).exists()),
+            "expected at least one complete sound candidate to exist: {:?}",
+            paths
+        );
+    }
+
+    #[test]
+    fn default_error_sound_has_an_existing_fallback_resource() {
+        let settings = crate::settings::get_default_settings();
+        let paths = get_sound_path_candidates(&settings, SoundType::Error);
+
+        assert!(
+            paths.iter().any(|path| Path::new(path).exists()),
+            "expected at least one error sound candidate to exist: {:?}",
+            paths
+        );
+    }
 }

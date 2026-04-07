@@ -419,6 +419,8 @@
     "history": {
       "title": "履歴",
       "openFolder": "録音フォルダを開く",
+      "searchPlaceholder": "履歴を検索...",
+      "noSearchResults": "一致する履歴エントリーがありません",
       "loading": "履歴を読み込み中...",
       "empty": "まだ文字起こしがありません。録音を開始して履歴を作成しましょう！",
       "copyToClipboard": "文字起こしをクリップボードにコピー",
@@ -492,6 +494,15 @@
         "title": "キーボード実装",
         "description": "キーボードショートカットのバックエンドを選択してください。",
         "bindingsReset": "キーボードショートカットに互換性がなかったため、デフォルトにリセットされました"
+      },
+      "transcribingVisualizer": {
+        "title": "文字起こしビジュアライザー",
+        "description": "オーバーレイの文字起こし状態で表示するアニメーションスタイルを選択します。",
+        "options": {
+          "dots": "ドット（パルスウェーブ）",
+          "equalizer": "マイクロイコライザー",
+          "gradient": "オーロラ"
+        }
       },
       "paths": {
         "appData": "アプリデータ:",

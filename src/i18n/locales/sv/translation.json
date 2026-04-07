@@ -419,6 +419,8 @@
     "history": {
       "title": "Historik",
       "openFolder": "Öppna mapp för inspelningar",
+      "searchPlaceholder": "Sök i historiken...",
+      "noSearchResults": "Inga matchande historikposter",
       "loading": "Laddar historik...",
       "empty": "Inga transkriptioner ännu. Börja spela in för att bygga upp din historik!",
       "copyToClipboard": "Kopiera transkription till urklipp",
@@ -492,6 +494,15 @@
         "title": "Tangentbordsimplementering",
         "description": "Välj tangentbordsgenvägens implementation.",
         "bindingsReset": "Kortkommandona var inkompatibla och återställdes till standardvärden"
+      },
+      "transcribingVisualizer": {
+        "title": "Visualiserare för transkribering",
+        "description": "Välj animationsstil för transkriberingsläget i överlägget.",
+        "options": {
+          "dots": "Punkter (pulsvåg)",
+          "equalizer": "Mikro-equalizer",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Appdata:",

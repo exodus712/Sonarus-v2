@@ -23,7 +23,7 @@ use tauri_plugin_autostart::ManagerExt;
 use crate::settings::APPLE_INTELLIGENCE_DEFAULT_MODEL_ID;
 use crate::settings::{
     self, get_settings, AutoSubmitKey, ClipboardHandling, KeyboardImplementation, LLMPrompt,
-    OverlayPosition, PasteMethod, ShortcutBinding, SoundTheme, TypingTool,
+    OverlayPosition, PasteMethod, ShortcutBinding, SoundTheme, TranscribingVisualizer, TypingTool,
     APPLE_INTELLIGENCE_PROVIDER_ID,
 };
 use crate::tray;
@@ -1083,6 +1083,36 @@ pub fn change_show_tray_icon_setting(app: AppHandle, enabled: bool) -> Result<()
 
     // Apply change immediately
     tray::set_tray_visibility(&app, enabled);
+
+    Ok(())
+}
+
+#[tauri::command]
+#[specta::specta]
+pub fn change_transcribing_visualizer_setting(
+    app: AppHandle,
+    visualizer: String,
+) -> Result<(), String> {
+    let mut settings = settings::get_settings(&app);
+    let valid_visualizer = TranscribingVisualizer::from_str(&visualizer).unwrap_or_else(|| {
+        warn!(
+            "Invalid transcribing visualizer '{}', defaulting to {}",
+            visualizer,
+            TranscribingVisualizer::default().as_str()
+        );
+        TranscribingVisualizer::default()
+    });
+    let visualizer_value = valid_visualizer.as_str().to_string();
+    settings.transcribing_visualizer = valid_visualizer;
+    settings::write_settings(&app, settings);
+
+    // Emit event to notify overlay of visualizer change
+    let _ = app.emit(
+        "transcribing-visualizer-changed",
+        serde_json::json!({
+            "visualizer": visualizer_value
+        }),
+    );
 
     Ok(())
 }

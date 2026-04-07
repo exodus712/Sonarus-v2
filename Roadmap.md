@@ -17,12 +17,13 @@ This roadmap outlines the development path for Sonarus from V1 launch through fu
 - **Timeline**: Complete by April 2026
 - **Owner**: Frontend Team
 - **Deliverables**:
-  - Floating pill shape with three distinct states (idle, recording, transcribing)
+  - Floating pill shape with three distinct states (recording, transcribing, processing)
   - Live audio waveform visualization during recording
-  - Smooth morphing transitions between states (≤ 300ms)
-  - Configurable positioning (top-center, bottom-center, corners)
-  - Respects system reduced motion preferences
+  - Animated transcribing dots (sequential pulse wave, 3 dots scaling 0.6→1.0)
+  - Smooth fade transitions between states (≤ 300ms)
+  - Configurable positioning (top-center, bottom-center only)
   - Always on top, never steals focus
+  - **Note**: Corner positioning, reduced motion support, and idle state deferred post-V1
 
 #### Sound Design System
 

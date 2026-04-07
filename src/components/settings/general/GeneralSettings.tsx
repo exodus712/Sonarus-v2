@@ -11,6 +11,7 @@ import { VolumeSlider } from "../VolumeSlider";
 import { MuteWhileRecording } from "../MuteWhileRecording";
 import { ModelSettingsCard } from "./ModelSettingsCard";
 import { ThemeSettings } from "./ThemeSettings";
+import { SoundPicker } from "../SoundPicker";
 
 export const GeneralSettings: React.FC = () => {
   const { t } = useTranslation();
@@ -27,6 +28,10 @@ export const GeneralSettings: React.FC = () => {
         <MicrophoneSelector descriptionMode="tooltip" grouped={true} />
         <MuteWhileRecording descriptionMode="tooltip" grouped={true} />
         <AudioFeedback descriptionMode="tooltip" grouped={true} />
+        <SoundPicker
+          label={t("settings.sound.theme.label")}
+          description={t("settings.sound.theme.description")}
+        />
         <OutputDeviceSelector
           descriptionMode="tooltip"
           grouped={true}

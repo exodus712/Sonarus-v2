@@ -419,6 +419,8 @@
     "history": {
       "title": "Historial",
       "openFolder": "Abrir Carpeta de Grabaciones",
+      "searchPlaceholder": "Buscar en el historial...",
+      "noSearchResults": "No hay entradas del historial que coincidan",
       "loading": "Cargando historial...",
       "empty": "Aún no hay transcripciones. ¡Comienza a grabar para crear tu historial!",
       "copyToClipboard": "Copiar transcripción al portapapeles",
@@ -492,6 +494,15 @@
         "title": "Implementación del teclado",
         "description": "Elige el sistema que gestiona los atajos de teclado.",
         "bindingsReset": "Los atajos de teclado eran incompatibles y se restablecieron a los valores predeterminados"
+      },
+      "transcribingVisualizer": {
+        "title": "Visualizador de transcripción",
+        "description": "Elige el estilo de animación para el estado de transcripción en la superposición.",
+        "options": {
+          "dots": "Puntos (onda pulsante)",
+          "equalizer": "Microecualizador",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Datos de la Aplicación:",

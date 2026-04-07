@@ -419,6 +419,8 @@
     "history": {
       "title": "Historia",
       "openFolder": "Otwórz folder nagrań",
+      "searchPlaceholder": "Szukaj w historii...",
+      "noSearchResults": "Brak pasujących wpisów historii",
       "loading": "Wczytywanie historii...",
       "empty": "Brak transkrypcji. Rozpocznij nagrywanie, aby zbudować historię!",
       "copyToClipboard": "Kopiuj transkrypcję do schowka",
@@ -492,6 +494,15 @@
         "title": "Implementacja klawiatury",
         "description": "Wybierz backend dla skrótów klawiaturowych.",
         "bindingsReset": "Skróty klawiaturowe były niekompatybilne i zostały zresetowane do wartości domyślnych"
+      },
+      "transcribingVisualizer": {
+        "title": "Wizualizator transkrypcji",
+        "description": "Wybierz styl animacji dla stanu transkrypcji w nakładce.",
+        "options": {
+          "dots": "Kropki (fala pulsacyjna)",
+          "equalizer": "Mikro korektor",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Dane aplikacji:",

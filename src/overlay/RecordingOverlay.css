@@ -5,7 +5,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 6px;
-  background: #000000cc;
+  background: #000000;
   border-radius: 18px;
   opacity: 0;
   transition: opacity 300ms ease-out;
@@ -52,22 +52,73 @@
   opacity: 1;
 }
 
+.transcribing-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 24px;
+  margin-inline-start: -2px;
+  margin-top: 1px;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  background: #ffe5ee;
+  border-radius: 50%;
+  animation: dot-pulse 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 150ms;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 300ms;
+}
+
+.dot:nth-child(4) {
+  animation-delay: 450ms;
+}
+
+.dot:nth-child(5) {
+  animation-delay: 600ms;
+}
+
+.dot:nth-child(6) {
+  animation-delay: 750ms;
+}
+
+.dot:nth-child(7) {
+  animation-delay: 900ms;
+}
+
+.dot:nth-child(8) {
+  animation-delay: 1050ms;
+}
+
+@keyframes dot-pulse {
+  0%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .transcribing-text {
   color: white;
   font-size: 12px;
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  animation: transcribing-pulse 1.5s infinite ease-in-out;
-}
-
-@keyframes transcribing-pulse {
-  0%,
-  100% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
 }
 
 .cancel-button {
@@ -92,4 +143,149 @@
 
 .cancel-button:active {
   transform: scale(0.95);
+}
+
+/* Transcribing Visualizer Variants */
+
+/* Center-line Equalizer */
+.transcribing-equalizer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 24px;
+  margin-inline-start: -2px;
+}
+
+.eq-bar-container {
+  width: 3px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.eq-bar {
+  width: 3px;
+  background: #ffe5ee;
+  border-radius: 1.5px;
+  height: 4px;
+  animation: eq-bounce 0.8s infinite ease-in-out;
+}
+
+.eq-bar-container:nth-child(1) .eq-bar {
+  animation-delay: 0ms;
+}
+.eq-bar-container:nth-child(2) .eq-bar {
+  animation-delay: 100ms;
+}
+.eq-bar-container:nth-child(3) .eq-bar {
+  animation-delay: 200ms;
+}
+.eq-bar-container:nth-child(4) .eq-bar {
+  animation-delay: 300ms;
+}
+.eq-bar-container:nth-child(5) .eq-bar {
+  animation-delay: 400ms;
+}
+.eq-bar-container:nth-child(6) .eq-bar {
+  animation-delay: 500ms;
+}
+.eq-bar-container:nth-child(7) .eq-bar {
+  animation-delay: 600ms;
+}
+.eq-bar-container:nth-child(8) .eq-bar {
+  animation-delay: 700ms;
+}
+.eq-bar-container:nth-child(9) .eq-bar {
+  animation-delay: 800ms;
+}
+.eq-bar-container:nth-child(10) .eq-bar {
+  animation-delay: 900ms;
+}
+.eq-bar-container:nth-child(11) .eq-bar {
+  animation-delay: 1000ms;
+}
+.eq-bar-container:nth-child(12) .eq-bar {
+  animation-delay: 1100ms;
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    height: 4px;
+    opacity: 0.4;
+  }
+  50% {
+    height: 18px;
+    opacity: 1;
+  }
+}
+
+/* Aurora visualizer - CSS-based flowing energy */
+.transcribing-gradient {
+  width: 48px;
+  height: 20px;
+  margin-inline-start: -2px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+@keyframes aurora-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scaleX(0.9);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scaleX(1.1);
+  }
+}
+
+@keyframes aurora-flow {
+  0%,
+  100% {
+    transform: translateX(-10%) scaleY(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(10%) scaleY(1.2);
+    opacity: 0.9;
+  }
+}
+
+@keyframes aurora-flow-reverse {
+  0%,
+  100% {
+    transform: translateX(10%) scaleY(1.1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateX(-10%) scaleY(0.9);
+    opacity: 0.7;
+  }
+}
+
+@keyframes aurora-center {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) scaleY(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot,
+  .eq-bar,
+  .transcribing-gradient {
+    animation: none !important;
+    animation-delay: 0 !important;
+  }
 }

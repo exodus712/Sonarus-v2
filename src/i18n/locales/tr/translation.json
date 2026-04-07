@@ -419,6 +419,8 @@
     "history": {
       "title": "Geçmiş",
       "openFolder": "Kayıtlar Klasörünü Aç",
+      "searchPlaceholder": "Geçmişte ara...",
+      "noSearchResults": "Eşleşen geçmiş kaydı yok",
       "loading": "Geçmiş yükleniyor...",
       "empty": "Henüz transkripsiyon yok. Geçmişinizi oluşturmak için kayda başlayın!",
       "copyToClipboard": "Transkripsiyonu panoya kopyala",
@@ -492,6 +494,15 @@
         "title": "Klavye Uygulaması",
         "description": "Klavye kısayolları için kullanılacak altyapıyı seçin.",
         "bindingsReset": "Klavye kısayolları uyumsuzdu ve varsayılan ayarlara sıfırlandı"
+      },
+      "transcribingVisualizer": {
+        "title": "Yazıya dökme görselleştiricisi",
+        "description": "Kaplamadaki yazıya dökme durumu için animasyon stilini seçin.",
+        "options": {
+          "dots": "Noktalar (Atımlı Dalga)",
+          "equalizer": "Mikro ekolayzır",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Uygulama Verileri:",

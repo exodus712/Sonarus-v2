@@ -419,6 +419,8 @@
     "history": {
       "title": "Histórico",
       "openFolder": "Abrir Pasta de Gravações",
+      "searchPlaceholder": "Pesquisar no histórico...",
+      "noSearchResults": "Nenhuma entrada do histórico correspondente",
       "loading": "Carregando histórico...",
       "empty": "Nenhuma transcrição ainda. Comece a gravar para construir seu histórico!",
       "copyToClipboard": "Copiar transcrição para área de transferência",
@@ -492,6 +494,15 @@
         "title": "Implementação do Teclado",
         "description": "Escolha o sistema responsável pelos atalhos de teclado.",
         "bindingsReset": "Os atalhos de teclado eram incompatíveis e foram redefinidos para os padrões"
+      },
+      "transcribingVisualizer": {
+        "title": "Visualizador de transcrição",
+        "description": "Escolha o estilo de animação para o estado de transcrição na sobreposição.",
+        "options": {
+          "dots": "Pontos (onda pulsante)",
+          "equalizer": "Micro equalizador",
+          "gradient": "Aurora"
+        }
       },
       "paths": {
         "appData": "Dados do App:",

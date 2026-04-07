@@ -8,11 +8,13 @@ import { useThemeValue } from "../../hooks/useTheme";
 interface ThemeToggleProps {
   descriptionMode?: "tooltip" | "inline";
   grouped?: boolean;
+  "data-testid"?: string;
 }
 
 const ThemeToggle: React.FC<ThemeToggleProps> = ({
   descriptionMode = "tooltip",
   grouped = false,
+  "data-testid": dataTestId,
 }) => {
   const { t } = useTranslation();
   const { theme, setTheme } = useThemeValue();
@@ -38,6 +40,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
         selectedValue={theme}
         onSelect={(value) => setTheme(value as "system" | "light" | "dark")}
         placeholder={t("settings.theme.title", "Theme")}
+        data-testid={dataTestId}
       />
     </SettingContainer>
   );
