@@ -7,9 +7,14 @@ type TranslationData = Record<string, unknown>;
 
 const localesDir = path.join(process.cwd(), "src", "i18n", "locales");
 const referenceLanguage = "en";
-const requiredHistorySearchKeys = [
+const requiredTranslationKeys = [
   ["settings", "history", "searchPlaceholder"],
   ["settings", "history", "noSearchResults"],
+  ["settings", "advanced", "transcribingVisualizer", "title"],
+  ["settings", "advanced", "transcribingVisualizer", "description"],
+  ["settings", "advanced", "transcribingVisualizer", "options", "dots"],
+  ["settings", "advanced", "transcribingVisualizer", "options", "equalizer"],
+  ["settings", "advanced", "transcribingVisualizer", "options", "gradient"],
 ];
 
 function getAllKeyPaths(
@@ -60,7 +65,7 @@ function loadTranslation(lang: string): TranslationData {
 }
 
 describe("translation locales", () => {
-  it("includes the required history search keys in English and every locale", () => {
+  it("includes the required translation keys in English and every locale", () => {
     const languages = fs
       .readdirSync(localesDir, { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
@@ -70,7 +75,7 @@ describe("translation locales", () => {
     const missingByLanguage = languages
       .map((lang) => {
         const langData = loadTranslation(lang);
-        const missing = requiredHistorySearchKeys
+        const missing = requiredTranslationKeys
           .filter((keyPath) => !hasKeyPath(langData, keyPath))
           .map((keyPath) => keyPath.join("."));
 

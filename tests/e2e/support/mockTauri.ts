@@ -43,7 +43,7 @@ const mockedSettings = {
       default_binding: "Ctrl+Shift+Space",
     },
   },
-  external_script_path: "",
+  external_script_path: null,
   selected_microphone: "Default",
   selected_output_device: "Default",
   sound_theme: "marimba",

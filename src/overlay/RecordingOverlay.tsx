@@ -38,11 +38,11 @@ const RecordingOverlay: React.FC = () => {
     const setupEventListeners = async () => {
       // Listen for show-overlay event from Rust
       const unlistenShow = await listen("show-overlay", async (event) => {
-        // Sync language from settings each time overlay is shown
-        await syncLanguageFromSettings();
         if (isDisposed) {
           return;
         }
+        // Sync language from settings each time overlay is shown
+        await syncLanguageFromSettings();
         const overlayState = event.payload as OverlayState;
         runIfMounted(() => {
           setState(overlayState);

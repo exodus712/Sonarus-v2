@@ -1,7 +1,7 @@
 import { act, render, waitFor } from "@testing-library/react";
 import React from "react";
+import { mockedUseState, setStateCalls } from "../support/mockedReactUseState";
 
-const setStateCalls: unknown[] = [];
 const eventHandlers = new Map<string, (event: any) => unknown>();
 
 jest.mock("react", () => {
@@ -11,14 +11,7 @@ jest.mock("react", () => {
     __esModule: true,
     ...actual,
     default: actual,
-    useState: <T,>(initialState: T | (() => T)) => {
-      const [value, setValue] = actual.useState(initialState);
-      const trackedSetter: typeof setValue = (nextValue) => {
-        setStateCalls.push(nextValue);
-        return setValue(nextValue);
-      };
-      return [value, trackedSetter] as const;
-    },
+    useState: mockedUseState,
   };
 });
 
@@ -99,7 +92,7 @@ describe("RecordingOverlay", () => {
       });
     });
 
-    expect(syncLanguageFromSettings).toHaveBeenCalledTimes(1);
+    expect(syncLanguageFromSettings).not.toHaveBeenCalled();
     expect(setStateCalls).toEqual([]);
   });
 });

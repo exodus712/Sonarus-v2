@@ -30,7 +30,7 @@ describe("AgentAudioVisualizerAura", () => {
     shaderToySpy.mockClear();
   });
 
-  it("passes every GLSL uniform used by the aura shader", () => {
+  it("passes the complete aura shader uniform set", () => {
     render(
       <AgentAudioVisualizerAura
         size="sm"
@@ -46,12 +46,28 @@ describe("AgentAudioVisualizerAura", () => {
       [{ uniforms: Record<string, { type: string; value: unknown }> }],
     ];
 
+    expect(Object.keys(uniforms).sort()).toEqual(
+      [
+        "uAmplitude",
+        "uBloom",
+        "uBlur",
+        "uColor",
+        "uColorShift",
+        "uFrequency",
+        "uMix",
+        "uMode",
+        "uScale",
+        "uShape",
+        "uSpacing",
+        "uSmoothing",
+        "uSpeed",
+        "uVariance",
+      ].sort(),
+    );
     expect(uniforms.uVariance).toEqual({ type: "1f", value: 0.15 });
     expect(uniforms.uSmoothing).toEqual({ type: "1f", value: 0.5 });
     expect(uniforms.uColorShift).toEqual({ type: "1f", value: 0.25 });
     expect(uniforms.uMode).toEqual({ type: "1f", value: 1.0 });
-    expect(uniforms).not.toHaveProperty("uShift");
-    expect(uniforms).not.toHaveProperty("uLight");
   });
 
   it("does not include gap utility classes in size variants", () => {

@@ -7,40 +7,23 @@ import type { Page } from "@playwright/test";
 import { mockTauriBridge } from "./mockTauri";
 
 type InitScript = (args: Record<string, unknown>) => Promise<void>;
+type TauriWindow = Window & {
+  __TAURI_INTERNALS__?: {
+    invoke: (cmd: string) => Promise<unknown>;
+  };
+  __TAURI_EVENT_PLUGIN_INTERNALS__?: unknown;
+  __TAURI_OS_PLUGIN_INTERNALS__?: unknown;
+};
 
 function getBridgeInternals() {
-  return (
-    window as Window & {
-      __TAURI_INTERNALS__?: {
-        invoke: (cmd: string) => Promise<unknown>;
-      };
-    }
-  ).__TAURI_INTERNALS__;
+  return (window as TauriWindow).__TAURI_INTERNALS__;
 }
 
 describe("mockTauriBridge", () => {
   afterEach(() => {
-    delete (
-      window as Window & {
-        __TAURI_INTERNALS__?: unknown;
-        __TAURI_EVENT_PLUGIN_INTERNALS__?: unknown;
-        __TAURI_OS_PLUGIN_INTERNALS__?: unknown;
-      }
-    ).__TAURI_INTERNALS__;
-    delete (
-      window as Window & {
-        __TAURI_INTERNALS__?: unknown;
-        __TAURI_EVENT_PLUGIN_INTERNALS__?: unknown;
-        __TAURI_OS_PLUGIN_INTERNALS__?: unknown;
-      }
-    ).__TAURI_EVENT_PLUGIN_INTERNALS__;
-    delete (
-      window as Window & {
-        __TAURI_INTERNALS__?: unknown;
-        __TAURI_EVENT_PLUGIN_INTERNALS__?: unknown;
-        __TAURI_OS_PLUGIN_INTERNALS__?: unknown;
-      }
-    ).__TAURI_OS_PLUGIN_INTERNALS__;
+    delete (window as TauriWindow).__TAURI_INTERNALS__;
+    delete (window as TauriWindow).__TAURI_EVENT_PLUGIN_INTERNALS__;
+    delete (window as TauriWindow).__TAURI_OS_PLUGIN_INTERNALS__;
   });
 
   async function initializeBridge() {
@@ -92,9 +75,9 @@ describe("mockTauriBridge", () => {
       "get_available_output_devices",
     )) as Array<{ name: string }>;
 
-    expect(settings.external_script_path).toBe("");
+    expect(settings.external_script_path).toBeNull();
     expect(settings.transcribing_visualizer).toBe("dots");
-    expect(defaultSettings.external_script_path).toBe("");
+    expect(defaultSettings.external_script_path).toBeNull();
     expect(defaultSettings.transcribing_visualizer).toBe("dots");
     expect(hasModels).toBe(true);
     expect(availableModels.length).toBeGreaterThan(0);
