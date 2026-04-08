@@ -1,14 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { MicrophoneSelector } from "../MicrophoneSelector";
-import { ShortcutInput } from "../ShortcutInput";
+import { MicrophoneSelector } from "../audio/MicrophoneSelector";
+import { ShortcutInput } from "../shortcuts/ShortcutInput";
 import { SettingsGroup } from "../../ui/SettingsGroup";
-import { OutputDeviceSelector } from "../OutputDeviceSelector";
-import { PushToTalk } from "../PushToTalk";
-import { AudioFeedback } from "../AudioFeedback";
+import { OutputDeviceSelector } from "../audio/OutputDeviceSelector";
+import { PushToTalk } from "../toggles/PushToTalk";
+import { AudioFeedback } from "../audio/AudioFeedback";
 import { useSettings } from "../../../hooks/useSettings";
-import { VolumeSlider } from "../VolumeSlider";
-import { MuteWhileRecording } from "../MuteWhileRecording";
+import { VolumeSlider } from "../audio/VolumeSlider";
+import { MuteWhileRecording } from "../audio/MuteWhileRecording";
 import { ModelSettingsCard } from "./ModelSettingsCard";
 import { ThemeSettings } from "./ThemeSettings";
 

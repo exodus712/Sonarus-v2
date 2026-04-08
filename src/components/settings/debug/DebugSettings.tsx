@@ -6,11 +6,11 @@ import { LogLevelSelector } from "./LogLevelSelector";
 import { PasteDelay } from "./PasteDelay";
 import { RecordingBuffer } from "./RecordingBuffer";
 import { SettingsGroup } from "../../ui/SettingsGroup";
-import { AlwaysOnMicrophone } from "../AlwaysOnMicrophone";
-import { SoundPicker } from "../SoundPicker";
-import { ClamshellMicrophoneSelector } from "../ClamshellMicrophoneSelector";
-import { ShortcutInput } from "../ShortcutInput";
-import { UpdateChecksToggle } from "../UpdateChecksToggle";
+import { AlwaysOnMicrophone } from "../toggles/AlwaysOnMicrophone";
+import { SoundPicker } from "../audio/SoundPicker";
+import { ClamshellMicrophoneSelector } from "../audio/ClamshellMicrophoneSelector";
+import { ShortcutInput } from "../shortcuts/ShortcutInput";
+import { UpdateChecksToggle } from "../toggles/UpdateChecksToggle";
 import { useSettings } from "../../../hooks/useSettings";
 
 export const DebugSettings: React.FC = () => {

@@ -7,26 +7,47 @@ export { AboutSettings } from "./about/AboutSettings";
 export { PostProcessingSettings } from "./post-processing/PostProcessingSettings";
 export { ModelsSettings } from "./models/ModelsSettings";
 
-// Individual setting components
-export { MicrophoneSelector } from "./MicrophoneSelector";
-export { ClamshellMicrophoneSelector } from "./ClamshellMicrophoneSelector";
-export { OutputDeviceSelector } from "./OutputDeviceSelector";
-export { AlwaysOnMicrophone } from "./AlwaysOnMicrophone";
-export { PushToTalk } from "./PushToTalk";
-export { AudioFeedback } from "./AudioFeedback";
+// Audio components
+export { MicrophoneSelector } from "./audio/MicrophoneSelector";
+export { ClamshellMicrophoneSelector } from "./audio/ClamshellMicrophoneSelector";
+export { OutputDeviceSelector } from "./audio/OutputDeviceSelector";
+export { AudioFeedback } from "./audio/AudioFeedback";
+export { VolumeSlider } from "./audio/VolumeSlider";
+export { SoundPicker } from "./audio/SoundPicker";
+export { MuteWhileRecording } from "./audio/MuteWhileRecording";
+
+// Shortcut components
+export { GlobalShortcutInput } from "./shortcuts/GlobalShortcutInput";
+export { HandyKeysShortcutInput } from "./shortcuts/HandyKeysShortcutInput";
+export { ShortcutInput } from "./shortcuts/ShortcutInput";
+
+// Toggle components
+export { AlwaysOnMicrophone } from "./toggles/AlwaysOnMicrophone";
+export { PushToTalk } from "./toggles/PushToTalk";
+export { PostProcessingToggle } from "./toggles/PostProcessingToggle";
+export { AutostartToggle } from "./toggles/AutostartToggle";
+export { UpdateChecksToggle } from "./toggles/UpdateChecksToggle";
+export { StartHidden } from "./toggles/StartHidden";
+export { ShowTrayIcon } from "./toggles/ShowTrayIcon";
+export { ExperimentalToggle } from "./toggles/ExperimentalToggle";
+export { LazyStreamClose } from "./toggles/LazyStreamClose";
+export { AppendTrailingSpace } from "./toggles/AppendTrailingSpace";
+export { ThemeToggle } from "./toggles/ThemeToggle";
+
+// Individual setting components (remaining in root)
 export { ShowOverlay } from "./ShowOverlay";
-export { GlobalShortcutInput } from "./GlobalShortcutInput";
-export { HandyKeysShortcutInput } from "./HandyKeysShortcutInput";
-export { ShortcutInput } from "./ShortcutInput";
 export { TranslateToEnglish } from "./TranslateToEnglish";
 export { CustomWords } from "./CustomWords";
-export { PostProcessingToggle } from "./PostProcessingToggle";
 export { PostProcessingSettingsApi } from "./PostProcessingSettingsApi";
 export { PostProcessingSettingsPrompts } from "./PostProcessingSettingsPrompts";
 export { AppDataDirectory } from "./AppDataDirectory";
 export { ModelUnloadTimeoutSetting } from "./ModelUnloadTimeout";
-export { StartHidden } from "./StartHidden";
 export { HistoryLimit } from "./HistoryLimit";
 export { RecordingRetentionPeriodSelector } from "./RecordingRetentionPeriod";
-export { AutostartToggle } from "./AutostartToggle";
-export { UpdateChecksToggle } from "./UpdateChecksToggle";
+export { AccelerationSelector } from "./AccelerationSelector";
+export { AppLanguageSelector } from "./AppLanguageSelector";
+export { AutoSubmit } from "./AutoSubmit";
+export { ClipboardHandlingSetting as ClipboardHandling } from "./ClipboardHandling";
+export { LanguageSelector } from "./LanguageSelector";
+export { PasteMethodSetting as PasteMethod } from "./PasteMethod";
+export { TypingToolSetting as TypingTool } from "./TypingTool";
