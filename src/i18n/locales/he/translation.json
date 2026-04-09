@@ -88,10 +88,6 @@
       "canary-1b-v2": {
         "name": "Canary 1B v2",
         "description": "רב-לשוני ומדויק. 25 שפות אירופיות. תומך בתרגום."
-      },
-      "cohere-int8": {
-        "name": "Cohere",
-        "description": "מודל גדול, איטי יותר, אך מדויק מאוד ורב-לשוני."
       }
     },
     "errors": {
@@ -157,6 +153,13 @@
     },
     "general": {
       "title": "כללי",
+      "theme": {
+        "title": "ערכת נושא",
+        "system": "מערכת",
+        "light": "בהיר",
+        "dark": "כהה",
+        "description": "בחר את ערכת הנושא המועדפת עליך"
+      },
       "shortcut": {
         "title": "קיצורי מקשים של Handy",
         "description": "הגדר קיצורי מקשים כדי להפעיל הקלטה ותמלול דיבור",
@@ -263,11 +266,6 @@
         "ort": {
           "title": "האצת ONNX",
           "description": "האצת חומרה למודלי ONNX (Parakeet, Canary, Moonshine ועוד). DirectML ב-Windows הוא ניסיוני. ייתכן שמודלים ייכשלו בתמלול."
-        },
-        "gpuDevice": {
-          "title": "התקן GPU",
-          "description": "בחר באיזה GPU להשתמש עבור הסקת Whisper. מצב אוטומטי בוחר את ה-GPU הייעודי.",
-          "auto": "אוטומטי"
         }
       },
       "startHidden": {
@@ -421,6 +419,8 @@
     "history": {
       "title": "היסטוריה",
       "openFolder": "פתח את תיקיית ההקלטות",
+      "searchPlaceholder": "חפש בהיסטוריה...",
+      "noSearchResults": "אין רשומות היסטוריה תואמות",
       "loading": "טוען היסטוריה...",
       "empty": "עדיין אין תמלולים. התחל להקליט כדי לבנות את ההיסטוריה שלך!",
       "copyToClipboard": "העתק תמלול ללוח",
@@ -495,6 +495,15 @@
         "description": "בחר את מנגנון קיצורי המקלדת.",
         "bindingsReset": "קיצורי המקלדת לא היו תואמים ואופסו לברירות המחדל"
       },
+      "transcribingVisualizer": {
+        "title": "ויזואליזטור תמלול",
+        "description": "בחר את סגנון האנימציה למצב התמלול בשכבה.",
+        "options": {
+          "dots": "נקודות (גל פועם)",
+          "equalizer": "אקולייזר מיקרו",
+          "gradient": "אורורה"
+        }
+      },
       "paths": {
         "appData": "נתוני אפליקציה:",
         "models": "מודלים:",
@@ -551,10 +560,7 @@
     "downloading": "מוריד... {{progress}}%",
     "installing": "מתקין...",
     "preparing": "מכין...",
-    "checkForUpdates": "בדוק עדכונים",
-    "portableUpdateTitle": "נדרש עדכון ידני",
-    "portableUpdateMessage": "התקנות ניידות אינן מתעדכנות אוטומטית. כדי לעדכן, הורד את מתקין ה-NSIS האחרון מ-GitHub Releases, התקן לאותה תיקייה, ואז העתק את תיקיית Data/ (הגדרות, מודלים, הקלטות) מהגרסה הישנה לחדשה.",
-    "portableUpdateButton": "פתח את GitHub Releases"
+    "checkForUpdates": "בדוק עדכונים"
   },
   "common": {
     "loading": "טוען...",

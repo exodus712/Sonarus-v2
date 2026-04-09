@@ -91,20 +91,34 @@ Sonarus targets general-purpose desktop users on macOS and Windows who want to s
 
 _V1 ships the experience layer. Intelligence layer follows in V1.x / V2._
 
+### Implementation Status (April 2026)
+
+| Feature                       | Status         | Notes                                                                                                                 |
+| ----------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Recording Overlay (The Pill)  | ✅ Complete    | Three states, waveform visualization, multiple visualizers, smooth transitions, configurable positioning (top/bottom) |
+| Sound Design System           | ✅ Complete    | All cues implemented, multiple themes (Marimba, Pop, Custom), volume control, silent mode                             |
+| History System                | ⚠️ Partial     | Core features complete (SQLite, search, pin, delete, audio playback). **Missing: Export to .md/.csv**                 |
+| UI Refresh (Quiet Confidence) | ✅ Complete    | System fonts, dual mode (dark/light), generous whitespace, motion design                                              |
+| Inherited Handy Features      | ✅ Complete    | All preserved with refreshed UI                                                                                       |
+| App-Aware Profiles            | ❌ Not Started | V1.x feature                                                                                                          |
+| Post-Process Modes            | ⚠️ Partial     | LLM client and settings exist, but rule-based transforms unclear                                                      |
+
 ### 4.1 Recording Overlay — The Pill
 
 The recording overlay is the most-seen surface in Sonarus. It is the brand. It must be redesigned from Handy's functional overlay into an identity moment.
 
 **Requirements**
 
-- Floating pill shape, always on top, never steals focus
-- Three distinct visual states: idle (invisible), recording, transcribing
-- Recording state: live audio waveform visualization inside the pill
-- Transcribing state: subtle animated indicator (e.g. pulsing dots or morphing shape)
-- Smooth morphing transitions between states — no abrupt snaps
-- Pill disappears after transcription completes with a brief fade-out
-- Configurable position: top-center, bottom-center, corners (inherits Handy positions)
-- Respects Handy's existing overlay disable option for Linux compatibility
+- Floating pill shape, always on top, never steals focus ✅
+- Three distinct visual states: idle (invisible), recording, transcribing ✅
+- Recording state: live audio waveform visualization inside the pill ✅
+- Transcribing state: subtle animated indicator (e.g. pulsing dots or morphing shape) ✅
+  - **Implemented:** Three visualizer variants (dots, equalizer, gradient)
+- Smooth morphing transitions between states — no abrupt snaps ✅
+- Pill disappears after transcription completes with a brief fade-out ✅
+- Configurable position: top-center, bottom-center, corners (inherits Handy positions) ⚠️
+  - **Implemented:** Top-center and bottom-center only. Corners deferred per roadmap.
+- Respects Handy's existing overlay disable option for Linux compatibility ✅
 
 **Visual Spec**
 
@@ -119,18 +133,20 @@ Every state transition has a corresponding audio cue. Sound is on by default but
 
 **Required Cues**
 
-- Recording start — clean, short tone. Signals the mic is live.
-- Recording stop — slightly lower tone. Signals capture is complete.
-- Transcription complete — a brief resolving sound. Positive, not celebratory.
-- Error — a neutral, distinct tone. Not alarming, clearly different from success.
+- Recording start — clean, short tone. Signals the mic is live. ✅
+- Recording stop — slightly lower tone. Signals capture is complete. ✅
+- Transcription complete — a brief resolving sound. Positive, not celebratory. ✅
+- Error — a neutral, distinct tone. Not alarming, clearly different from success. ✅
 
 **System Requirements**
 
-- All sounds are short (≤ 400ms)
-- Sounds are bundled assets, not synthesized at runtime
-- Volume follows system volume
-- A "Silent" mode toggle disables all audio feedback
-- V2: custom sound packs via user-defined asset folder
+- All sounds are short (≤ 400ms) ✅
+- Sounds are bundled assets, not synthesized at runtime ✅
+- Volume follows system volume ✅
+- A "Silent" mode toggle disables all audio feedback ✅
+- Multiple sound themes (Marimba, Pop, Custom) ✅
+- Output device selection ✅
+- V2: custom sound packs via user-defined asset folder ⚠️ Custom theme exists but full sound pack system not implemented
 
 ### 4.3 Sonarus History
 
@@ -138,14 +154,14 @@ A dedicated history panel that makes Sonarus feel like a serious tool. Every tra
 
 **Requirements**
 
-- Every transcription is saved automatically on completion
-- Each entry stores: full text, timestamp, app context (name of active app), character count, duration
-- Full-text search across all entries. Results highlight matching terms.
-- Entries organized by day with date separators in the timeline view
-- Pin / star entries to surface them at the top
-- Delete individual entries or clear all
-- Export: selected entries or full history as `.md` or `.csv`
-- History is stored in a local SQLite database (via Tauri's file system API)
+- Every transcription is saved automatically on completion ✅
+- Each entry stores: full text, timestamp, app context (name of active app), character count, duration ✅
+- Full-text search across all entries. Results highlight matching terms. ✅
+- Entries organized by day with date separators in the timeline view ✅
+- Pin / star entries to surface them at the top ✅
+- Delete individual entries or clear all ✅
+- Export: selected entries or full history as `.md` or `.csv` ❌ **NOT IMPLEMENTED**
+- History is stored in a local SQLite database (via Tauri's file system API) ✅
 
 **UI Approach**
 
@@ -155,14 +171,14 @@ The history panel should feel like a journal, not a database. Generous line heig
 
 The following features ship in V1 with updated UI treatment but unchanged underlying behavior:
 
-| Feature          | Description                                                                 | Status     |
-| ---------------- | --------------------------------------------------------------------------- | ---------- |
-| Model selection  | Whisper (S/M/Turbo/Large) and Parakeet V3. Same download + switching logic. | Preserved  |
-| Global shortcuts | Configurable hotkeys for record toggle and push-to-talk.                    | Preserved  |
-| VAD filtering    | Silero-based silence detection, same parameters.                            | Preserved  |
-| Paste behavior   | Direct type or clipboard paste, user-configurable.                          | Preserved  |
-| Settings panel   | Rebuilt UI, same settings surface area. Keyboard-navigable.                 | UI refresh |
-| Debug mode       | Cmd/Ctrl+Shift+D debug panel preserved.                                     | Preserved  |
+| Feature          | Description                                                                 | Status        |
+| ---------------- | --------------------------------------------------------------------------- | ------------- |
+| Model selection  | Whisper (S/M/Turbo/Large) and Parakeet V3. Same download + switching logic. | ✅ Preserved  |
+| Global shortcuts | Configurable hotkeys for record toggle and push-to-talk.                    | ✅ Preserved  |
+| VAD filtering    | Silero-based silence detection, same parameters.                            | ✅ Preserved  |
+| Paste behavior   | Direct type or clipboard paste, user-configurable.                          | ✅ Preserved  |
+| Settings panel   | Rebuilt UI, same settings surface area. Keyboard-navigable.                 | ✅ UI refresh |
+| Debug mode       | Cmd/Ctrl+Shift+D debug panel preserved.                                     | ✅ Preserved  |
 
 ---
 
@@ -180,6 +196,8 @@ Sonarus detects the active application and automatically applies a transcription
 - Profile activation is instant and silent — no UI interruption
 - Profile in use is visible in the history entry for each transcription
 
+**Current Status:** ❌ Not Started. No app_context.rs or active app detection implementation found.
+
 ### 5.2 Post-Process Modes
 
 After transcription, a floating action strip appears briefly. Users can apply one-tap transforms to the transcribed text before it is pasted.
@@ -192,6 +210,8 @@ After transcription, a floating action strip appears briefly. Users can apply on
 - V1 implementation: rule-based, no LLM required
 - Architecture must be LLM-ready for when local model support ships
 
+**Current Status:** ⚠️ Partial. LLM client (llm_client.rs) and post-processing settings UI exist with API provider selection. However, rule-based transforms and the floating action strip UI are not implemented. The architecture is LLM-ready but the rule-based V1 layer is missing.
+
 ### 5.3 Smart Snippets
 
 User-defined voice shortcuts that expand inline. Speak a trigger phrase, get a pre-defined output.
@@ -200,6 +220,8 @@ User-defined voice shortcuts that expand inline. Speak a trigger phrase, get a p
 - Example: "task" → formats next sentence as a Markdown checkbox
 - Managed in settings: trigger phrase + expansion text
 - Expansion happens post-transcription, pre-paste
+
+**Current Status:** ❌ Not Started. No snippets implementation found in codebase.
 
 ---
 

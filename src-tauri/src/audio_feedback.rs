@@ -71,6 +71,7 @@ fn resolve_candidate_path(
     }
 }
 
+#[allow(dead_code)]
 fn get_sound_path(settings: &AppSettings, sound_type: SoundType) -> String {
     get_sound_path_candidates(settings, sound_type)
         .into_iter()
@@ -119,6 +120,7 @@ fn get_sound_path_candidates(settings: &AppSettings, sound_type: SoundType) -> V
     }
 }
 
+#[allow(dead_code)]
 fn fallback_sound_path(sound_type: SoundType) -> &'static str {
     match sound_type {
         SoundType::Start => DEFAULT_START_SOUND,

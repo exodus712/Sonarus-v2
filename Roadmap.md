@@ -10,59 +10,90 @@ This roadmap outlines the development path for Sonarus from V1 launch through fu
 
 **Target Release: June 2026**
 
+**Current Status (April 2026):** V1 core features are substantially complete. The app is in a strong state for V1 launch with minor gaps to address.
+
 ### Core Experience Features ✅
 
-#### Recording Overlay - The Pill
+#### Recording Overlay - The Pill ✅ COMPLETE
 
-- **Timeline**: Complete by April 2026
+- **Timeline**: Complete by April 2026 ✅
 - **Owner**: Frontend Team
 - **Deliverables**:
-  - Floating pill shape with three distinct states (recording, transcribing, processing)
-  - Live audio waveform visualization during recording
-  - Animated transcribing dots (sequential pulse wave, 3 dots scaling 0.6→1.0)
-  - Smooth fade transitions between states (≤ 300ms)
-  - Configurable positioning (top-center, bottom-center only)
-  - Always on top, never steals focus
+  - Floating pill shape with three distinct states (recording, transcribing, processing) ✅
+  - Live audio waveform visualization during recording ✅
+  - Animated transcribing dots (sequential pulse wave, 3 dots scaling 0.6→1.0) ✅
+  - Multiple visualizer variants (dots, equalizer, gradient) ✅
+  - Smooth fade transitions between states (≤ 300ms) ✅
+  - Configurable positioning (top-center, bottom-center only) ✅
+  - Always on top, never steals focus ✅
   - **Note**: Corner positioning, reduced motion support, and idle state deferred post-V1
 
-#### Sound Design System
+#### Sound Design System ✅ COMPLETE
 
-- **Timeline**: Complete by April 2026
+- **Timeline**: Complete by April 2026 ✅
 - **Owner**: Audio/UI Team
 - **Deliverables**:
-  - Recording start cue (clean, short tone, ≤ 400ms)
-  - Recording stop cue (slightly lower tone, ≤ 400ms)
-  - Transcription complete cue (resolving sound, ≤ 400ms)
-  - Error cue (neutral, distinct tone, ≤ 400ms)
-  - Silent mode toggle in settings
-  - All sounds bundled as assets, follow system volume
+  - Recording start cue (clean, short tone, ≤ 400ms) ✅
+  - Recording stop cue (slightly lower tone, ≤ 400ms) ✅
+  - Transcription complete cue (resolving sound, ≤ 400ms) ✅
+  - Error cue (neutral, distinct tone, ≤ 400ms) ✅
+  - Silent mode toggle in settings ✅
+  - All sounds bundled as assets, follow system volume ✅
+  - Multiple sound themes (Marimba, Pop, Custom) ✅
+  - Output device selection ✅
+  - Volume control ✅
 
-#### History System
+#### History System ⚠️ PARTIAL
 
 - **Timeline**: Complete by May 2026
 - **Owner**: Backend/Frontend Team
 - **Deliverables**:
-  - SQLite database for local storage
-  - Automatic saving of all transcriptions
-  - Full-text search with highlighting
-  - Date separators and organization
-  - Pin/star functionality
-  - Export to .md and .csv formats
+  - SQLite database for local storage ✅
+  - Automatic saving of all transcriptions ✅
+  - Full-text search with highlighting ✅
+  - Date separators and organization ✅
+  - Pin/star functionality ✅
+  - Export to .md and .csv formats ❌ **MISSING - Needs implementation**
+  - Audio playback with transcript viewer ✅
+  - Word-by-word highlighting during playback ✅
+  - Retention period settings ✅
 
-#### UI Refresh
+#### UI Refresh ✅ COMPLETE
 
-- **Timeline**: Complete by May 2026
+- **Timeline**: Complete by May 2026 ✅
 - **Owner**: Frontend Team
 - **Deliverables**:
-  - "Quiet Confidence" design language implementation
-  - System fonts (SF Pro on macOS, Segoe UI on Windows)
-  - Two-weight typography (Regular 400, Medium 500)
-  - Generous whitespace, Notion-style layout
-  - Dark mode with warm neutrals (#0E0E14)
-  - Light mode with cream-tinted whites (#F7F7F9)
-  - All transitions ≤ 300ms
+  - "Quiet Confidence" design language implementation ✅
+  - System fonts (SF Pro on macOS, Segoe UI on Windows) ✅
+  - Two-weight typography (Regular 400, Medium 500) ✅
+  - Generous whitespace, Notion-style layout ✅
+  - Dark mode with warm neutrals (#0E0E14) ✅
+  - Light mode with cream-tinted whites (#F7F7F9) ✅
+  - All transitions ≤ 300ms ✅
+  - Comprehensive settings UI ✅
 
-### Performance & Quality Targets
+### Remaining V1 Work
+
+#### History Export Feature ⚠️ BLOCKER
+
+- **Priority**: High
+- **Owner**: Backend/Frontend Team
+- **Status**: Not Started
+- **Required for V1**: Yes - PRD requirement
+- **Work Needed**:
+  - Add backend command to export history entries to .md format
+  - Add backend command to export history entries to .csv format
+  - Add export UI in history settings panel
+  - Support both single entry and bulk export
+  - Ensure proper formatting and data inclusion
+
+#### Overlay Corner Positioning
+
+- **Priority**: Low
+- **Owner**: Frontend Team
+- **Status**: Deferred per roadmap
+- **Required for V1**: No - deferred post-V1
+- **Note**: Currently supports top-center and bottom-center only
 
 #### Performance Benchmarks
 
@@ -100,10 +131,11 @@ This roadmap outlines the development path for Sonarus from V1 launch through fu
 
 **Target Releases: August - December 2026**
 
-### App-Aware Profiles
+### App-Aware Profiles ❌ NOT STARTED
 
 - **Timeline**: Alpha August 2026, Stable October 2026
 - **Owner**: Features Team
+- **Current Status**: No implementation found. No app_context.rs or active app detection.
 - **Phased Rollout**:
   - **Phase 1 (August)**: Built-in profiles for common apps
     - Slack, email clients, VS Code, browsers, word processors
@@ -113,24 +145,29 @@ This roadmap outlines the development path for Sonarus from V1 launch through fu
     - Profile assignment and management
     - Instant and silent profile switching
 
-### Post-Process Modes
+### Post-Process Modes ⚠️ PARTIAL
 
 - **Timeline**: Alpha September 2026, Stable November 2026
 - **Owner**: AI/Features Team
+- **Current Status**: LLM client and settings UI exist, but rule-based transforms and floating action strip UI are missing.
 - **Implementation**:
-  - **Phase 1**: Rule-based transforms (V1.x)
+  - **Phase 1**: Rule-based transforms (V1.x) ❌ NOT IMPLEMENTED
     - Clean (remove filler words/grammar)
     - Bullets (convert to list format)
     - Formal/Casual tone adjustment
     - Custom user-defined rules
-  - **Phase 2**: LLM-ready architecture preparation
-    - Pluggable post-processing pipeline
-    - Interface ready for local LLM integration
+    - Floating action strip UI ❌ NOT IMPLEMENTED
+  - **Phase 2**: LLM-ready architecture preparation ✅ COMPLETE
+    - Pluggable post-processing pipeline ✅
+    - Interface ready for local LLM integration ✅
+    - LLM client (llm_client.rs) ✅
+    - API provider selection ✅
 
-### Smart Snippets
+### Smart Snippets ❌ NOT STARTED
 
 - **Timeline**: October 2026
 - **Owner**: Features Team
+- **Current Status**: No implementation found in codebase.
 - **Deliverables**:
   - Voice shortcut system
   - Trigger phrase + expansion text management
@@ -203,10 +240,12 @@ This roadmap outlines the development path for Sonarus from V1 launch through fu
 
 ### Q2 2026 - V1 Feature Freeze
 
-- **April 15**: Feature complete for core V1 experience
+- **April 15**: Feature complete for core V1 experience ✅ ACHIEVED
 - **May 15**: Beta testing begins with community
 - **June 1**: Feature freeze, only bug fixes
 - **June 15**: V1 launch
+
+**Current Blocker**: History export feature (.md/.csv) must be implemented before V1 launch.
 
 ### H2 2026 - V1.x Releases
 
@@ -292,5 +331,5 @@ This roadmap outlines the development path for Sonarus from V1 launch through fu
 
 _This roadmap is a living document and will be updated based on development progress, community feedback, and changing priorities._
 
-**Last Updated**: March 2026
-**Next Review**: June 2026 (post-V1 launch)
+**Last Updated**: April 9, 2026
+**Next Review**: May 2026 (pre-V1 launch)

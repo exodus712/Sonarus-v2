@@ -18,7 +18,7 @@ import { useAgentAudioVisualizerAura } from "@/hooks/use-agent-audio-visualizer-
 import { hexToRgb } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";
 
-const DEFAULT_COLOR = "#1FD5F9";
+const DEFAULT_COLOR = "#ffffff";
 
 const shaderSource = `
 const float TAU = 6.283185;
@@ -228,7 +228,7 @@ interface AuraShaderProps {
 
   /**
    * Color of the aura in hexadecimal format.
-   * @default '#1FD5F9'
+   * @default '#ffffff'
    */
   color?: `#${string}`;
 
@@ -367,7 +367,7 @@ export interface AgentAudioVisualizerAuraProps {
   state?: AgentState;
   /**
    * The color of the aura in hexadecimal format.
-   * @defaultValue '#1FD5F9'
+   * @defaultValue '#ffffff'
    */
   color?: `#${string}`;
   /**

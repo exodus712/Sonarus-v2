@@ -1,11 +1,7 @@
 import { listen } from "@tauri-apps/api/event";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  MicrophoneIcon,
-  TranscriptionIcon,
-  CancelIcon,
-} from "../components/icons";
+import { CancelIcon } from "../components/icons";
 import "./RecordingOverlay.css";
 import { commands } from "@/bindings";
 import i18n, { syncLanguageFromSettings } from "@/i18n";
@@ -14,8 +10,11 @@ import {
   TranscribingVisualizer,
   TranscribingVariant,
 } from "./TranscribingVisualizer";
+import { LiveWaveform, LiveWaveformRef } from "@/components/ui/live-waveform";
 
 type OverlayState = "recording" | "transcribing" | "processing";
+
+const CANCEL_AREA_WIDTH = 50; // Rightmost third approx
 
 const RecordingOverlay: React.FC = () => {
   const { t } = useTranslation();
@@ -23,8 +22,10 @@ const RecordingOverlay: React.FC = () => {
   const [state, setState] = useState<OverlayState>("recording");
   const [transcribingVariant, setTranscribingVariant] =
     useState<TranscribingVariant>("dots");
-  const [levels, setLevels] = useState<number[]>(Array(16).fill(0));
-  const smoothedLevelsRef = useRef<number[]>(Array(16).fill(0));
+  const smoothedLevelsRef = useRef<number[]>(Array(32).fill(0));
+  const [isHoveringRight, setIsHoveringRight] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const waveformRef = useRef<LiveWaveformRef>(null);
   const direction = getLanguageDirection(i18n.language);
 
   useEffect(() => {
@@ -64,16 +65,24 @@ const RecordingOverlay: React.FC = () => {
         }
         const newLevels = event.payload as number[];
 
-        // Apply smoothing to reduce jitter
+        // Apply smoothing - balanced between reactivity and smoothness
         const smoothed = smoothedLevelsRef.current.map((prev, i) => {
           const target = newLevels[i] || 0;
-          return prev * 0.7 + target * 0.3; // Smooth transition
+          // Blend with neighbor bars for visual cohesion (bars influence each other slightly)
+          const leftNeighbor = newLevels[i - 1] || target;
+          const rightNeighbor = newLevels[i + 1] || target;
+          const blendedTarget =
+            target * 0.7 + leftNeighbor * 0.15 + rightNeighbor * 0.15;
+          // Smooth transition: 40% previous value, 60% new blended target
+          return prev * 0.4 + blendedTarget * 0.6;
         });
 
         smoothedLevelsRef.current = smoothed;
-        runIfMounted(() => {
-          setLevels(smoothed.slice(0, 9));
-        });
+
+        // Pass levels to LiveWaveform via ref
+        if (waveformRef.current) {
+          waveformRef.current.setLevels(smoothed);
+        }
       });
 
       // Listen for transcribing visualizer setting changes
@@ -144,36 +153,41 @@ const RecordingOverlay: React.FC = () => {
     };
   }, [syncLanguageFromSettings]);
 
-  const getIcon = () => {
-    if (state === "recording") {
-      return <MicrophoneIcon />;
-    } else {
-      return <TranscriptionIcon />;
-    }
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const isRight = x > rect.width - CANCEL_AREA_WIDTH;
+    setIsHoveringRight(isRight);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHoveringRight(false);
   };
 
   return (
     <div
+      ref={containerRef}
       dir={direction}
       className={`recording-overlay ${isVisible ? "fade-in" : ""}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
-      <div className="overlay-left">{getIcon()}</div>
-
       <div className="overlay-middle">
         {state === "recording" && (
-          <div className="bars-container">
-            {levels.map((v, i) => (
-              <div
-                key={i}
-                className="bar"
-                style={{
-                  height: `${Math.min(20, 4 + Math.pow(v, 0.7) * 16)}px`, // Cap at 20px max height
-                  transition: "height 60ms ease-out, opacity 120ms ease-out",
-                  opacity: Math.max(0.2, v * 1.7), // Minimum opacity for visibility
-                }}
-              />
-            ))}
-          </div>
+          <LiveWaveform
+            ref={waveformRef}
+            active={true}
+            mode="static"
+            barWidth={3}
+            barHeight={4}
+            barGap={2}
+            barRadius={1.5}
+            barColor="#bfdbfe"
+            height={24}
+            fadeEdges={false}
+            className="w-full"
+          />
         )}
         {state === "transcribing" && (
           <TranscribingVisualizer variant={transcribingVariant} />
@@ -186,7 +200,7 @@ const RecordingOverlay: React.FC = () => {
       <div className="overlay-right">
         {state === "recording" && (
           <div
-            className="cancel-button"
+            className={`cancel-button ${isHoveringRight ? "visible" : ""}`}
             onClick={() => {
               commands.cancelOperation();
             }}

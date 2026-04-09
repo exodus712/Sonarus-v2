@@ -4,6 +4,7 @@ use std::sync::{Arc, Mutex};
 pub struct StreamingState {
     is_streaming: AtomicBool,
     buffer: Arc<Mutex<Vec<f32>>>,
+    #[allow(dead_code)]
     last_partial: Arc<Mutex<String>>,
 }
 

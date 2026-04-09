@@ -11,7 +11,7 @@ import { VolumeSlider } from "../audio/VolumeSlider";
 import { MuteWhileRecording } from "../audio/MuteWhileRecording";
 import { ModelSettingsCard } from "./ModelSettingsCard";
 import { ThemeSettings } from "./ThemeSettings";
-import { SoundPicker } from "../SoundPicker";
+import { SoundPicker } from "../audio/SoundPicker";
 
 export const GeneralSettings: React.FC = () => {
   const { t } = useTranslation();

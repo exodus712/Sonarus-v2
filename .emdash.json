@@ -1,0 +1,15 @@
+{
+  "preservePatterns": [
+    ".env",
+    ".env.keys",
+    ".env.local",
+    ".env.*.local",
+    ".envrc",
+    "docker-compose.override.yml"
+  ],
+  "scripts": {
+    "setup": "bun install\ncd src-tauri ; cargo fetch",
+    "run": "bun tauri dev",
+    "teardown": "cd src-tauri ; cargo clean"
+  }
+}

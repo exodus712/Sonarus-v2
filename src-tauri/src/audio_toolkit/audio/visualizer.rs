@@ -43,12 +43,14 @@ impl AudioVisualiser {
         let mut bucket_ranges = Vec::with_capacity(buckets);
 
         for b in 0..buckets {
-            // Use logarithmic spacing for better perceptual representation
-            let log_start = (b as f32 / buckets as f32).powi(2);
-            let log_end = ((b + 1) as f32 / buckets as f32).powi(2);
+            // Use gentler curve for better distribution of voice frequencies across bars
+            // powf(1.4) gives a nice balance: more resolution at low frequencies (where voice fundamentals are)
+            // while still spreading energy across all bars for visual interest
+            let curve_start = (b as f32 / buckets as f32).powf(1.4);
+            let curve_end = ((b + 1) as f32 / buckets as f32).powf(1.4);
 
-            let start_hz = freq_min + (freq_max - freq_min) * log_start;
-            let end_hz = freq_min + (freq_max - freq_min) * log_end;
+            let start_hz = freq_min + (freq_max - freq_min) * curve_start;
+            let end_hz = freq_min + (freq_max - freq_min) * curve_end;
 
             let start_bin = ((start_hz * window_size as f32) / sample_rate as f32) as usize;
             let mut end_bin = ((end_hz * window_size as f32) / sample_rate as f32) as usize;

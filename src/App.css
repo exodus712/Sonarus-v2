@@ -8,9 +8,9 @@
 @theme {
   /* Design tokens - will be updated by theme system */
   --color-text: #0f0f0f;
-  --color-background: #fbfbfb;
-  --color-background-ui: #da5893;
-  --color-logo-primary: #faa2ca;
+  --color-background: #f7f7f9;
+  --color-background-ui: #3b82f6;
+  --color-logo-primary: #3b82f6;
   --color-logo-stroke: #382731;
   --color-text-stroke: #f6f6f6;
   --color-mid-gray: #808080;
@@ -25,15 +25,15 @@
   /* Light theme colors */
   --color-text-primary: #1a1a1a;
   --color-text-secondary: #4b5563;
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f9fafb;
-  --color-accent: #da5893;
+  --color-bg-primary: #f7f7f9;
+  --color-bg-secondary: #ffffff;
+  --color-accent: #3b82f6;
   --color-border-primary: rgba(0, 0, 0, 0.08);
 
   /* Legacy colors for backward compatibility */
   --color-text: #0f0f0f;
-  --color-background: #fbfbfb;
-  --color-logo-primary: #faa2ca;
+  --color-background: #f7f7f9;
+  --color-logo-primary: #3b82f6;
   --color-logo-stroke: #382731;
   --color-text-stroke: #f6f6f6;
 
@@ -92,16 +92,16 @@
 .dark {
   --color-text-primary: #f5f5f5;
   --color-text-secondary: #a1a1aa;
-  --color-bg-primary: #3a3a3a;
-  --color-bg-secondary: #2a2a2a;
-  --color-accent: #f28cbb;
+  --color-bg-primary: #0e0e14;
+  --color-bg-secondary: #1a1a2e;
+  --color-accent: #60a5fa;
   --color-border-primary: rgba(255, 255, 255, 0.08);
 
   /* Update legacy colors */
   --color-text: #f5f5f5;
-  --color-background: #3a3a3a;
-  --color-logo-primary: #f28cbb;
-  --color-logo-stroke: #fad1ed;
+  --color-background: #0e0e14;
+  --color-logo-primary: #60a5fa;
+  --color-logo-stroke: #93c5fd;
   --background: oklch(0.18 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -148,9 +148,9 @@
   :root {
     /* Colors - Dark Theme */
     --color-text: #f5f5f5;
-    --color-background: #3a3a3a;
-    --color-logo-primary: #f28cbb;
-    --color-logo-stroke: #fad1ed;
+    --color-background: #0e0e14;
+    --color-logo-primary: #60a5fa;
+    --color-logo-stroke: #93c5fd;
   }
 }
 
@@ -202,6 +202,11 @@
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: "Geist Variable", sans-serif;
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-border-primary: var(--color-border-primary);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

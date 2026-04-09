@@ -5,6 +5,7 @@ import {
   Check,
   Copy,
   FolderOpen,
+  Play,
   RotateCcw,
   Trash2,
   Search,
@@ -21,8 +22,16 @@ import {
 } from "@/bindings";
 import { useOsType } from "@/hooks/useOsType";
 import { formatDateTime } from "@/utils/dateFormat";
-import { AudioPlayer } from "../../ui/AudioPlayer";
 import { Button } from "../../ui/Button";
+import {
+  TranscriptViewerContainer,
+  TranscriptViewerWords,
+  TranscriptViewerPlayPauseButton,
+  TranscriptViewerScrubBar,
+  TranscriptViewerAudio,
+  generateEstimatedAlignment,
+  type TranscriptAlignment,
+} from "../../ui/TranscriptViewer";
 
 const IconButton: React.FC<{
   onClick: () => void;
@@ -389,8 +398,92 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
   const [retrying, setRetrying] = useState(false);
   const [starHover, setStarHover] = useState(false);
   const [starTap, setStarTap] = useState(false);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [alignment, setAlignment] = useState<TranscriptAlignment | null>(null);
+  const [audioLoaded, setAudioLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [hasFinished, setHasFinished] = useState(false);
+  const [duration, setDuration] = useState(0);
 
   const hasTranscription = entry.transcription_text.trim().length > 0;
+
+  // Reset playing state when component unmounts or entry changes
+  useEffect(() => {
+    setIsPlaying(false);
+    setHasStarted(false);
+    setHasFinished(false);
+  }, [entry.id]);
+
+  // Load audio URL and generate alignment on mount
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadAudio = async () => {
+      try {
+        const url = await getAudioUrl(entry.file_name);
+        if (cancelled) return;
+
+        if (url) {
+          setAudioUrl(url);
+
+          // Get audio duration to generate accurate alignment
+          const audio = new Audio(url);
+          audio.addEventListener("loadedmetadata", () => {
+            if (!cancelled) {
+              const newAlignment = generateEstimatedAlignment(
+                entry.transcription_text,
+                audio.duration,
+              );
+              setAlignment(newAlignment);
+              setDuration(audio.duration);
+              setAudioLoaded(true);
+            }
+          });
+
+          audio.addEventListener("error", () => {
+            // Fallback: estimate based on speaking rate (150 words/min)
+            if (!cancelled) {
+              const words = entry.transcription_text
+                .trim()
+                .split(/\s+/)
+                .filter(Boolean);
+              const estimatedDuration = (words.length / 150) * 60;
+              const newAlignment = generateEstimatedAlignment(
+                entry.transcription_text,
+                estimatedDuration,
+              );
+              setAlignment(newAlignment);
+              setDuration(estimatedDuration);
+              setAudioLoaded(true);
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Failed to load audio:", error);
+      }
+    };
+
+    if (hasTranscription) {
+      loadAudio();
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    entry.file_name,
+    entry.transcription_text,
+    getAudioUrl,
+    hasTranscription,
+  ]);
+
+  const formatTime = (time: number): string => {
+    if (!isFinite(time)) return "0:00";
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
 
   // Function to highlight search matches in text
   const highlightText = (text: string, query: string): React.ReactNode => {
@@ -434,11 +527,6 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
     return parts;
   };
 
-  const handleLoadAudio = useCallback(
-    () => getAudioUrl(entry.file_name),
-    [getAudioUrl, entry.file_name],
-  );
-
   const handleCopyText = () => {
     if (!hasTranscription) {
       return;
@@ -464,7 +552,12 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
       await retryTranscription(entry.id);
     } catch (error) {
       console.error("Failed to re-transcribe:", error);
-      toast.error(t("settings.history.retranscribeError"));
+      // Show the specific error message from the backend if available
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      toast.error(t("settings.history.retranscribeError"), {
+        description: errorMessage,
+      });
     } finally {
       setRetrying(false);
     }
@@ -535,36 +628,133 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
         </div>
       </div>
 
-      <p
-        className={`italic text-sm pb-2 ${
-          retrying
-            ? ""
-            : hasTranscription
-              ? "text-text-primary select-text cursor-text whitespace-pre-wrap wrap-break-word"
-              : "text-text-secondary"
-        }`}
-        style={
-          retrying
-            ? { animation: "transcribe-pulse 3s ease-in-out infinite" }
-            : undefined
-        }
-      >
-        {retrying && (
-          <style>{`
-            @keyframes transcribe-pulse {
-              0%, 100% { color: color-mix(in srgb, var(--color-text) 40%, transparent); }
-              50% { color: color-mix(in srgb, var(--color-text) 90%, transparent); }
-            }
-          `}</style>
-        )}
-        {retrying
-          ? t("settings.history.transcribing")
-          : hasTranscription
-            ? highlightText(entry.transcription_text, searchQuery)
-            : t("settings.history.transcriptionFailed")}
-      </p>
+      {/* Transcript Viewer with word-by-word highlighting - show during play and pause, hide when finished */}
+      {audioUrl &&
+        alignment &&
+        !retrying &&
+        hasTranscription &&
+        hasStarted &&
+        !hasFinished && (
+          <TranscriptViewerContainer
+            audioSrc={audioUrl}
+            alignment={alignment}
+            onPlay={() => {
+              setIsPlaying(true);
+              setHasStarted(true);
+              setHasFinished(false);
+            }}
+            onPause={() => setIsPlaying(false)}
+            onEnded={() => {
+              setIsPlaying(false);
+              setHasStarted(false);
+              setHasFinished(true);
+            }}
+          >
+            <div className="space-y-3">
+              {/* Words with search highlighting integrated */}
+              <TranscriptViewerWords
+                renderWord={({ word, status, index }) => {
+                  // Check if this word matches the search query
+                  const lowerWord = word.word.toLowerCase();
+                  const lowerQuery = searchQuery.toLowerCase().trim();
+                  const isMatch = lowerQuery && lowerWord.includes(lowerQuery);
 
-      <AudioPlayer onLoadRequest={handleLoadAudio} className="w-full" />
+                  const baseClasses =
+                    "cursor-pointer transition-colors duration-150 px-0.5 rounded";
+                  const statusClasses = {
+                    spoken: "text-text-secondary",
+                    current: "text-logo-primary font-medium bg-logo-primary/10",
+                    unspoken: "text-text-primary",
+                  };
+
+                  return (
+                    <span
+                      key={index}
+                      className={`${baseClasses} ${statusClasses[status]} ${
+                        isMatch ? "bg-logo-primary/20 text-logo-primary" : ""
+                      }`}
+                    >
+                      {word.word}
+                    </span>
+                  );
+                }}
+              />
+
+              {/* Playback controls */}
+              <div className="flex items-center gap-3">
+                <TranscriptViewerPlayPauseButton />
+                <TranscriptViewerScrubBar />
+              </div>
+            </div>
+            <TranscriptViewerAudio />
+          </TranscriptViewerContainer>
+        )}
+
+      {/* Show simple text + scrub bar when playback hasn't started or has finished */}
+      {(!audioUrl ||
+        !alignment ||
+        !hasTranscription ||
+        retrying ||
+        !hasStarted ||
+        hasFinished) && (
+        <>
+          <p
+            className={`italic text-sm pb-2 ${
+              retrying
+                ? ""
+                : hasTranscription
+                  ? "text-text-primary select-text cursor-text whitespace-pre-wrap wrap-break-word"
+                  : "text-text-secondary"
+            }`}
+            style={
+              retrying
+                ? { animation: "transcribe-pulse 3s ease-in-out infinite" }
+                : undefined
+            }
+          >
+            {retrying && (
+              <style>{`
+                @keyframes transcribe-pulse {
+                  0%, 100% { color: color-mix(in srgb, var(--color-text) 40%, transparent); }
+                  50% { color: color-mix(in srgb, var(--color-text) 90%, transparent); }
+                }
+              `}</style>
+            )}
+            {retrying
+              ? t("settings.history.transcribing")
+              : hasTranscription
+                ? highlightText(entry.transcription_text, searchQuery)
+                : t("settings.history.transcriptionFailed")}
+          </p>
+
+          {/* Scrub bar always visible when audio is available - clicking play switches to TranscriptViewer */}
+          {audioUrl && alignment && !retrying && hasTranscription && (
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  setIsPlaying(true);
+                  setHasStarted(true);
+                  setHasFinished(false);
+                }}
+                className="transition-colors cursor-pointer text-text-primary hover:text-logo-primary"
+                aria-label="Play"
+              >
+                <Play width={20} height={20} fill="currentColor" />
+              </button>
+
+              <span className="text-xs text-text-secondary min-w-[30px] tabular-nums">
+                {formatTime(0)}
+              </span>
+
+              <div className="flex-1 h-1 rounded-lg bg-mid-gray/20" />
+
+              <span className="text-xs text-text-secondary min-w-[30px] tabular-nums">
+                {formatTime(duration)}
+              </span>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

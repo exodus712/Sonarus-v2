@@ -25,6 +25,7 @@ pub struct LogFileInfo {
 
 /// Log entry from the log file
 #[derive(Serialize, Type, Debug, Clone)]
+#[allow(dead_code)]
 pub struct LogEntry {
     /// Timestamp of the log entry
     pub timestamp: String,
