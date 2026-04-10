@@ -1,6 +1,7 @@
 pub mod audio;
 pub mod history;
 pub mod model;
+pub mod snippets;
 pub mod streaming;
 pub mod transcription;
 #[cfg(test)]

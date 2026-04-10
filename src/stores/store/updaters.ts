@@ -86,4 +86,5 @@ export const settingUpdaters: {
     commands.changeExtraRecordingBufferSetting(value as number),
   transcribing_visualizer: (value) =>
     commands.changeTranscribingVisualizerSetting(value as string),
+  snippets_enabled: (value) => commands.setSnippetsEnabled(value as boolean),
 };

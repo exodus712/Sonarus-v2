@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { FlaskConical, Sparkles } from "lucide-react";
+import { FlaskConical, Sparkles, TextQuote } from "lucide-react";
 import SonarusTextLogo from "./icons/SonarusTextLogo";
 import { CpuIcon, type CpuIconHandle } from "./ui/cpu";
 import { HistoryIcon, type HistoryIconHandle } from "./ui/history";
@@ -16,6 +16,7 @@ import {
   AboutSettings,
   PostProcessingSettings,
   ModelsSettings,
+  SnippetsSettings,
 } from "./settings";
 
 export type SidebarSection = keyof typeof SECTIONS_CONFIG;
@@ -122,6 +123,12 @@ export const SECTIONS_CONFIG = {
     icon: Sparkles,
     component: PostProcessingSettings,
     enabled: (settings) => settings?.post_process_enabled ?? false,
+  },
+  snippets: {
+    labelKey: "sidebar.snippets",
+    icon: TextQuote,
+    component: SnippetsSettings,
+    enabled: (settings) => settings?.snippets_enabled ?? false,
   },
   history: {
     labelKey: "sidebar.history",

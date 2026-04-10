@@ -4,6 +4,7 @@ use crate::audio_feedback::{play_feedback_sound, play_feedback_sound_blocking, S
 use crate::audio_toolkit::{is_microphone_access_denied, is_no_input_device_error};
 use crate::managers::audio::AudioRecordingManager;
 use crate::managers::history::HistoryManager;
+use crate::managers::snippets::SnippetManager;
 use crate::managers::transcription::TranscriptionManager;
 use crate::settings::{get_settings, AppSettings, APPLE_INTELLIGENCE_PROVIDER_ID};
 use crate::shortcut;
@@ -358,6 +359,22 @@ pub(crate) async fn process_transcription_output(
 
     if let Some(converted_text) = maybe_convert_chinese_variant(&settings, transcription).await {
         final_text = converted_text;
+    }
+
+    if settings.snippets_enabled {
+        if let Some(snippet_manager) = app.try_state::<Arc<SnippetManager>>() {
+            match snippet_manager.apply_expansions(&final_text) {
+                Ok(expanded) => {
+                    if expanded != final_text {
+                        debug!("Snippet expansion applied to transcription");
+                        final_text = expanded;
+                    }
+                }
+                Err(e) => {
+                    error!("Snippet expansion failed: {}", e);
+                }
+            }
+        }
     }
 
     if post_process {

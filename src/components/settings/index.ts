@@ -6,6 +6,7 @@ export { HistorySettings } from "./history/HistorySettings";
 export { AboutSettings } from "./about/AboutSettings";
 export { PostProcessingSettings } from "./post-processing/PostProcessingSettings";
 export { ModelsSettings } from "./models/ModelsSettings";
+export { SnippetsSettings } from "./snippets/SnippetsSettings";
 
 // Audio components
 export { MicrophoneSelector } from "./audio/MicrophoneSelector";
@@ -33,6 +34,7 @@ export { ExperimentalToggle } from "./toggles/ExperimentalToggle";
 export { LazyStreamClose } from "./toggles/LazyStreamClose";
 export { AppendTrailingSpace } from "./toggles/AppendTrailingSpace";
 export { ThemeToggle } from "./toggles/ThemeToggle";
+export { SmartSnippetsToggle } from "./toggles/SmartSnippetsToggle";
 
 // Individual setting components (remaining in root)
 export { ShowOverlay } from "./ShowOverlay";

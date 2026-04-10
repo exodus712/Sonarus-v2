@@ -441,6 +441,8 @@ pub struct AppSettings {
     pub extra_recording_buffer_ms: u64,
     #[serde(default = "default_transcribing_visualizer")]
     pub transcribing_visualizer: TranscribingVisualizer,
+    #[serde(default)]
+    pub snippets_enabled: bool,
 }
 
 fn default_model() -> String {
@@ -814,6 +816,7 @@ pub fn get_default_settings() -> AppSettings {
         force_cpu_transcription: true,
         extra_recording_buffer_ms: 0,
         transcribing_visualizer: default_transcribing_visualizer(),
+        snippets_enabled: false,
     }
 }
 
