@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "按住说话",
         "description": "按住录制，松开停止"
+      },
+      "overlay": {
+        "title": "悬浮窗位置",
+        "description": "在录制和转录期间显示可视反馈悬浮窗。在 Linux 上建议选择「无」。",
+        "options": {
+          "none": "无",
+          "bottom": "底部",
+          "top": "顶部"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "显示托盘图标",
         "description": "在系统托盘中显示 Handy 图标。"
-      },
-      "overlay": {
-        "title": "悬浮窗位置",
-        "description": "在录制和转录期间显示可视反馈悬浮窗。在 Linux 上建议选择「无」。",
-        "options": {
-          "none": "无",
-          "bottom": "底部",
-          "top": "顶部"
-        }
       },
       "pasteMethod": {
         "title": "粘贴方式",

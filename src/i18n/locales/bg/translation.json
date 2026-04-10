@@ -198,6 +198,19 @@
       "pushToTalk": {
         "label": "Натискане за говорене",
         "description": "Задръжте за запис, пуснете за спиране"
+      },
+      "overlay": {
+        "title": "Позиция на наслагването",
+        "description": "Показване на визуална обратна връзка при запис и транскрипция. На Linux се препоръчва „Няма“.",
+        "options": {
+          "none": "Няма",
+          "bottom": "Долу",
+          "top": "Горе"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "models": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Икона в системната област",
         "description": "Показване на иконата на Handy в системната област."
-      },
-      "overlay": {
-        "title": "Позиция на наслагването",
-        "description": "Показване на визуална обратна връзка при запис и транскрипция. На Linux се препоръчва „Няма“.",
-        "options": {
-          "none": "Няма",
-          "bottom": "Долу",
-          "top": "Горе"
-        }
       },
       "pasteMethod": {
         "title": "Начин на поставяне",

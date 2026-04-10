@@ -32,6 +32,11 @@ tauri_panel! {
 
 const OVERLAY_WIDTH: f64 = 116.0;
 const OVERLAY_HEIGHT: f64 = 36.0;
+const OVERLAY_STICK_WIDTH: f64 = 58.0;
+const OVERLAY_STICK_HEIGHT: f64 = 8.0;
+
+const OVERLAY_COLLAPSE_ANIMATION_MS: u64 = 380;
+const OVERLAY_FULL_HIDE_ANIMATION_MS: u64 = 300;
 
 #[cfg(target_os = "macos")]
 const OVERLAY_TOP_OFFSET: f64 = 46.0;
@@ -184,6 +189,12 @@ fn is_mouse_within_monitor(
         && mouse_y < (monitor_y + monitor_height as i32)
 }
 
+fn logical_inner_size(window: &tauri::webview::WebviewWindow) -> Option<(f64, f64)> {
+    let size = window.inner_size().ok()?;
+    let scale = window.scale_factor().unwrap_or(1.0);
+    Some((size.width as f64 / scale, size.height as f64 / scale))
+}
+
 /// Returns overlay position in logical coordinates (points on macOS).
 ///
 /// Uses monitor position/size directly rather than work_area(), which can
@@ -194,7 +205,11 @@ fn is_mouse_within_monitor(
 /// We must use LogicalPosition (not PhysicalPosition) because Tauri/tao
 /// converts PhysicalPosition using the scale factor of the monitor the window
 /// is *currently* on, which is wrong when moving cross-monitor.
-fn calculate_overlay_position(app_handle: &AppHandle) -> Option<(f64, f64)> {
+pub(crate) fn calculate_overlay_position_for_size(
+    app_handle: &AppHandle,
+    width: f64,
+    height: f64,
+) -> Option<(f64, f64)> {
     let monitor = get_monitor_with_cursor(app_handle)?;
     let scale = monitor.scale_factor();
     let monitor_x = monitor.position().x as f64 / scale;
@@ -204,15 +219,19 @@ fn calculate_overlay_position(app_handle: &AppHandle) -> Option<(f64, f64)> {
 
     let settings = settings::get_settings(app_handle);
 
-    let x = monitor_x + (monitor_width - OVERLAY_WIDTH) / 2.0;
+    let x = monitor_x + (monitor_width - width) / 2.0;
     let y = match settings.overlay_position {
         OverlayPosition::Top => monitor_y + OVERLAY_TOP_OFFSET,
         OverlayPosition::Bottom | OverlayPosition::None => {
-            monitor_y + monitor_height - OVERLAY_HEIGHT - OVERLAY_BOTTOM_OFFSET
+            monitor_y + monitor_height - height - OVERLAY_BOTTOM_OFFSET
         }
     };
 
     Some((x, y))
+}
+
+fn calculate_overlay_position(app_handle: &AppHandle) -> Option<(f64, f64)> {
+    calculate_overlay_position_for_size(app_handle, OVERLAY_WIDTH, OVERLAY_HEIGHT)
 }
 
 /// Creates the recording overlay window and keeps it hidden by default
@@ -314,22 +333,36 @@ pub fn create_recording_overlay(app_handle: &AppHandle) {
 }
 
 fn show_overlay_state(app_handle: &AppHandle, state: &str) {
-    // Check if overlay should be shown based on position setting
     let settings = settings::get_settings(app_handle);
     if settings.overlay_position == OverlayPosition::None {
         return;
     }
 
-    update_overlay_position(app_handle);
-
     if let Some(overlay_window) = app_handle.get_webview_window("recording_overlay") {
+        let expand_from_idle = logical_inner_size(&overlay_window)
+            .map(|(w, h)| {
+                (w - OVERLAY_STICK_WIDTH).abs() < 4.0 && (h - OVERLAY_STICK_HEIGHT).abs() < 4.0
+            })
+            .unwrap_or(false);
+
+        let _ = overlay_window.set_size(tauri::Size::Logical(tauri::LogicalSize {
+            width: OVERLAY_WIDTH,
+            height: OVERLAY_HEIGHT,
+        }));
+        update_overlay_position(app_handle);
+
         let _ = overlay_window.show();
 
-        // On Windows, aggressively re-assert "topmost" in the native Z-order after showing
         #[cfg(target_os = "windows")]
         force_overlay_topmost(&overlay_window);
 
-        let _ = overlay_window.emit("show-overlay", state);
+        let _ = overlay_window.emit(
+            "show-overlay",
+            serde_json::json!({
+                "state": state,
+                "expand_from_idle": expand_from_idle,
+            }),
+        );
     }
 }
 
@@ -356,27 +389,89 @@ pub fn update_overlay_position(app_handle: &AppHandle) {
             update_gtk_layer_shell_anchors(&overlay_window);
         }
 
-        if let Some((x, y)) = calculate_overlay_position(app_handle) {
+        let (w, h) = logical_inner_size(&overlay_window).unwrap_or((OVERLAY_WIDTH, OVERLAY_HEIGHT));
+        if let Some((x, y)) = calculate_overlay_position_for_size(app_handle, w, h) {
             let _ = overlay_window
                 .set_position(tauri::Position::Logical(tauri::LogicalPosition { x, y }));
         }
     }
 }
 
-/// Hides the recording overlay window with fade-out animation
+/// Hides the recording overlay window with fade-out animation, or collapses to the
+/// idle stick when `overlay_idle_indicator` is enabled.
 pub fn hide_recording_overlay(app_handle: &AppHandle) {
-    // Always hide the overlay regardless of settings - if setting was changed while recording,
-    // we still want to hide it properly
-    if let Some(overlay_window) = app_handle.get_webview_window("recording_overlay") {
-        // Emit event to trigger fade-out animation
-        let _ = overlay_window.emit("hide-overlay", ());
-        // Hide the window after a short delay to allow animation to complete
+    let Some(overlay_window) = app_handle.get_webview_window("recording_overlay") else {
+        return;
+    };
+
+    let settings = settings::get_settings(app_handle);
+    let to_stick =
+        settings.overlay_idle_indicator && settings.overlay_position != OverlayPosition::None;
+
+    if to_stick {
+        let _ = overlay_window.emit("hide-overlay", serde_json::json!({ "to_idle_stick": true }));
+        let app_clone = app_handle.clone();
         let window_clone = overlay_window.clone();
         std::thread::spawn(move || {
-            std::thread::sleep(std::time::Duration::from_millis(300));
+            std::thread::sleep(std::time::Duration::from_millis(
+                OVERLAY_COLLAPSE_ANIMATION_MS,
+            ));
+            let _ = window_clone.set_size(tauri::Size::Logical(tauri::LogicalSize {
+                width: OVERLAY_STICK_WIDTH,
+                height: OVERLAY_STICK_HEIGHT,
+            }));
+            if let Some((x, y)) = calculate_overlay_position_for_size(
+                &app_clone,
+                OVERLAY_STICK_WIDTH,
+                OVERLAY_STICK_HEIGHT,
+            ) {
+                let _ = window_clone
+                    .set_position(tauri::Position::Logical(tauri::LogicalPosition { x, y }));
+            }
+            #[cfg(target_os = "windows")]
+            force_overlay_topmost(&window_clone);
+        });
+    } else {
+        let _ = overlay_window.emit(
+            "hide-overlay",
+            serde_json::json!({ "to_idle_stick": false }),
+        );
+        let window_clone = overlay_window.clone();
+        std::thread::spawn(move || {
+            std::thread::sleep(std::time::Duration::from_millis(
+                OVERLAY_FULL_HIDE_ANIMATION_MS,
+            ));
             let _ = window_clone.hide();
         });
     }
+}
+
+/// Shows the idle stick overlay when settings request an always-visible indicator.
+pub fn show_idle_overlay_if_configured(app_handle: &AppHandle) {
+    let settings = settings::get_settings(app_handle);
+    if !settings.overlay_idle_indicator || settings.overlay_position == OverlayPosition::None {
+        return;
+    }
+    let Some(overlay_window) = app_handle.get_webview_window("recording_overlay") else {
+        return;
+    };
+    let _ = overlay_window.set_size(tauri::Size::Logical(tauri::LogicalSize {
+        width: OVERLAY_STICK_WIDTH,
+        height: OVERLAY_STICK_HEIGHT,
+    }));
+    if let Some((x, y)) =
+        calculate_overlay_position_for_size(app_handle, OVERLAY_STICK_WIDTH, OVERLAY_STICK_HEIGHT)
+    {
+        let _ =
+            overlay_window.set_position(tauri::Position::Logical(tauri::LogicalPosition { x, y }));
+    }
+    let _ = overlay_window.show();
+    #[cfg(target_os = "windows")]
+    force_overlay_topmost(&overlay_window);
+    let _ = overlay_window.emit(
+        "overlay-surface-state",
+        serde_json::json!({ "surface": "idle_stick" }),
+    );
 }
 
 pub fn emit_levels(app_handle: &AppHandle, levels: &Vec<f32>) {

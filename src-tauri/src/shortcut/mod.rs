@@ -16,9 +16,11 @@ mod tauri_impl;
 use log::{error, info, warn};
 use serde::Serialize;
 use specta::Type;
+use std::sync::Arc;
 use tauri::{AppHandle, Emitter, Manager};
 use tauri_plugin_autostart::ManagerExt;
 
+use crate::managers::audio::AudioRecordingManager;
 #[cfg(all(target_os = "macos", target_arch = "aarch64"))]
 use crate::settings::APPLE_INTELLIGENCE_DEFAULT_MODEL_ID;
 use crate::settings::{
@@ -549,10 +551,65 @@ pub fn change_overlay_position_setting(app: AppHandle, position: String) -> Resu
         }
     };
     settings.overlay_position = parsed;
+    let idle_indicator = settings.overlay_idle_indicator;
     settings::write_settings(&app, settings);
 
-    // Update overlay position without recreating window
-    crate::utils::update_overlay_position(&app);
+    match parsed {
+        OverlayPosition::None => {
+            let recording = app.state::<Arc<AudioRecordingManager>>().is_recording();
+            if !recording {
+                if let Some(w) = app.get_webview_window("recording_overlay") {
+                    let _ = w.hide();
+                }
+            } else {
+                crate::utils::update_overlay_position(&app);
+            }
+        }
+        _ if idle_indicator => {
+            let recording = app.state::<Arc<AudioRecordingManager>>().is_recording();
+            if !recording {
+                crate::utils::show_idle_overlay_if_configured(&app);
+            } else {
+                crate::utils::update_overlay_position(&app);
+            }
+        }
+        _ => {
+            crate::utils::update_overlay_position(&app);
+        }
+    }
+
+    Ok(())
+}
+
+#[tauri::command]
+#[specta::specta]
+pub fn change_overlay_idle_indicator_setting(app: AppHandle, enabled: bool) -> Result<(), String> {
+    let mut settings = settings::get_settings(&app);
+    settings.overlay_idle_indicator = enabled;
+    settings::write_settings(&app, settings.clone());
+
+    let _ = app.emit(
+        "overlay-idle-indicator-changed",
+        serde_json::json!({ "enabled": enabled }),
+    );
+
+    if enabled {
+        let recording = app.state::<Arc<AudioRecordingManager>>().is_recording();
+        if !recording {
+            crate::utils::show_idle_overlay_if_configured(&app);
+        }
+    } else if let Some(w) = app.get_webview_window("recording_overlay") {
+        let looks_like_stick = w.inner_size().ok().map_or(false, |s| {
+            let sf = w.scale_factor().unwrap_or(1.0);
+            let lw = s.width as f64 / sf;
+            let lh = s.height as f64 / sf;
+            (lw - 58.0).abs() < 4.0 && (lh - 8.0).abs() < 4.0
+        });
+        let rm = app.state::<Arc<AudioRecordingManager>>();
+        if looks_like_stick && !rm.is_recording() {
+            crate::utils::hide_recording_overlay(&app);
+        }
+    }
 
     Ok(())
 }

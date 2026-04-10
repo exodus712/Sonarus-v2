@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Bas Konuş",
         "description": "Kaydetmek için basılı tutun, durdurmak için bırakın"
+      },
+      "overlay": {
+        "title": "Overlay Konumu",
+        "description": "Kayıt ve transkripsiyon sırasında görsel geri bildirim kaplamasını gösterir. Linux'ta 'Yok' önerilir.",
+        "options": {
+          "none": "Yok",
+          "bottom": "Alt",
+          "top": "Üst"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Tepsi simgesini göster",
         "description": "Handy simgesini sistem tepsisinde göster."
-      },
-      "overlay": {
-        "title": "Overlay Konumu",
-        "description": "Kayıt ve transkripsiyon sırasında görsel geri bildirim kaplamasını gösterir. Linux'ta 'Yok' önerilir.",
-        "options": {
-          "none": "Yok",
-          "bottom": "Alt",
-          "top": "Üst"
-        }
       },
       "pasteMethod": {
         "title": "Yapıştırma Yöntemi",

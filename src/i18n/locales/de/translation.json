@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Push-to-Talk",
         "description": "Gedrückt halten zum Aufnehmen, loslassen zum Stoppen"
+      },
+      "overlay": {
+        "title": "Overlay-Position",
+        "description": "Visuelles Feedback-Overlay während Aufnahme und Transkription anzeigen. Unter Linux wird 'Keine' empfohlen.",
+        "options": {
+          "none": "Keine",
+          "bottom": "Unten",
+          "top": "Oben"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Taskleistensymbol anzeigen",
         "description": "Das Handy-Symbol in der Taskleiste anzeigen."
-      },
-      "overlay": {
-        "title": "Overlay-Position",
-        "description": "Visuelles Feedback-Overlay während Aufnahme und Transkription anzeigen. Unter Linux wird 'Keine' empfohlen.",
-        "options": {
-          "none": "Keine",
-          "bottom": "Unten",
-          "top": "Oben"
-        }
       },
       "pasteMethod": {
         "title": "Einfügemethode",

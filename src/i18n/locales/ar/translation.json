@@ -194,6 +194,19 @@
       "pushToTalk": {
         "label": "اضغط للتحدث",
         "description": "استمر في الضغط للتسجيل، واترك للتوقف"
+      },
+      "overlay": {
+        "title": "موقع التراكب",
+        "description": "عرض تراكب الملاحظات المرئية أثناء التسجيل والتفريغ. على نظام Linux يوصى بـ 'بلا'.",
+        "options": {
+          "none": "بلا",
+          "bottom": "أسفل",
+          "top": "أعلى"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -257,15 +270,6 @@
       "showTrayIcon": {
         "label": "إظهار أيقونة شريط النظام",
         "description": ".عرض أيقونة Handy في شريط النظام"
-      },
-      "overlay": {
-        "title": "موقع التراكب",
-        "description": "عرض تراكب الملاحظات المرئية أثناء التسجيل والتفريغ. على نظام Linux يوصى بـ 'بلا'.",
-        "options": {
-          "none": "بلا",
-          "bottom": "أسفل",
-          "top": "أعلى"
-        }
       },
       "pasteMethod": {
         "title": "طريقة اللصق",

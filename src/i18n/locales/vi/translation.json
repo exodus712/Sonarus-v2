@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Nhấn để nói",
         "description": "Giữ để ghi âm, thả để dừng"
+      },
+      "overlay": {
+        "title": "Vị trí lớp phủ",
+        "description": "Hiển thị lớp phủ phản hồi trực quan trong quá trình ghi âm và chuyển đổi. Trên Linux, 'Không có' được khuyến nghị.",
+        "options": {
+          "none": "Không có",
+          "bottom": "Dưới",
+          "top": "Trên"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Hiển thị biểu tượng khay",
         "description": "Hiển thị biểu tượng Handy trong khay hệ thống."
-      },
-      "overlay": {
-        "title": "Vị trí lớp phủ",
-        "description": "Hiển thị lớp phủ phản hồi trực quan trong quá trình ghi âm và chuyển đổi. Trên Linux, 'Không có' được khuyến nghị.",
-        "options": {
-          "none": "Không có",
-          "bottom": "Dưới",
-          "top": "Trên"
-        }
       },
       "pasteMethod": {
         "title": "Phương thức dán",

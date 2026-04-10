@@ -198,6 +198,19 @@
       "pushToTalk": {
         "label": "לחץ כדי לדבר",
         "description": "החזק כדי להקליט, שחרר כדי לעצור"
+      },
+      "overlay": {
+        "title": "מיקום שכבת המשוב",
+        "description": "הצג שכבת משוב חזותית בזמן הקלטה ותמלול. בלינוקס מומלץ לבחור 'ללא'.",
+        "options": {
+          "none": "ללא",
+          "bottom": "למטה",
+          "top": "למעלה"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "models": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "הצג אייקון במגש",
         "description": "הצג את האייקון של Handy במגש המערכת."
-      },
-      "overlay": {
-        "title": "מיקום שכבת המשוב",
-        "description": "הצג שכבת משוב חזותית בזמן הקלטה ותמלול. בלינוקס מומלץ לבחור 'ללא'.",
-        "options": {
-          "none": "ללא",
-          "bottom": "למטה",
-          "top": "למעלה"
-        }
       },
       "pasteMethod": {
         "title": "שיטת הדבקה",

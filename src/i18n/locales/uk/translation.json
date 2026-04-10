@@ -198,6 +198,19 @@
       "pushToTalk": {
         "label": "Утримувати для запису (Push To Talk)",
         "description": "Утримуйте для запису, відпустіть для зупинки"
+      },
+      "overlay": {
+        "title": "Позиція оверлею",
+        "description": "Показувати візуальний оверлей під час запису та транскрипції. На Linux рекомендовано «Немає»",
+        "options": {
+          "none": "Немає",
+          "bottom": "Внизу",
+          "top": "Вгорі"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "models": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Показати значок у треї",
         "description": "Відображати значок Handy у системному треї."
-      },
-      "overlay": {
-        "title": "Позиція оверлею",
-        "description": "Показувати візуальний оверлей під час запису та транскрипції. На Linux рекомендовано «Немає»",
-        "options": {
-          "none": "Немає",
-          "bottom": "Внизу",
-          "top": "Вгорі"
-        }
       },
       "pasteMethod": {
         "title": "Метод вставки",

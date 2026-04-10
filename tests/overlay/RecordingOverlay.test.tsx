@@ -32,6 +32,8 @@ jest.mock("@/bindings", () => ({
       status: "ok",
       data: {
         transcribing_visualizer: "dots",
+        overlay_idle_indicator: false,
+        overlay_position: "bottom",
       },
     })),
     cancelOperation: jest.fn(),
@@ -77,7 +79,7 @@ describe("RecordingOverlay", () => {
     const view = render(<RecordingOverlay />);
 
     await waitFor(() => {
-      expect(eventHandlers.size).toBe(4);
+      expect(eventHandlers.size).toBe(6);
     });
 
     setStateCalls.length = 0;
@@ -89,6 +91,12 @@ describe("RecordingOverlay", () => {
       eventHandlers.get("mic-level")?.({ payload: [1, 0.5, 0.25] });
       eventHandlers.get("transcribing-visualizer-changed")?.({
         payload: { visualizer: "gradient" },
+      });
+      eventHandlers.get("overlay-surface-state")?.({
+        payload: { surface: "idle_stick" },
+      });
+      eventHandlers.get("overlay-idle-indicator-changed")?.({
+        payload: { enabled: true },
       });
     });
 

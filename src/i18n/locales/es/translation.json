@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Presionar para Hablar",
         "description": "Mantén presionado para grabar, suelta para detener"
+      },
+      "overlay": {
+        "title": "Posición de Superposición",
+        "description": "Mostrar superposición de retroalimentación visual durante la grabación y transcripción. En Linux se recomienda 'Ninguna'.",
+        "options": {
+          "none": "Ninguna",
+          "bottom": "Abajo",
+          "top": "Arriba"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Mostrar Icono de Bandeja",
         "description": "Mostrar el icono de Handy en la bandeja del sistema."
-      },
-      "overlay": {
-        "title": "Posición de Superposición",
-        "description": "Mostrar superposición de retroalimentación visual durante la grabación y transcripción. En Linux se recomienda 'Ninguna'.",
-        "options": {
-          "none": "Ninguna",
-          "bottom": "Abajo",
-          "top": "Arriba"
-        }
       },
       "pasteMethod": {
         "title": "Método de Pegado",

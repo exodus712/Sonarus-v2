@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Stisk a mluv",
         "description": "Podržte pro nahrávání, uvolněte pro zastavení"
+      },
+      "overlay": {
+        "title": "Pozice překryvu",
+        "description": "Zobrazovat vizuální překryv během nahrávání a přepisu. Na Linuxu je doporučeno 'Žádné'.",
+        "options": {
+          "none": "Žádné",
+          "bottom": "Dole",
+          "top": "Nahoře"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Zobrazit ikonu v systémové liště",
         "description": "Zobrazit ikonu Handy v systémové liště."
-      },
-      "overlay": {
-        "title": "Pozice překryvu",
-        "description": "Zobrazovat vizuální překryv během nahrávání a přepisu. Na Linuxu je doporučeno 'Žádné'.",
-        "options": {
-          "none": "Žádné",
-          "bottom": "Dole",
-          "top": "Nahoře"
-        }
       },
       "pasteMethod": {
         "title": "Způsob vložení",

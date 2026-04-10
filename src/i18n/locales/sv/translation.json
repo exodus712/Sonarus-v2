@@ -198,6 +198,19 @@
       "pushToTalk": {
         "label": "Tryck för att tala",
         "description": "Håll ned för att spela in, släpp för att stoppa"
+      },
+      "overlay": {
+        "title": "Överlagringsposition",
+        "description": "Visa visuell återkoppling under inspelning och transkription. På Linux rekommenderas 'Ingen'.",
+        "options": {
+          "none": "Ingen",
+          "bottom": "Nederst",
+          "top": "Överst"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "models": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Visa ikon i systemfältet",
         "description": "Visa Handy-ikonen i systemfältet."
-      },
-      "overlay": {
-        "title": "Överlagringsposition",
-        "description": "Visa visuell återkoppling under inspelning och transkription. På Linux rekommenderas 'Ingen'.",
-        "options": {
-          "none": "Ingen",
-          "bottom": "Nederst",
-          "top": "Överst"
-        }
       },
       "pasteMethod": {
         "title": "Klistra-in-metod",

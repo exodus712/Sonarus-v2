@@ -12,6 +12,7 @@ import { MuteWhileRecording } from "../audio/MuteWhileRecording";
 import { ModelSettingsCard } from "./ModelSettingsCard";
 import { ThemeSettings } from "./ThemeSettings";
 import { SoundPicker } from "../audio/SoundPicker";
+import { ShowOverlay } from "../ShowOverlay";
 
 export const GeneralSettings: React.FC = () => {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ export const GeneralSettings: React.FC = () => {
       <SettingsGroup title={t("settings.general.title")}>
         <ShortcutInput shortcutId="transcribe" grouped={true} />
         <PushToTalk descriptionMode="tooltip" grouped={true} />
+        <ShowOverlay descriptionMode="tooltip" grouped={true} />
       </SettingsGroup>
       <ThemeSettings />
       <ModelSettingsCard />

@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "プッシュトゥトーク",
         "description": "押し続けて録音、離して停止"
+      },
+      "overlay": {
+        "title": "オーバーレイ位置",
+        "description": "録音と文字起こし中に視覚的なフィードバックオーバーレイを表示。Linuxでは「なし」を推奨。",
+        "options": {
+          "none": "なし",
+          "bottom": "下",
+          "top": "上"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "トレイアイコンを表示",
         "description": "システムトレイにHandyのアイコンを表示します。"
-      },
-      "overlay": {
-        "title": "オーバーレイ位置",
-        "description": "録音と文字起こし中に視覚的なフィードバックオーバーレイを表示。Linuxでは「なし」を推奨。",
-        "options": {
-          "none": "なし",
-          "bottom": "下",
-          "top": "上"
-        }
       },
       "pasteMethod": {
         "title": "貼り付け方法",

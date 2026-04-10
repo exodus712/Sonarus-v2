@@ -198,6 +198,19 @@
       "pushToTalk": {
         "label": "Push To Talk",
         "description": "Hold to record, release to stop"
+      },
+      "overlay": {
+        "title": "Overlay Position",
+        "description": "Display visual feedback overlay during recording and transcription. On Linux 'None' is recommended.",
+        "options": {
+          "none": "None",
+          "bottom": "Bottom",
+          "top": "Top"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "models": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Show Tray Icon",
         "description": "Display the Handy icon in the system tray."
-      },
-      "overlay": {
-        "title": "Overlay Position",
-        "description": "Display visual feedback overlay during recording and transcription. On Linux 'None' is recommended.",
-        "options": {
-          "none": "None",
-          "bottom": "Bottom",
-          "top": "Top"
-        }
       },
       "pasteMethod": {
         "title": "Paste Method",
@@ -419,12 +423,10 @@
     "history": {
       "title": "History",
       "openFolder": "Open Recordings Folder",
-      "searchPlaceholder": "Search history...",
-      "noSearchResults": "No matching history entries",
-      "loading": "Loading history...",
-      "empty": "No transcriptions yet. Start recording to build your history!",
       "searchPlaceholder": "Search transcriptions...",
       "noSearchResults": "No transcriptions match your search.",
+      "loading": "Loading history...",
+      "empty": "No transcriptions yet. Start recording to build your history!",
       "copyToClipboard": "Copy transcription to clipboard",
       "save": "Save transcription",
       "unsave": "Remove from saved",

@@ -198,6 +198,19 @@
       "pushToTalk": {
         "label": "Pressionar para Falar",
         "description": "Segure para gravar, solte para parar"
+      },
+      "overlay": {
+        "title": "Posição da Sobreposição",
+        "description": "Exibir sobreposição de feedback visual durante gravação e transcrição. No Linux, 'Nenhum' é recomendado.",
+        "options": {
+          "none": "Nenhum",
+          "bottom": "Inferior",
+          "top": "Superior"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "models": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Mostrar ícone na bandeja",
         "description": "Exibir o ícone do Handy na bandeja do sistema."
-      },
-      "overlay": {
-        "title": "Posição da Sobreposição",
-        "description": "Exibir sobreposição de feedback visual durante gravação e transcrição. No Linux, 'Nenhum' é recomendado.",
-        "options": {
-          "none": "Nenhum",
-          "bottom": "Inferior",
-          "top": "Superior"
-        }
       },
       "pasteMethod": {
         "title": "Método de Colar",

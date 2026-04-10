@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Premi per Parlare",
         "description": "Tieni premuto per parlare, rilascia per interrompere"
+      },
+      "overlay": {
+        "title": "Posizione della Sovrimpressione",
+        "description": "Mostra un feedback visivo in sovrimpressione durante la registrazione e la trascrizione. Su Linux si raccomanda 'Nessuna'.",
+        "options": {
+          "none": "Nessuna",
+          "bottom": "In basso",
+          "top": "In alto"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Mostra icona nella barra di sistema",
         "description": "Mostra l'icona di Handy nella barra di sistema."
-      },
-      "overlay": {
-        "title": "Posizione della Sovrimpressione",
-        "description": "Mostra un feedback visivo in sovrimpressione durante la registrazione e la trascrizione. Su Linux si raccomanda 'Nessuna'.",
-        "options": {
-          "none": "Nessuna",
-          "bottom": "In basso",
-          "top": "In alto"
-        }
       },
       "pasteMethod": {
         "title": "Metodo di Incolla",

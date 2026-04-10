@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Appuyer pour parler",
         "description": "Maintenez pour enregistrer, relâchez pour arrêter"
+      },
+      "overlay": {
+        "title": "Position de la fenêtre d'enregistrement",
+        "description": "Afficher un retour visuel pendant l'enregistrement et la transcription. Sur Linux, 'Aucune' est recommandé.",
+        "options": {
+          "none": "Aucune",
+          "bottom": "Bas",
+          "top": "Haut"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Afficher l'icône de la barre",
         "description": "Afficher l'icône de Handy dans la barre système."
-      },
-      "overlay": {
-        "title": "Position de la fenêtre d'enregistrement",
-        "description": "Afficher un retour visuel pendant l'enregistrement et la transcription. Sur Linux, 'Aucune' est recommandé.",
-        "options": {
-          "none": "Aucune",
-          "bottom": "Bas",
-          "top": "Haut"
-        }
       },
       "pasteMethod": {
         "title": "Méthode de collage",

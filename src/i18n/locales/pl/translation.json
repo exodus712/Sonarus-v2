@@ -216,6 +216,19 @@
       "pushToTalk": {
         "label": "Push To Talk",
         "description": "Przytrzymaj, aby nagrywać, puść, aby zatrzymać"
+      },
+      "overlay": {
+        "title": "Pozycja nakładki",
+        "description": "Wyświetlaj wizualną nakładkę podczas nagrywania i transkrypcji. Na Linuxie zalecane 'Brak'.",
+        "options": {
+          "none": "Brak",
+          "bottom": "Dół",
+          "top": "Góra"
+        },
+        "idleIndicator": {
+          "label": "Always show overlay indicator",
+          "description": "When recording stops, shrink the overlay to a slim bar so it stays visible on screen until you record again."
+        }
       }
     },
     "sound": {
@@ -279,15 +292,6 @@
       "showTrayIcon": {
         "label": "Pokaż ikonę w zasobniku",
         "description": "Wyświetlaj ikonę Handy w zasobniku systemowym."
-      },
-      "overlay": {
-        "title": "Pozycja nakładki",
-        "description": "Wyświetlaj wizualną nakładkę podczas nagrywania i transkrypcji. Na Linuxie zalecane 'Brak'.",
-        "options": {
-          "none": "Brak",
-          "bottom": "Dół",
-          "top": "Góra"
-        }
       },
       "pasteMethod": {
         "title": "Metoda wklejania",
