@@ -529,6 +529,33 @@ async changeTranscribingVisualizerSetting(visualizer: string) : Promise<Result<n
     else return { status: "error", error: e  as any };
 }
 },
+async changeOrtAcceleratorSetting(accelerator: OrtAcceleratorSetting) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("change_ort_accelerator_setting", { accelerator }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+async changeWhisperGpuDevice(device: number) : Promise<Result<null, string>> {
+    try {
+    return { status: "ok", data: await TAURI_INVOKE("change_whisper_gpu_device", { device }) };
+} catch (e) {
+    if(e instanceof Error) throw e;
+    else return { status: "error", error: e  as any };
+}
+},
+/**
+ * Return which accelerators and GPU devices are available for this build.
+ *
+ * First-call cost is dominated by enumerating GPU devices through the
+ * whisper.cpp Metal/Vulkan backend, which loads dynamic libraries and
+ * probes hardware. Run it on the blocking pool so the webview thread
+ * stays responsive — see also the startup pre-warm in `lib.rs`.
+ */
+async getAvailableAccelerators() : Promise<AvailableAccelerators> {
+    return await TAURI_INVOKE("get_available_accelerators");
+},
 /**
  * Start key recording mode
  */
