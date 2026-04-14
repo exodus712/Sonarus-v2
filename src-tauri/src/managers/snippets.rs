@@ -115,10 +115,10 @@ impl SnippetManager {
         if trigger.is_empty() {
             return Err(anyhow!("Trigger cannot be empty"));
         }
-        if trigger.len() > 75 {
+        if trigger.chars().count() > 75 {
             return Err(anyhow!("Trigger cannot exceed 75 characters"));
         }
-        if expansion.len() > 2000 {
+        if expansion.chars().count() > 2000 {
             return Err(anyhow!("Expansion cannot exceed 2000 characters"));
         }
 
@@ -154,10 +154,10 @@ impl SnippetManager {
         if trigger.is_empty() {
             return Err(anyhow!("Trigger cannot be empty"));
         }
-        if trigger.len() > 75 {
+        if trigger.chars().count() > 75 {
             return Err(anyhow!("Trigger cannot exceed 75 characters"));
         }
-        if expansion.len() > 2000 {
+        if expansion.chars().count() > 2000 {
             return Err(anyhow!("Expansion cannot exceed 2000 characters"));
         }
 

@@ -563,6 +563,7 @@
     "checkForUpdates": "Zkontrolovat aktualizace"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "Načítání...",
     "save": "Uložit",
     "cancel": "Zrušit",

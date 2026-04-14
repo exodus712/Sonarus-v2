@@ -918,12 +918,16 @@ pub fn get_settings(app: &AppHandle) -> AppSettings {
     settings
 }
 
-pub fn write_settings(app: &AppHandle, settings: AppSettings) {
+pub fn write_settings(app: &AppHandle, settings: AppSettings) -> Result<(), String> {
     let store = app
         .store(crate::portable::store_path(SETTINGS_STORE_PATH))
-        .expect("Failed to initialize store");
+        .map_err(|e| format!("Failed to initialize store: {}", e))?;
 
-    store.set("settings", serde_json::to_value(&settings).unwrap());
+    store
+        .set("settings", serde_json::to_value(&settings).map_err(|e| e.to_string())?)
+        .map_err(|e| e.to_string())?;
+
+    Ok(())
 }
 
 pub fn get_bindings(app: &AppHandle) -> HashMap<String, ShortcutBinding> {

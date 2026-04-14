@@ -30,11 +30,14 @@ export const SnippetListItem: React.FC<SnippetListItemProps> = ({
       <label className="inline-flex items-center cursor-pointer shrink-0">
         <input
           type="checkbox"
-          className="sr-only peer"
+          className="sr-only peer focus-visible:ring-2 focus-visible:ring-logo-primary focus-visible:ring-offset-2"
           checked={snippet.is_enabled}
           onChange={() => onToggle(snippet)}
+          aria-label={t("settings.snippets.toggleEnable", {
+            name: snippet.trigger,
+          })}
         />
-        <div className="relative w-8 h-4 bg-mid-gray/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-background-ui" />
+        <div className="relative w-8 h-4 bg-mid-gray/20 peer-focus-visible:ring-2 peer-focus-visible:ring-logo-primary peer-focus-visible:ring-offset-2 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-background-ui" />
       </label>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
@@ -55,15 +58,21 @@ export const SnippetListItem: React.FC<SnippetListItemProps> = ({
       <div className="flex items-center gap-1 shrink-0">
         <button
           onClick={() => onEdit(snippet)}
-          className="p-1.5 rounded-md text-text-secondary hover:text-logo-primary transition-colors cursor-pointer"
+          className="p-1.5 rounded-md text-text-secondary hover:text-logo-primary transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-logo-primary focus-visible:ring-offset-2"
           title={t("settings.snippets.edit")}
+          aria-label={t("settings.snippets.editSnippet", {
+            name: snippet.trigger,
+          })}
         >
           <Pencil className="w-4 h-4" />
         </button>
         <button
           onClick={() => onDelete(snippet.id)}
-          className="p-1.5 rounded-md text-text-secondary hover:text-red-400 transition-colors cursor-pointer"
+          className="p-1.5 rounded-md text-text-secondary hover:text-red-400 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2"
           title={t("settings.snippets.delete")}
+          aria-label={t("settings.snippets.deleteSnippet", {
+            name: snippet.trigger,
+          })}
         >
           <Trash2 className="w-4 h-4" />
         </button>

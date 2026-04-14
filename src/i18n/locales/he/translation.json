@@ -563,6 +563,7 @@
     "checkForUpdates": "בדוק עדכונים"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "טוען...",
     "save": "שמור",
     "cancel": "ביטול",

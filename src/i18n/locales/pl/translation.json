@@ -563,6 +563,7 @@
     "checkForUpdates": "Sprawdź aktualizacje"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "Wczytywanie...",
     "save": "Zapisz",
     "cancel": "Anuluj",

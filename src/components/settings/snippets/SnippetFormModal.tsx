@@ -90,15 +90,24 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-background border border-mid-gray/20 rounded-xl shadow-xl w-full max-w-md mx-4 p-6 space-y-5">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="snippetModalTitle"
+        className="bg-background border border-mid-gray/20 rounded-xl shadow-xl w-full max-w-md mx-4 p-6 space-y-5"
+      >
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-medium text-text-primary">
+          <h2
+            id="snippetModalTitle"
+            className="text-base font-medium text-text-primary"
+          >
             {isEdit
               ? t("settings.snippets.editTitle")
               : t("settings.snippets.addTitle")}
           </h2>
           <button
             onClick={onClose}
+            aria-label={t("common.close")}
             className="p-1 rounded-md text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
@@ -108,7 +117,10 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
         <div className="space-y-4">
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-medium text-text-secondary uppercase tracking-wide">
+              <label
+                htmlFor="snippetTriggerInput"
+                className="text-xs font-medium text-text-secondary uppercase tracking-wide"
+              >
                 {t("settings.snippets.triggerLabel")}
               </label>
               <span
@@ -118,6 +130,7 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
               </span>
             </div>
             <input
+              id="snippetTriggerInput"
               ref={triggerRef}
               value={trigger}
               onChange={(e) => setTrigger(e.target.value)}
@@ -133,7 +146,10 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-medium text-text-secondary uppercase tracking-wide">
+              <label
+                htmlFor="snippetExpansionInput"
+                className="text-xs font-medium text-text-secondary uppercase tracking-wide"
+              >
                 {t("settings.snippets.expansionLabel")}
               </label>
               <span
@@ -143,6 +159,7 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
               </span>
             </div>
             <Textarea
+              id="snippetExpansionInput"
               value={expansion}
               onChange={(e) => setExpansion(e.target.value)}
               placeholder={t("settings.snippets.expansionPlaceholder")}

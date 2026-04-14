@@ -157,15 +157,29 @@ fn initialize_core_logic(app_handle: &AppHandle) {
     );
     let history_manager =
         Arc::new(HistoryManager::new(app_handle).expect("Failed to initialize history manager"));
-    let snippet_manager =
-        Arc::new(SnippetManager::new(app_handle).expect("Failed to initialize snippet manager"));
+
+    // Initialize snippet manager, but continue if it fails
+    let snippet_manager = match SnippetManager::new(app_handle) {
+        Ok(manager) => {
+            log::info!("Snippet manager initialized successfully");
+            Some(Arc::new(manager))
+        }
+        Err(e) => {
+            log::error!("Failed to initialize snippet manager: {}. Snippet features will be unavailable.", e);
+            None
+        }
+    };
 
     // Add managers to Tauri's managed state
     app_handle.manage(recording_manager.clone());
     app_handle.manage(model_manager.clone());
     app_handle.manage(transcription_manager.clone());
     app_handle.manage(history_manager.clone());
-    app_handle.manage(snippet_manager.clone());
+
+    // Only manage snippet manager if initialization succeeded
+    if let Some(manager) = snippet_manager {
+        app_handle.manage(manager);
+    }
 
     // Note: Shortcuts are NOT initialized here.
     // The frontend is responsible for calling the `initialize_shortcuts` command

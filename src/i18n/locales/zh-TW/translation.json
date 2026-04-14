@@ -563,6 +563,7 @@
     "checkForUpdates": "檢查更新"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "載入中...",
     "save": "儲存",
     "cancel": "取消",

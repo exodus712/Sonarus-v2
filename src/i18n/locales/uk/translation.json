@@ -563,6 +563,7 @@
     "checkForUpdates": "Перевірити оновлення"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "Завантаження...",
     "save": "Зберегти",
     "cancel": "Скасувати",

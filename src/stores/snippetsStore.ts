@@ -38,10 +38,15 @@ export const useSnippetsStore = create<SnippetsState>((set) => ({
   createSnippet: async (trigger, expansion) => {
     const result = await commands.createSnippet(trigger, expansion);
     if (result.status === "ok") {
-      set((state) => ({ snippets: [result.data, ...state.snippets] }));
+      set((state) => ({
+        snippets: [result.data, ...state.snippets],
+        error: null,
+      }));
       return result.data;
     }
-    throw new Error(String(result.error));
+    const errorMessage = String(result.error);
+    set({ error: errorMessage });
+    throw new Error(errorMessage);
   },
 
   updateSnippet: async (id, trigger, expansion, isEnabled) => {
@@ -54,10 +59,13 @@ export const useSnippetsStore = create<SnippetsState>((set) => ({
     if (result.status === "ok") {
       set((state) => ({
         snippets: state.snippets.map((s) => (s.id === id ? result.data : s)),
+        error: null,
       }));
       return result.data;
     }
-    throw new Error(String(result.error));
+    const errorMessage = String(result.error);
+    set({ error: errorMessage });
+    throw new Error(errorMessage);
   },
 
   deleteSnippet: async (id) => {
@@ -65,9 +73,12 @@ export const useSnippetsStore = create<SnippetsState>((set) => ({
     if (result.status === "ok") {
       set((state) => ({
         snippets: state.snippets.filter((s) => s.id !== id),
+        error: null,
       }));
       return;
     }
-    throw new Error(String(result.error));
+    const errorMessage = String(result.error);
+    set({ error: errorMessage });
+    throw new Error(errorMessage);
   },
 }));

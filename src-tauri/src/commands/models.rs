@@ -60,7 +60,7 @@ pub async fn delete_model(
 
         let mut settings = get_settings(&app_handle);
         settings.selected_model = String::new();
-        write_settings(&app_handle, settings);
+        write_settings(&app_handle, settings)?;
     }
 
     model_manager
@@ -120,7 +120,7 @@ pub fn switch_active_model(app: &AppHandle, model_id: &str) -> Result<(), String
         settings.selected_language = "auto".to_string();
     }
 
-    write_settings(app, settings);
+    write_settings(app, settings)?;
 
     // Skip eager loading if unload is set to "Immediately" — the model
     // will be loaded on-demand during the next transcription.
@@ -147,7 +147,7 @@ pub fn switch_active_model(app: &AppHandle, model_id: &str) -> Result<(), String
     if let Err(e) = transcription_manager.load_model(model_id) {
         let mut settings = get_settings(app);
         settings.selected_model = old_model;
-        write_settings(app, settings);
+        write_settings(app, settings)?;
         return Err(e.to_string());
     }
 

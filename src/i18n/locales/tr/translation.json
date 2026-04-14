@@ -563,6 +563,7 @@
     "checkForUpdates": "Güncellemeleri kontrol et"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "Yükleniyor...",
     "save": "Kaydet",
     "cancel": "İptal",

@@ -563,6 +563,7 @@
     "checkForUpdates": "Kiểm tra cập nhật"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "Đang tải...",
     "save": "Lưu",
     "cancel": "Hủy",

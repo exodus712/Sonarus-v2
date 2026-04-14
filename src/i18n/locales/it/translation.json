@@ -563,6 +563,7 @@
     "checkForUpdates": "Controlla aggiornamenti"
   },
   "common": {
+    "appName": "Sonarus",
     "loading": "Caricamento...",
     "save": "Salva",
     "cancel": "Annulla",
