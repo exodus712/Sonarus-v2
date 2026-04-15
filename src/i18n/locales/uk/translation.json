@@ -13,10 +13,10 @@
     "models": "Моделі",
     "advanced": "Розширені",
     "postProcessing": "Постобробка",
+    "snippets": "Snippets",
     "history": "Історія",
     "debug": "Дебаг",
-    "about": "Інфо",
-    "snippets": "Snippets"
+    "about": "Інфо"
   },
   "onboarding": {
     "subtitle": "Для початку оберіть модель транскрипції",
@@ -119,6 +119,7 @@
   "modelSelector": {
     "custom": "Користувацька",
     "active": "Активна",
+    "switching": "Перемикання...",
     "noModelsAvailable": "Немає доступних моделей",
     "verifying": "Перевірка {{modelName}}...",
     "verifyingGeneric": "Перевірка...",
@@ -134,18 +135,17 @@
     "modelUnloaded": "Модель вивантажена",
     "noModelDownloadRequired": "Немає моделі - потрібно завантажити",
     "deleteModel": "Видалити {{modelName}}",
-    "switching": "Перемикання...",
     "downloadSpeed": "{{speed}} MB/s",
+    "cancel": "Скасувати",
+    "cancelDownload": "Скасувати завантаження",
     "capabilities": {
       "languageSelection": "Підтримує кілька мов введення",
-      "multiLanguage": "Багатомовна",
-      "translation": "Може перекладати на англійську",
-      "translate": "Перекласти на англійську",
       "singleLanguage": "Підтримує лише цю мову",
-      "languageOnly": "Лише {{language}}"
-    },
-    "cancel": "Скасувати",
-    "cancelDownload": "Скасувати завантаження"
+      "multiLanguage": "Багатомовна",
+      "languageOnly": "Лише {{language}}",
+      "translation": "Може перекладати на англійську",
+      "translate": "Перекласти на англійську"
+    }
   },
   "settings": {
     "modelSettings": {
@@ -204,6 +204,8 @@
     "models": {
       "title": "Моделі транскрипції",
       "description": "Виберіть модель транскрипції або завантажте додаткові моделі. Різні моделі пропонують різні рівні точності та швидкості.",
+      "yourModels": "Завантажені моделі",
+      "availableModels": "Доступні для завантаження",
       "downloaded": "Завантажено",
       "available": "Доступні для завантаження",
       "deleteConfirm": "Ви впевнені, що хочете видалити {{modelName}}? Вам потрібно буде завантажити її знову, щоб використовувати.",
@@ -215,9 +217,7 @@
         "translation": "Переклад",
         "allLanguages": "Усі мови"
       },
-      "noModelsMatch": "Жодна модель не відповідає цьому фільтру.",
-      "yourModels": "Завантажені моделі",
-      "availableModels": "Доступні для завантаження"
+      "noModelsMatch": "Жодна модель не відповідає цьому фільтру."
     },
     "sound": {
       "title": "Звук",
@@ -417,6 +417,42 @@
         "createFirst": "Натисніть «Створити новий промпт» вище, щоб створити ваш перший промпт постобробки."
       }
     },
+    "snippets": {
+      "title": "Smart Snippets",
+      "listTitle": "Your Snippets",
+      "addButton": "Add Snippet",
+      "addTitle": "Add Snippet",
+      "editTitle": "Edit Snippet",
+      "enabledLabel": "Smart Snippets",
+      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
+      "triggerLabel": "Trigger Phrase",
+      "triggerPlaceholder": "e.g. addr",
+      "triggerHint": "Say this phrase during transcription to expand it",
+      "expansionLabel": "Expansion Text",
+      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
+      "loading": "Loading snippets...",
+      "empty": "No snippets yet",
+      "emptyHint": "Add a snippet to expand trigger phrases automatically",
+      "edit": "Edit snippet",
+      "delete": "Delete snippet",
+      "toggleEnable": "Enable snippet {{name}}",
+      "editSnippet": "Edit snippet {{name}}",
+      "deleteSnippet": "Delete snippet {{name}}",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "saveChanges": "Save Changes",
+      "add": "Add Snippet",
+      "created": "Snippet created",
+      "updated": "Snippet updated",
+      "deleted": "Snippet deleted",
+      "errors": {
+        "emptyTrigger": "Trigger phrase cannot be empty",
+        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
+        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
+        "toggleFailed": "Failed to update snippet",
+        "deleteFailed": "Failed to delete snippet"
+      }
+    },
     "history": {
       "title": "Історія",
       "openFolder": "Відкрити папку записів",
@@ -546,42 +582,6 @@
           "description": "Високопродуктивний інференс моделі автоматичного розпізнавання мовлення Whisper від OpenAI",
           "details": "Handy використовує Whisper.cpp для швидкої локальної обробки мовлення в текст. Дякуємо за чудову роботу Георгію Герганову та контриб'юторам."
         }
-      }
-    },
-    "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
-      "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
       }
     }
   },

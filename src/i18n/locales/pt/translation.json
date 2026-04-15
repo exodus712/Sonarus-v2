@@ -13,10 +13,10 @@
     "models": "Modelos",
     "advanced": "Avançado",
     "postProcessing": "Pós-Processamento",
+    "snippets": "Snippets",
     "history": "Histórico",
     "debug": "Depuração",
-    "about": "Sobre",
-    "snippets": "Snippets"
+    "about": "Sobre"
   },
   "onboarding": {
     "subtitle": "Para começar, escolha um modelo de transcrição",
@@ -119,6 +119,7 @@
   "modelSelector": {
     "custom": "Personalizado",
     "active": "Ativo",
+    "switching": "Alternando...",
     "noModelsAvailable": "Nenhum modelo disponível",
     "verifying": "Verificando {{modelName}}...",
     "verifyingGeneric": "Verificando...",
@@ -134,18 +135,17 @@
     "modelUnloaded": "Modelo Descarregado",
     "noModelDownloadRequired": "Sem Modelo - Download Necessário",
     "deleteModel": "Excluir {{modelName}}",
-    "switching": "Alternando...",
     "downloadSpeed": "{{speed}} MB/s",
+    "cancel": "Cancelar",
+    "cancelDownload": "Cancelar download",
     "capabilities": {
       "languageSelection": "Suporta vários idiomas de entrada",
-      "multiLanguage": "Multi-idioma",
-      "translation": "Pode traduzir para inglês",
-      "translate": "Traduzir para inglês",
       "singleLanguage": "Suporta apenas este idioma",
-      "languageOnly": "Apenas {{language}}"
-    },
-    "cancel": "Cancelar",
-    "cancelDownload": "Cancelar download"
+      "multiLanguage": "Multi-idioma",
+      "languageOnly": "Apenas {{language}}",
+      "translation": "Pode traduzir para inglês",
+      "translate": "Traduzir para inglês"
+    }
   },
   "settings": {
     "modelSettings": {
@@ -204,6 +204,8 @@
     "models": {
       "title": "Modelos de Transcrição",
       "description": "Selecione um modelo de transcrição ou baixe modelos adicionais. Diferentes modelos oferecem diferentes níveis de precisão e velocidade.",
+      "yourModels": "Modelos baixados",
+      "availableModels": "Disponíveis para download",
       "downloaded": "Baixados",
       "available": "Disponíveis para Download",
       "deleteConfirm": "Tem certeza de que deseja excluir {{modelName}}? Você precisará baixá-lo novamente para usá-lo.",
@@ -215,9 +217,7 @@
         "translation": "Tradução",
         "allLanguages": "Todos os Idiomas"
       },
-      "noModelsMatch": "Nenhum modelo corresponde a este filtro.",
-      "yourModels": "Modelos baixados",
-      "availableModels": "Disponíveis para download"
+      "noModelsMatch": "Nenhum modelo corresponde a este filtro."
     },
     "sound": {
       "title": "Som",
@@ -417,6 +417,42 @@
         "createFirst": "Clique em 'Criar Novo Prompt' acima para criar seu primeiro prompt de pós-processamento."
       }
     },
+    "snippets": {
+      "title": "Snippets Inteligentes",
+      "listTitle": "Seus Snippets",
+      "addButton": "Adicionar Snippet",
+      "addTitle": "Adicionar Snippet",
+      "editTitle": "Editar Snippet",
+      "enabledLabel": "Snippets Inteligentes",
+      "enabledDescription": "Expandir automaticamente frases de gatilho para texto completo após a transcrição",
+      "triggerLabel": "Frase de Gatilho",
+      "triggerPlaceholder": "ex: ender",
+      "triggerHint": "Diga esta frase durante a transcrição para expandi-la",
+      "expansionLabel": "Texto de Expansão",
+      "expansionPlaceholder": "ex: Rua Principal, 123, São Paulo",
+      "loading": "Carregando snippets...",
+      "empty": "Nenhum snippet ainda",
+      "emptyHint": "Adicione um snippet para expandir frases de gatilho automaticamente",
+      "edit": "Editar snippet",
+      "delete": "Excluir snippet",
+      "toggleEnable": "Ativar snippet {{name}}",
+      "editSnippet": "Editar snippet {{name}}",
+      "deleteSnippet": "Excluir snippet {{name}}",
+      "cancel": "Cancelar",
+      "saving": "Salvando...",
+      "saveChanges": "Salvar Alterações",
+      "add": "Adicionar Snippet",
+      "created": "Snippet criado",
+      "updated": "Snippet atualizado",
+      "deleted": "Snippet excluído",
+      "errors": {
+        "emptyTrigger": "A frase de gatilho não pode estar vazia",
+        "triggerTooLong": "A frase de gatilho deve ter {{max}} caracteres ou menos",
+        "expansionTooLong": "A expansão deve ter {{max}} caracteres ou menos",
+        "toggleFailed": "Falha ao atualizar snippet",
+        "deleteFailed": "Falha ao excluir snippet"
+      }
+    },
     "history": {
       "title": "Histórico",
       "openFolder": "Abrir Pasta de Gravações",
@@ -546,42 +582,6 @@
           "description": "Inferência de alto desempenho do modelo de reconhecimento automático de fala Whisper da OpenAI",
           "details": "O Handy usa Whisper.cpp para processamento rápido e local de fala para texto. Agradecemos ao incrível trabalho de Georgi Gerganov e colaboradores."
         }
-      }
-    },
-    "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
-      "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
       }
     }
   },

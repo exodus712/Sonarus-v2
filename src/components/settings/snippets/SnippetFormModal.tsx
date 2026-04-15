@@ -45,7 +45,7 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose();
+        if (!saving) onClose();
       }
 
       // Focus trapping for Tab and Shift+Tab
@@ -80,7 +80,7 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [onClose]);
+  }, [onClose, saving]);
 
   const handleSave = async () => {
     if (saving) return;
@@ -130,7 +130,7 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget && !saving) onClose();
       }}
     >
       <div
@@ -150,9 +150,10 @@ export const SnippetFormModal: React.FC<SnippetFormModalProps> = ({
               : t("settings.snippets.addTitle")}
           </h2>
           <button
-            onClick={onClose}
+            onClick={() => !saving && onClose()}
+            disabled={saving}
             aria-label={t("common.close")}
-            className="p-1 rounded-md text-text-secondary hover:text-text-primary transition-colors cursor-pointer"
+            className="p-1 rounded-md text-text-secondary hover:text-text-primary transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <X className="w-4 h-4" />
           </button>

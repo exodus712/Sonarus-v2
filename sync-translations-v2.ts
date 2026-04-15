@@ -9,17 +9,11 @@ const reference = JSON.parse(fs.readFileSync(referencePath, "utf8"));
 function deepMerge(target, source) {
   const output = { ...target };
   if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
-      if (isObject(source[key])) {
-        if (!(key in target)) {
-          Object.assign(output, { [key]: source[key] });
-        } else {
-          output[key] = deepMerge(target[key], source[key]);
-        }
-      } else {
-        if (!(key in target)) {
-          Object.assign(output, { [key]: source[key] });
-        }
+    Object.keys(target).forEach((key) => {
+      if (isObject(target[key]) && isObject(source[key])) {
+        output[key] = deepMerge(target[key], source[key]);
+      } else if (key in source) {
+        output[key] = source[key];
       }
     });
   }
@@ -41,6 +35,6 @@ for (const lang of languages) {
 
   console.log(`Syncing ${lang}...`);
   const current = JSON.parse(fs.readFileSync(langPath, "utf8"));
-  const merged = deepMerge(current, reference);
+  const merged = deepMerge(reference, current);
   fs.writeFileSync(langPath, JSON.stringify(merged, null, 2) + "\n");
 }

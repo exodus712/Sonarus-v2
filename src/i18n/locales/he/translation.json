@@ -13,10 +13,10 @@
     "models": "מודלים",
     "advanced": "מתקדם",
     "postProcessing": "עיבוד משלים",
+    "snippets": "קטעי טקסט",
     "history": "היסטוריה",
     "debug": "ניפוי שגיאות",
-    "about": "אודות",
-    "snippets": "Snippets"
+    "about": "אודות"
   },
   "onboarding": {
     "subtitle": "כדי להתחיל, בחר מודל תמלול",
@@ -417,6 +417,42 @@
         "createFirst": "לחץ על 'צור פרומפט חדש' למעלה כדי ליצור את פרומפט העיבוד הראשון שלך."
       }
     },
+    "snippets": {
+      "title": "קטעי טקסט חכמים",
+      "listTitle": "קטעי הטקסט שלך",
+      "addButton": "הוסף קטע טקסט",
+      "addTitle": "הוסף קטע טקסט",
+      "editTitle": "ערוך קטע טקסט",
+      "enabledLabel": "קטעי טקסט חכמים",
+      "enabledDescription": "הרחב אוטומטית ביטויי הפעלה לטקסט מלא לאחר התמלול",
+      "triggerLabel": "ביטוי הפעלה",
+      "triggerPlaceholder": "למשל: addr",
+      "triggerHint": "אמור את הביטוי הזה בזמן התמלול כדי להרחיב אותו",
+      "expansionLabel": "טקסט מורחב",
+      "expansionPlaceholder": "למשל: רחוב הרצל 1, תל אביב",
+      "loading": "טוען קטעי טקסט...",
+      "empty": "אין עדיין קטעי טקסט",
+      "emptyHint": "הוסף קטע טקסט כדי להרחיב ביטויי הפעלה באופן אוטומטי",
+      "edit": "ערוך קטע טקסט",
+      "delete": "מחק קטע טקסט",
+      "toggleEnable": "הפעל קטע טקסט {{name}}",
+      "editSnippet": "ערוך קטע טקסט {{name}}",
+      "deleteSnippet": "מחק קטע טקסט {{name}}",
+      "cancel": "ביטול",
+      "saving": "שומר...",
+      "saveChanges": "שמור שינויים",
+      "add": "הוסף קטע טקסט",
+      "created": "קטע טקסט נוצר",
+      "updated": "קטע טקסט עודכן",
+      "deleted": "קטע טקסט נמחק",
+      "errors": {
+        "emptyTrigger": "ביטוי ההפעלה לא יכול להיות ריק",
+        "triggerTooLong": "ביטוי ההפעלה חייב להיות באורך של {{max}} תווים לכל היותר",
+        "expansionTooLong": "הטקסט המורחב חייב להיות באורך של {{max}} תווים לכל היותר",
+        "toggleFailed": "עדכון קטע הטקסט נכשל",
+        "deleteFailed": "מחיקת קטע הטקסט נכשלה"
+      }
+    },
     "history": {
       "title": "היסטוריה",
       "openFolder": "פתח את תיקיית ההקלטות",
@@ -546,42 +582,6 @@
           "description": "הסקה מהירה לביצועים גבוהים עבור מודל זיהוי הדיבור Whisper של OpenAI",
           "details": "Handy משתמש ב-Whisper.cpp לתמלול מהיר ומקומי. תודה לעבודה המדהימה של Georgi Gerganov וכל התורמים."
         }
-      }
-    },
-    "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
-      "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
       }
     }
   },
