@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { FlaskConical, Sparkles } from "lucide-react";
+import { FlaskConical } from "lucide-react";
 import SonarusTextLogo from "./icons/SonarusTextLogo";
 import { CpuIcon, type CpuIconHandle } from "./ui/cpu";
 import { HistoryIcon, type HistoryIconHandle } from "./ui/history";
@@ -8,6 +8,7 @@ import { CogIcon, type CogIconHandle } from "./ui/cog";
 import { CircleHelpIcon, type CircleHelpIconHandle } from "./ui/circle-help";
 import { AudioLinesIcon, type AudioLinesIconHandle } from "./ui/audio-lines";
 import { ScissorsIcon, type ScissorsIconHandle } from "./ui/scissors";
+import { SparklesIcon, type SparklesIconHandle } from "./ui/sparkles";
 import { useSettings } from "../hooks/useSettings";
 import {
   GeneralSettings,
@@ -105,6 +106,18 @@ const AnimatedScissorsIcon = React.forwardRef<ScissorsIconHandle, IconProps>(
 );
 AnimatedScissorsIcon.displayName = "AnimatedScissorsIcon";
 
+const AnimatedSparklesIcon = React.forwardRef<SparklesIconHandle, IconProps>(
+  ({ size, className, ...props }, ref) => (
+    <SparklesIcon
+      ref={ref}
+      size={typeof size === "string" ? parseInt(size) : size}
+      className={className}
+      {...props}
+    />
+  ),
+);
+AnimatedSparklesIcon.displayName = "AnimatedSparklesIcon";
+
 interface SectionConfig {
   labelKey: string;
   icon: React.ComponentType<IconProps>;
@@ -133,7 +146,7 @@ export const SECTIONS_CONFIG = {
   },
   postprocessing: {
     labelKey: "sidebar.postProcessing",
-    icon: Sparkles,
+    icon: AnimatedSparklesIcon,
     component: PostProcessingSettings,
     enabled: (settings) => settings?.post_process_enabled ?? false,
   },
@@ -173,6 +186,7 @@ interface AnimatedIconHandles {
   general: React.RefObject<AudioLinesIconHandle | null>;
   models: React.RefObject<CpuIconHandle | null>;
   advanced: React.RefObject<CogIconHandle | null>;
+  postprocessing: React.RefObject<SparklesIconHandle | null>;
   snippets: React.RefObject<ScissorsIconHandle | null>;
   history: React.RefObject<HistoryIconHandle | null>;
   about: React.RefObject<CircleHelpIconHandle | null>;
@@ -190,6 +204,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     general: useRef<AudioLinesIconHandle>(null),
     models: useRef<CpuIconHandle>(null),
     advanced: useRef<CogIconHandle>(null),
+    postprocessing: useRef<SparklesIconHandle>(null),
     snippets: useRef<ScissorsIconHandle>(null),
     history: useRef<HistoryIconHandle>(null),
     about: useRef<CircleHelpIconHandle>(null),
