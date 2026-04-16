@@ -13,7 +13,7 @@
     "models": "Модели",
     "advanced": "Разширени",
     "postProcessing": "Постобработка",
-    "snippets": "Snippets",
+    "snippets": "Фрагменти",
     "history": "История",
     "debug": "Отстраняване",
     "about": "За приложението"
@@ -31,7 +31,7 @@
     },
     "models": {
       "small": {
-        "name": "Whisper Small",
+        "name": "Whisper малък",
         "description": "Бърз и доста точен."
       },
       "medium": {
@@ -55,7 +55,7 @@
         "description": "Бърз и точен."
       },
       "moonshine-base": {
-        "name": "Moonshine Base",
+        "name": "Основа за самогон",
         "description": "Много бърз, само английски. Добре обработва акценти."
       },
       "moonshine-tiny-streaming-en": {
@@ -135,7 +135,7 @@
     "modelUnloaded": "Моделът е разтоварен",
     "noModelDownloadRequired": "Няма модел – необходимо е изтегляне",
     "deleteModel": "Изтриване на {{modelName}}",
-    "downloadSpeed": "{{speed}} MB/s",
+    "downloadSpeed": "{{speed}} МБ/с",
     "cancel": "Отказ",
     "cancelDownload": "Отказ на изтеглянето",
     "capabilities": {
@@ -323,7 +323,7 @@
         "description": "Автоматично изпращане на избраната клавишна комбинация след вмъкване на текста. Cmd+Enter важи за macOS, а Windows/Linux използват Super+Enter.",
         "options": {
           "off": "Изкл.",
-          "enter": "Enter",
+          "enter": "Въведете",
           "cmdEnter": "Cmd+Enter",
           "superEnter": "Super+Enter",
           "ctrlEnter": "Ctrl+Enter"
@@ -418,39 +418,39 @@
       }
     },
     "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
+      "title": "Интелигентни откъси",
+      "listTitle": "Вашите фрагменти",
+      "addButton": "Добавяне на откъс",
+      "addTitle": "Добавяне на откъс",
+      "editTitle": "Редактиране на фрагмент",
+      "enabledLabel": "Интелигентни откъси",
+      "enabledDescription": "Автоматично разширявай задействащите фрази до пълен текст след транскрибиране",
+      "triggerLabel": "Задействаща фраза",
+      "triggerPlaceholder": "напр. адрес",
+      "triggerHint": "Кажете тази фраза по време на транскрипция, за да я разгънете",
+      "expansionLabel": "Разширен текст",
+      "expansionPlaceholder": "напр. Main Street 123, Springfield",
+      "loading": "Зареждане на откъси...",
+      "empty": "Все още няма откъси",
+      "emptyHint": "Добавете откъс, за да разширявате автоматично фразите за задействане",
+      "edit": "Редактиране на фрагмента",
+      "delete": "Изтриване на откъс",
+      "toggleEnable": "Активиране на фрагмента {{name}}",
+      "editSnippet": "Редактиране на фрагмента {{name}}",
+      "deleteSnippet": "Изтриване на откъс {{name}}",
+      "cancel": "Отказ",
+      "saving": "Запазване...",
+      "saveChanges": "Запазване на промените",
+      "add": "Добавяне на откъс",
+      "created": "Откъсът е създаден",
+      "updated": "Откъсът е актуализиран",
+      "deleted": "Откъсът е изтрит",
       "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
+        "emptyTrigger": "Фразата за задействане не може да бъде празна",
+        "triggerTooLong": "Фразата за задействане трябва да е до {{max}} знака",
+        "expansionTooLong": "Разширението трябва да е до {{max}} знака",
+        "toggleFailed": "Неуспешно обновяване на фрагмента",
+        "deleteFailed": "Изтриването на откъса не бе успешно"
       }
     },
     "history": {
@@ -581,6 +581,11 @@
           "title": "Whisper.cpp",
           "description": "Високопроизводително изпълнение на автоматичния модел за разпознаване на реч Whisper на OpenAI",
           "details": "Handy използва Whisper.cpp за бързо локално реч-към-текст. Благодарности на Georgi Gerganov и сътрудниците за отличната работа."
+        },
+        "handy": {
+          "title": "Удобен",
+          "description": "Най-лесният за разклоняване инструмент за преобразуване на реч в текст",
+          "details": "Sonarus е изграден върху основата на Handy. Разгледайте оригиналния проект за повече подробности."
         }
       }
     }

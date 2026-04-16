@@ -13,7 +13,7 @@
     "models": "Modely",
     "advanced": "Pokročilé",
     "postProcessing": "Následné zpracování",
-    "snippets": "Snippets",
+    "snippets": "Úryvky",
     "history": "Historie",
     "debug": "Ladění",
     "about": "O aplikaci"
@@ -31,7 +31,7 @@
     },
     "models": {
       "small": {
-        "name": "Whisper Small",
+        "name": "Malý šepot",
         "description": "Rychlý a poměrně přesný."
       },
       "medium": {
@@ -55,7 +55,7 @@
         "description": "Rychlý a přesný"
       },
       "moonshine-base": {
-        "name": "Moonshine Base",
+        "name": "Základ na pálenku",
         "description": "Velmi rychlý, pouze angličtina. Dobře zvládá přízvuky."
       },
       "moonshine-tiny-streaming-en": {
@@ -396,7 +396,7 @@
         }
       },
       "prompts": {
-        "title": "Prompt",
+        "title": "Zadání",
         "selectedPrompt": {
           "title": "Vybraný prompt",
           "description": "Vyberte šablonu pro zpřesnění přepisu nebo vytvořte novou. V textu promptu použijte ${output} pro vložení zachyceného přepisu."
@@ -418,39 +418,39 @@
       }
     },
     "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
+      "title": "Chytré úryvky",
+      "listTitle": "Vaše úryvky",
+      "addButton": "Přidat úryvek",
+      "addTitle": "Přidat úryvek",
+      "editTitle": "Upravit úryvek",
+      "enabledLabel": "Chytré úryvky",
+      "enabledDescription": "Automaticky po přepisu rozbalit spouštěcí fráze na celý text",
+      "triggerLabel": "Spouštěcí fráze",
+      "triggerPlaceholder": "např. adr.",
+      "triggerHint": "Během přepisu vyslovte tuto frázi, aby se rozvinula",
+      "expansionLabel": "Rozšiřující text",
+      "expansionPlaceholder": "např. Hlavní 123, Springfield",
+      "loading": "Načítání úryvků...",
+      "empty": "Zatím žádné úryvky",
+      "emptyHint": "Přidejte úryvek pro automatické rozšíření spouštěcích frází",
+      "edit": "Upravit úryvek",
+      "delete": "Smazat úryvek",
+      "toggleEnable": "Povolit úryvek {{name}}",
+      "editSnippet": "Upravit úryvek {{name}}",
+      "deleteSnippet": "Smazat úryvek {{name}}",
+      "cancel": "Zrušit",
+      "saving": "Ukládání...",
+      "saveChanges": "Uložit změny",
+      "add": "Přidat úryvek",
+      "created": "Úryvek vytvořen",
+      "updated": "Úryvek byl aktualizován",
+      "deleted": "Úryvek odstraněn",
       "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
+        "emptyTrigger": "Spouštěcí fráze nemůže být prázdná",
+        "triggerTooLong": "Spouštěcí fráze musí mít nejvýše {{max}} znaků",
+        "expansionTooLong": "Rozšíření musí mít nejvýše {{max}} znaků",
+        "toggleFailed": "Nepodařilo se aktualizovat úryvek",
+        "deleteFailed": "Nepodařilo se odstranit úryvek"
       }
     },
     "history": {
@@ -581,6 +581,11 @@
           "title": "Whisper.cpp",
           "description": "Vysoce výkonné inferenční zpracování modelu automatického rozpoznávání řeči Whisper od OpenAI",
           "details": "Handy používá Whisper.cpp pro rychlé lokální zpracování řeči na text. Díky skvělé práci Georgiho Gerganova a přispěvatelů."
+        },
+        "handy": {
+          "title": "Praktické",
+          "description": "Nástroj pro převod řeči na text, který se nejsnáze forkuje",
+          "details": "Sonarus staví na základech Handy. Více podrobností najdete v původním projektu."
         }
       }
     }

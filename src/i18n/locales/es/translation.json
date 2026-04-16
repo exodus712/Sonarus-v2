@@ -13,7 +13,7 @@
     "models": "Modelos",
     "advanced": "Avanzado",
     "postProcessing": "Post Proceso",
-    "snippets": "Snippets",
+    "snippets": "Fragmentos",
     "history": "Historial",
     "debug": "Depuración",
     "about": "Acerca de"
@@ -31,7 +31,7 @@
     },
     "models": {
       "small": {
-        "name": "Whisper Small",
+        "name": "Susurro Pequeño",
         "description": "Rápido y bastante preciso."
       },
       "medium": {
@@ -55,7 +55,7 @@
         "description": "Rápido y preciso"
       },
       "moonshine-base": {
-        "name": "Moonshine Base",
+        "name": "Base de alcohol ilegal",
         "description": "Muy rápido, solo inglés. Maneja bien los acentos."
       },
       "moonshine-tiny-streaming-en": {
@@ -63,7 +63,7 @@
         "description": "Ultrarrápido, solo inglés"
       },
       "moonshine-small-streaming-en": {
-        "name": "Moonshine V2 Small",
+        "name": "Moonshine V2 Pequeño",
         "description": "Rápido, solo inglés. Buen equilibrio entre velocidad y precisión."
       },
       "moonshine-medium-streaming-en": {
@@ -323,10 +323,10 @@
         "description": "Envía automáticamente la combinación de teclas seleccionada después de insertar el texto. Cmd+Enter se aplica en macOS, mientras que Windows/Linux usan Super+Enter.",
         "options": {
           "off": "Desactivado",
-          "enter": "Enter",
-          "cmdEnter": "Cmd+Enter",
-          "superEnter": "Super+Enter",
-          "ctrlEnter": "Ctrl+Enter"
+          "enter": "Entrar",
+          "cmdEnter": "Cmd+Intro",
+          "superEnter": "Super+Intro",
+          "ctrlEnter": "Ctrl+Intro"
         }
       },
       "translateToEnglish": {
@@ -396,7 +396,7 @@
         }
       },
       "prompts": {
-        "title": "Prompt",
+        "title": "Instrucción",
         "selectedPrompt": {
           "title": "Prompt Seleccionado",
           "description": "Selecciona una plantilla para refinar las transcripciones o crea una nueva. Usa ${output} dentro del texto del prompt para hacer referencia a la transcripción capturada."
@@ -418,39 +418,39 @@
       }
     },
     "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
+      "title": "Fragmentos inteligentes",
+      "listTitle": "Tus fragmentos",
+      "addButton": "Añadir fragmento",
+      "addTitle": "Añadir fragmento",
+      "editTitle": "Editar fragmento",
+      "enabledLabel": "Fragmentos inteligentes",
+      "enabledDescription": "Expandir automáticamente las frases activadoras a texto completo después de la transcripción",
+      "triggerLabel": "Frase activadora",
+      "triggerPlaceholder": "p. ej., dir.",
+      "triggerHint": "Di esta frase durante la transcripción para ampliarla",
+      "expansionLabel": "Texto ampliado",
+      "expansionPlaceholder": "p. ej. Calle Principal 123, Springfield",
+      "loading": "Cargando fragmentos...",
+      "empty": "Aún no hay fragmentos",
+      "emptyHint": "Añade un fragmento para expandir frases desencadenantes automáticamente",
+      "edit": "Editar fragmento",
+      "delete": "Eliminar fragmento",
+      "toggleEnable": "Habilitar fragmento {{name}}",
+      "editSnippet": "Editar fragmento {{name}}",
+      "deleteSnippet": "Eliminar fragmento {{name}}",
+      "cancel": "Cancelar",
+      "saving": "Guardando...",
+      "saveChanges": "Guardar cambios",
+      "add": "Añadir fragmento",
+      "created": "Fragmento creado",
+      "updated": "Fragmento actualizado",
+      "deleted": "Fragmento eliminado",
       "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
+        "emptyTrigger": "La frase desencadenante no puede estar vacía",
+        "triggerTooLong": "La frase desencadenante debe tener {{max}} caracteres o menos",
+        "expansionTooLong": "La expansión debe tener {{max}} caracteres o menos",
+        "toggleFailed": "No se pudo actualizar el fragmento",
+        "deleteFailed": "No se pudo eliminar el fragmento"
       }
     },
     "history": {
@@ -581,6 +581,11 @@
           "title": "Whisper.cpp",
           "description": "Inferencia de alto rendimiento del modelo de reconocimiento automático de voz Whisper de OpenAI",
           "details": "Handy usa Whisper.cpp para procesamiento de voz a texto rápido y local. Gracias al increíble trabajo de Georgi Gerganov y colaboradores."
+        },
+        "handy": {
+          "title": "Práctico",
+          "description": "La herramienta de voz a texto más fácil de bifurcar",
+          "details": "Sonarus se basa en la base de Handy. Consulta el proyecto original para obtener más información."
         }
       }
     }

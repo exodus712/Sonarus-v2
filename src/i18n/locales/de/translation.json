@@ -13,9 +13,9 @@
     "models": "Modelle",
     "advanced": "Erweitert",
     "postProcessing": "Nachbearbeitung",
-    "snippets": "Snippets",
+    "snippets": "Schnipsel",
     "history": "Verlauf",
-    "debug": "Debug",
+    "debug": "Debuggen",
     "about": "Info"
   },
   "onboarding": {
@@ -31,11 +31,11 @@
     },
     "models": {
       "small": {
-        "name": "Whisper Small",
+        "name": "Kleines Flüstern",
         "description": "Schnell und recht genau."
       },
       "medium": {
-        "name": "Whisper Medium",
+        "name": "Flüstern Mittel",
         "description": "Gute Genauigkeit, mittlere Geschwindigkeit"
       },
       "turbo": {
@@ -55,7 +55,7 @@
         "description": "Schnell und genau"
       },
       "moonshine-base": {
-        "name": "Moonshine Base",
+        "name": "Moonshine-Basis",
         "description": "Sehr schnell, nur Englisch. Verarbeitet Akzente gut."
       },
       "moonshine-tiny-streaming-en": {
@@ -63,7 +63,7 @@
         "description": "Ultraschnell, nur Englisch"
       },
       "moonshine-small-streaming-en": {
-        "name": "Moonshine V2 Small",
+        "name": "Moonshine V2 Klein",
         "description": "Schnell, nur Englisch. Gute Balance zwischen Geschwindigkeit und Genauigkeit."
       },
       "moonshine-medium-streaming-en": {
@@ -328,10 +328,10 @@
         "description": "Sendet nach dem Einfügen von Text automatisch die ausgewählte Tastenkombination. Cmd+Enter gilt für macOS, während Windows/Linux Super+Enter verwenden.",
         "options": {
           "off": "Aus",
-          "enter": "Enter",
-          "cmdEnter": "Cmd+Enter",
-          "superEnter": "Super+Enter",
-          "ctrlEnter": "Ctrl+Enter"
+          "enter": "Eingabe",
+          "cmdEnter": "Cmd+Eingabe",
+          "superEnter": "Super+Eingabetaste",
+          "ctrlEnter": "Strg+Enter"
         }
       },
       "translateToEnglish": {
@@ -401,7 +401,7 @@
         }
       },
       "prompts": {
-        "title": "Prompt",
+        "title": "Aufforderung",
         "selectedPrompt": {
           "title": "Ausgewählter Prompt",
           "description": "Wähle eine Vorlage zur Verfeinerung von Transkriptionen oder erstelle eine neue. Verwende ${output} im Prompt-Text, um auf das erfasste Transkript zu verweisen."
@@ -423,39 +423,39 @@
       }
     },
     "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
+      "title": "Intelligente Textbausteine",
+      "listTitle": "Ihre Snippets",
+      "addButton": "Snippet hinzufügen",
+      "addTitle": "Snippet hinzufügen",
+      "editTitle": "Snippet bearbeiten",
+      "enabledLabel": "Intelligente Textbausteine",
+      "enabledDescription": "Auslöserphrasen nach der Transkription automatisch zu vollständigem Text erweitern",
+      "triggerLabel": "Auslösephrase",
+      "triggerPlaceholder": "z. B. Adresse",
+      "triggerHint": "Sagen Sie diesen Ausdruck während der Transkription, um ihn zu erweitern",
+      "expansionLabel": "Erweiterungstext",
+      "expansionPlaceholder": "z. B. Hauptstraße 123, Springfield",
+      "loading": "Schnipsel werden geladen...",
+      "empty": "Noch keine Snippets",
+      "emptyHint": "Ein Snippet hinzufügen, um Triggerphrasen automatisch zu erweitern",
+      "edit": "Snippet bearbeiten",
+      "delete": "Snippet löschen",
+      "toggleEnable": "Snippet {{name}} aktivieren",
+      "editSnippet": "Snippet {{name}} bearbeiten",
+      "deleteSnippet": "Snippet {{name}} löschen",
+      "cancel": "Abbrechen",
+      "saving": "Wird gespeichert...",
+      "saveChanges": "Änderungen speichern",
+      "add": "Snippet hinzufügen",
+      "created": "Snippet erstellt",
+      "updated": "Snippet aktualisiert",
+      "deleted": "Snippet gelöscht",
       "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
+        "emptyTrigger": "Auslösesatz darf nicht leer sein",
+        "triggerTooLong": "Die Auslösephrase darf höchstens {{max}} Zeichen lang sein",
+        "expansionTooLong": "Die Erweiterung darf höchstens {{max}} Zeichen lang sein",
+        "toggleFailed": "Snippet konnte nicht aktualisiert werden",
+        "deleteFailed": "Snippet konnte nicht gelöscht werden"
       }
     },
     "history": {
@@ -476,7 +476,7 @@
       "transcriptionFailed": "Transkription fehlgeschlagen. Du kannst über das Wiederholen-Symbol erneut transkribieren."
     },
     "debug": {
-      "title": "Debug",
+      "title": "Debuggen",
       "logDirectory": {
         "title": "Log-Verzeichnis",
         "description": "Speicherort der Log-Dateien"
@@ -586,6 +586,11 @@
           "title": "Whisper.cpp",
           "description": "Hochleistungs-Inferenz des Whisper-Spracherkennungsmodells von OpenAI",
           "details": "Sonarus verwendet Whisper.cpp für schnelle, lokale Sprach-zu-Text-Verarbeitung. Dank an Georgi Gerganov und die Mitwirkenden für ihre großartige Arbeit."
+        },
+        "handy": {
+          "title": "Praktisch",
+          "description": "Das Speech-to-Text-Tool, das sich am einfachsten forken lässt",
+          "details": "Sonarus baut auf dem Fundament von Handy auf. Weitere Details finden Sie im ursprünglichen Projekt."
         }
       }
     }

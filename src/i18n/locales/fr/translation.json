@@ -13,7 +13,7 @@
     "models": "Modèles",
     "advanced": "Avancé",
     "postProcessing": "Post-traitement",
-    "snippets": "Snippets",
+    "snippets": "Extraits",
     "history": "Historique",
     "debug": "Débogage",
     "about": "À propos"
@@ -31,7 +31,7 @@
     },
     "models": {
       "small": {
-        "name": "Whisper Small",
+        "name": "Petit murmure",
         "description": "Rapide et assez précis."
       },
       "medium": {
@@ -39,7 +39,7 @@
         "description": "Bonne précision, vitesse moyenne"
       },
       "turbo": {
-        "name": "Whisper Turbo",
+        "name": "Turbo silencieux",
         "description": "Équilibre entre précision et vitesse."
       },
       "large": {
@@ -55,7 +55,7 @@
         "description": "Rapide et précis"
       },
       "moonshine-base": {
-        "name": "Moonshine Base",
+        "name": "Base de moonshine",
         "description": "Très rapide, anglais uniquement. Gère bien les accents."
       },
       "moonshine-tiny-streaming-en": {
@@ -63,7 +63,7 @@
         "description": "Ultra-rapide, anglais uniquement"
       },
       "moonshine-small-streaming-en": {
-        "name": "Moonshine V2 Small",
+        "name": "Moonshine V2 Petit",
         "description": "Rapide, anglais uniquement. Bon équilibre entre vitesse et précision."
       },
       "moonshine-medium-streaming-en": {
@@ -324,9 +324,9 @@
         "options": {
           "off": "Désactivé",
           "enter": "Entrée",
-          "cmdEnter": "Cmd+Enter",
-          "superEnter": "Super+Enter",
-          "ctrlEnter": "Ctrl+Enter"
+          "cmdEnter": "Cmd+Entrée",
+          "superEnter": "Super+Entrée",
+          "ctrlEnter": "Ctrl+Entrée"
         }
       },
       "translateToEnglish": {
@@ -396,7 +396,7 @@
         }
       },
       "prompts": {
-        "title": "Prompt",
+        "title": "Invite",
         "selectedPrompt": {
           "title": "Prompt sélectionné",
           "description": "Sélectionnez un modèle pour affiner les transcriptions ou créez-en un nouveau. Utilisez ${output} dans le texte du prompt pour référencer la transcription capturée."
@@ -418,39 +418,39 @@
       }
     },
     "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
+      "title": "Extraits intelligents",
+      "listTitle": "Vos extraits",
+      "addButton": "Ajouter un extrait",
+      "addTitle": "Ajouter un extrait",
+      "editTitle": "Modifier l’extrait",
+      "enabledLabel": "Extraits intelligents",
+      "enabledDescription": "Développer automatiquement les phrases de déclenchement en texte intégral après la transcription",
+      "triggerLabel": "Phrase déclencheuse",
+      "triggerPlaceholder": "p. ex. adr.",
+      "triggerHint": "Prononcez cette phrase pendant la transcription pour la développer",
+      "expansionLabel": "Texte d’expansion",
+      "expansionPlaceholder": "p. ex. 123, rue Principale, Springfield",
+      "loading": "Chargement des extraits...",
+      "empty": "Aucun extrait pour le moment",
+      "emptyHint": "Ajouter un extrait pour développer automatiquement les phrases déclencheuses",
+      "edit": "Modifier l’extrait",
+      "delete": "Supprimer l’extrait",
+      "toggleEnable": "Activer l’extrait {{name}}",
+      "editSnippet": "Modifier l’extrait {{name}}",
+      "deleteSnippet": "Supprimer l’extrait {{name}}",
+      "cancel": "Annuler",
+      "saving": "Enregistrement...",
+      "saveChanges": "Enregistrer les modifications",
+      "add": "Ajouter un extrait",
       "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
+      "updated": "Extrait mis à jour",
+      "deleted": "Extrait supprimé",
       "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
+        "emptyTrigger": "La phrase de déclenchement ne peut pas être vide",
+        "triggerTooLong": "La phrase de déclenchement doit comporter {{max}} caractères ou moins",
+        "expansionTooLong": "L’expansion doit comporter {{max}} caractères ou moins",
+        "toggleFailed": "Échec de la mise à jour de l’extrait",
+        "deleteFailed": "Échec de la suppression de l’extrait"
       }
     },
     "history": {
@@ -581,6 +581,11 @@
           "title": "Whisper.cpp",
           "description": "Inférence haute performance du modèle de reconnaissance vocale automatique Whisper d'OpenAI",
           "details": "Handy utilise Whisper.cpp pour un traitement rapide et local de la parole en texte. Merci au travail incroyable de Georgi Gerganov et des contributeurs."
+        },
+        "handy": {
+          "title": "Pratique",
+          "description": "L’outil de transcription vocale le plus facile à forker",
+          "details": "Sonarus s’appuie sur la base de Handy. Consultez le projet original pour plus de détails."
         }
       }
     }

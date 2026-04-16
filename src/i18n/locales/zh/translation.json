@@ -581,6 +581,11 @@
           "title": "Whisper.cpp",
           "description": "OpenAI Whisper 自动语音识别模型的高性能推理",
           "details": "Handy 使用 Whisper.cpp 进行快速的本地语音转文字处理。感谢 Georgi Gerganov 和贡献者们的出色工作。"
+        },
+        "handy": {
+          "title": "Handy",
+          "description": "The most forkable speech-to-text tool",
+          "details": "Sonarus builds on the Handy foundation. Check out the original project for more details."
         }
       }
     }

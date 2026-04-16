@@ -583,6 +583,11 @@
           "title": "Whisper.cpp",
           "description": "High-performance inference of OpenAI's Whisper automatic speech recognition model",
           "details": "Handy uses Whisper.cpp for fast, local speech-to-text processing. Thanks to the amazing work by Georgi Gerganov and contributors."
+        },
+        "handy": {
+          "title": "Handy",
+          "description": "The most forkable speech-to-text tool",
+          "details": "Sonarus builds on the Handy foundation. Check out the original project for more details."
         }
       }
     }

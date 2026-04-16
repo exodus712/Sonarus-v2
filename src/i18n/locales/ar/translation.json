@@ -13,7 +13,7 @@
     "models": "النماذج",
     "advanced": "متقدم",
     "postProcessing": "معالجة لاحقة",
-    "snippets": "Snippets",
+    "snippets": "مقتطفات",
     "history": "السجل",
     "debug": "تصحيح الأخطاء",
     "about": "حول"
@@ -31,11 +31,11 @@
     },
     "models": {
       "small": {
-        "name": "Whisper Small",
+        "name": "همس صغير",
         "description": ".سريع ودقيق إلى حد ما"
       },
       "medium": {
-        "name": "Whisper Medium",
+        "name": "Whisper متوسط",
         "description": ".دقة جيدة، سرعة متوسطة"
       },
       "turbo": {
@@ -55,7 +55,7 @@
         "description": ".سريع ودقيق"
       },
       "moonshine-base": {
-        "name": "Moonshine Base",
+        "name": "قاعدة مونشاين",
         "description": ".سريع جداً، الإنجليزية فقط. يتعامل جيداً مع اللهجات"
       },
       "moonshine-tiny-streaming-en": {
@@ -63,11 +63,11 @@
         "description": "سريع للغاية، الإنجليزية فقط"
       },
       "moonshine-small-streaming-en": {
-        "name": "Moonshine V2 Small",
+        "name": "Moonshine V2 صغير",
         "description": "سريع، الإنجليزية فقط. توازن جيد بين السرعة والدقة."
       },
       "moonshine-medium-streaming-en": {
-        "name": "Moonshine V2 Medium",
+        "name": "Moonshine V2 متوسط",
         "description": "الإنجليزية فقط. جودة عالية."
       },
       "breeze-asr": {
@@ -301,7 +301,7 @@
           "none": "بلا",
           "externalScript": "نص برمجي خارجي"
         },
-        "externalScriptPlaceholder": "/path/to/your/script.sh"
+        "externalScriptPlaceholder": "/مسار/إلى/البرنامج_النصي_الخاص_بك.sh"
       },
       "typingTool": {
         "title": "أداة الكتابة",
@@ -323,7 +323,7 @@
         "description": "إرسال مجموعة المفاتيح المحددة تلقائياً بعد إدراج النص. Cmd+Enter ينطبق على macOS، بينما يستخدم Windows/Linux مفتاح Super+Enter.",
         "options": {
           "off": "إيقاف",
-          "enter": "Enter",
+          "enter": "أدخل",
           "cmdEnter": "Cmd+Enter",
           "superEnter": "Super+Enter",
           "ctrlEnter": "Ctrl+Enter"
@@ -418,39 +418,39 @@
       }
     },
     "snippets": {
-      "title": "Smart Snippets",
-      "listTitle": "Your Snippets",
-      "addButton": "Add Snippet",
-      "addTitle": "Add Snippet",
-      "editTitle": "Edit Snippet",
-      "enabledLabel": "Smart Snippets",
-      "enabledDescription": "Automatically expand trigger phrases to full text after transcription",
-      "triggerLabel": "Trigger Phrase",
-      "triggerPlaceholder": "e.g. addr",
-      "triggerHint": "Say this phrase during transcription to expand it",
-      "expansionLabel": "Expansion Text",
-      "expansionPlaceholder": "e.g. 123 Main Street, Springfield",
-      "loading": "Loading snippets...",
-      "empty": "No snippets yet",
-      "emptyHint": "Add a snippet to expand trigger phrases automatically",
-      "edit": "Edit snippet",
-      "delete": "Delete snippet",
-      "toggleEnable": "Enable snippet {{name}}",
-      "editSnippet": "Edit snippet {{name}}",
-      "deleteSnippet": "Delete snippet {{name}}",
-      "cancel": "Cancel",
-      "saving": "Saving...",
-      "saveChanges": "Save Changes",
-      "add": "Add Snippet",
-      "created": "Snippet created",
-      "updated": "Snippet updated",
-      "deleted": "Snippet deleted",
+      "title": "المقتطفات الذكية",
+      "listTitle": "مقتطفاتك",
+      "addButton": "إضافة مقطع",
+      "addTitle": "إضافة مقطع",
+      "editTitle": "تحرير المقتطف",
+      "enabledLabel": "المقتطفات الذكية",
+      "enabledDescription": "توسيع عبارات التشغيل تلقائيًا إلى النص الكامل بعد النسخ",
+      "triggerLabel": "عبارة التفعيل",
+      "triggerPlaceholder": "مثلًا: العنوان",
+      "triggerHint": "قل هذه العبارة أثناء النسخ لتوسيعها",
+      "expansionLabel": "نص موسّع",
+      "expansionPlaceholder": "مثلاً: 123 الشارع الرئيسي، سبرينغفيلد",
+      "loading": "جارٍ تحميل المقتطفات...",
+      "empty": "لا توجد مقتطفات بعد",
+      "emptyHint": "أضف مقتطفًا لتوسيع عبارات التشغيل تلقائيًا",
+      "edit": "تعديل المقتطف",
+      "delete": "حذف المقتطف",
+      "toggleEnable": "فعّل المقتطف {{name}}",
+      "editSnippet": "حرّر المقتطف {{name}}",
+      "deleteSnippet": "حذف المقتطف {{name}}",
+      "cancel": "إلغاء",
+      "saving": "جارٍ الحفظ...",
+      "saveChanges": "حفظ التغييرات",
+      "add": "إضافة مقطع",
+      "created": "تم إنشاء المقتطف",
+      "updated": "تم تحديث المقتطف",
+      "deleted": "تم حذف المقتطف",
       "errors": {
-        "emptyTrigger": "Trigger phrase cannot be empty",
-        "triggerTooLong": "Trigger phrase must be {{max}} characters or fewer",
-        "expansionTooLong": "Expansion must be {{max}} characters or fewer",
-        "toggleFailed": "Failed to update snippet",
-        "deleteFailed": "Failed to delete snippet"
+        "emptyTrigger": "لا يمكن أن تكون العبارة المشغِّلة فارغة",
+        "triggerTooLong": "يجب ألا تزيد العبارة المُحفِّزة على {{max}} حرفًا",
+        "expansionTooLong": "يجب ألا يزيد التوسيع عن {{max}} حرفًا",
+        "toggleFailed": "تعذّر تحديث المقتطف",
+        "deleteFailed": "فشل حذف المقتطف"
       }
     },
     "history": {
@@ -581,6 +581,11 @@
           "title": "Whisper.cpp",
           "description": "استنتاج عالي الأداء لنموذج التعرف التلقائي على الكلام Whisper من OpenAI",
           "details": ".يستخدم Handy برنامج Whisper.cpp لمعالجة سريعة ومحلية لتحويل الكلام إلى نص. شكراً للعمل الرائع الذي قام به Georgi Gerganov والمساهمون"
+        },
+        "handy": {
+          "title": "عملي",
+          "description": "أكثر أداة لتحويل الكلام إلى نص قابليةً للتفريع",
+          "details": "يستند Sonarus إلى الأساس الذي وضعه Handy. اطّلع على المشروع الأصلي لمزيد من التفاصيل."
         }
       }
     }

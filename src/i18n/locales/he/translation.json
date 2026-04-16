@@ -31,7 +31,7 @@
     },
     "models": {
       "small": {
-        "name": "Whisper Small",
+        "name": "לחישה קטנה",
         "description": "מהיר ודי מדויק."
       },
       "medium": {
@@ -55,7 +55,7 @@
         "description": "מהיר ומדויק"
       },
       "moonshine-base": {
-        "name": "Moonshine Base",
+        "name": "בסיס מונשיין",
         "description": "מהיר מאוד, אנגלית בלבד. מתמודד היטב עם מבטאים."
       },
       "moonshine-tiny-streaming-en": {
@@ -63,11 +63,11 @@
         "description": "מהיר במיוחד, אנגלית בלבד"
       },
       "moonshine-small-streaming-en": {
-        "name": "Moonshine V2 Small",
+        "name": "Moonshine V2 קטן",
         "description": "מהיר, אנגלית בלבד. איזון טוב בין מהירות לדיוק."
       },
       "moonshine-medium-streaming-en": {
-        "name": "Moonshine V2 Medium",
+        "name": "Moonshine V2 בינוני",
         "description": "אנגלית בלבד. איכות גבוהה."
       },
       "breeze-asr": {
@@ -323,9 +323,9 @@
         "description": "שלח אוטומטית את צירוף המקשים שנבחר אחרי הכנסת הטקסט. ב-macOS יופעל Cmd+Enter, וב-Windows/Linux יופעל Super+Enter.",
         "options": {
           "off": "כבוי",
-          "enter": "Enter",
+          "enter": "הזן",
           "cmdEnter": "Cmd+Enter",
-          "superEnter": "Super+Enter",
+          "superEnter": "סופר+אנטר",
           "ctrlEnter": "Ctrl+Enter"
         }
       },
@@ -375,7 +375,7 @@
           "unavailable": "Apple Intelligence לא זמין במכשיר הזה. נדרש Mac עם Apple Silicon שמריץ macOS Tahoe (26.0) ומעלה, עם Apple Intelligence מופעל בהגדרות המערכת."
         },
         "baseUrl": {
-          "title": "Base URL",
+          "title": "כתובת URL בסיסית",
           "description": "כתובת ה-API הבסיסית עבור הספק הנבחר. רק ספק מותאם אישית ניתן לעריכה.",
           "placeholder": "https://api.openai.com/v1"
         },
@@ -581,6 +581,11 @@
           "title": "Whisper.cpp",
           "description": "הסקה מהירה לביצועים גבוהים עבור מודל זיהוי הדיבור Whisper של OpenAI",
           "details": "Handy משתמש ב-Whisper.cpp לתמלול מהיר ומקומי. תודה לעבודה המדהימה של Georgi Gerganov וכל התורמים."
+        },
+        "handy": {
+          "title": "שימושי",
+          "description": "כלי הדיבור-לטקסט שהכי קל לעשות לו פורק",
+          "details": "Sonarus נבנה על בסיס התשתית של Handy. לפרטים נוספים, אפשר לעיין בפרויקט המקורי."
         }
       }
     }
