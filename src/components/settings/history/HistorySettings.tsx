@@ -1,9 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { convertFileSrc } from "@tauri-apps/api/core";
-import { readFile } from "@tauri-apps/plugin-fs";
-import { Check, FolderOpen, Play, RotateCcw, Search, X } from "lucide-react";
-import { Copy as CopyIcon } from "@/components/animate-ui/icons/copy";
-import { Trash2 as Trash2Icon } from "@/components/animate-ui/icons/trash-2";
+import { save } from "@tauri-apps/plugin-dialog";
+import { readFile, writeTextFile } from "@tauri-apps/plugin-fs";
+import {
+  Check,
+  Copy,
+  Download,
+  FolderOpen,
+  Play,
+  RotateCcw,
+  Trash2,
+  Search,
+  X,
+} from "lucide-react";
 import AnimatedStar from "../../icons/AnimatedStar";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -530,6 +539,41 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
     setTimeout(() => setShowCopied(false), 2000);
   };
 
+  const buildExportFileName = () => {
+    const rawTitle = entry.title?.trim() || "transcription";
+    const safeTitle = rawTitle.replace(/[<>:"/\\|?*\x00-\x1F]/g, "_");
+    const normalizedTitle = safeTitle.replace(/\s+/g, " ").trim();
+    return `${normalizedTitle || "transcription"}.md`;
+  };
+
+  const buildMarkdownContent = () => {
+    const timestamp = formatDateTime(String(entry.timestamp), i18n.language);
+    return `# Transcription\n\n- Date: ${timestamp}\n\n${entry.transcription_text.trim()}\n`;
+  };
+
+  const handleExportMarkdown = async () => {
+    if (!hasTranscription || retrying) {
+      return;
+    }
+
+    try {
+      const filePath = await save({
+        defaultPath: buildExportFileName(),
+        filters: [{ name: "Markdown", extensions: ["md"] }],
+      });
+
+      if (!filePath) {
+        return;
+      }
+
+      await writeTextFile(filePath, buildMarkdownContent());
+      toast.success(t("settings.history.exportSuccess"));
+    } catch (error) {
+      console.error("Failed to export transcription:", error);
+      toast.error(t("settings.history.exportError"));
+    }
+  };
+
   const handleDeleteEntry = async () => {
     try {
       await deleteAudio(entry.id);
@@ -569,6 +613,13 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
       <div className="flex justify-between items-center">
         <p className="text-sm font-medium">{formattedDate}</p>
         <div className="flex items-center">
+          <IconButton
+            onClick={handleExportMarkdown}
+            disabled={!hasTranscription || retrying}
+            title={t("settings.history.exportMarkdown")}
+          >
+            <Download width={16} height={16} />
+          </IconButton>
           <IconButton
             onClick={handleCopyText}
             disabled={!hasTranscription || retrying}

@@ -70,9 +70,8 @@ describe("RecordingOverlay", () => {
   });
 
   it("ignores event callbacks after the component unmounts", async () => {
-    const { default: RecordingOverlay } = await import(
-      "../../src/overlay/RecordingOverlay"
-    );
+    const { default: RecordingOverlay } =
+      await import("../../src/overlay/RecordingOverlay");
 
     const view = render(<RecordingOverlay />);
 
