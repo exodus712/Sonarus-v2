@@ -622,7 +622,8 @@ const HistoryEntryComponent: React.FC<HistoryEntryProps> = ({
           >
             <Trash2Icon
               size={16}
-              animation="default-loop"
+              animation="default"
+              loop={true}
               animateOnHover={true}
             />
           </IconButton>

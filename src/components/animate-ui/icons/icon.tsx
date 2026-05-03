@@ -229,6 +229,16 @@ function AnimateIcon({
     inViewMargin: animateOnViewMargin,
   });
 
+  // Callback ref wrapper for Slot component type compatibility
+  const inViewRefCallback: React.RefCallback<HTMLSpanElement> =
+    React.useCallback(
+      (node) => {
+        (inViewRef as React.MutableRefObject<HTMLSpanElement | null>).current =
+          node;
+      },
+      [inViewRef],
+    );
+
   const startAnim = React.useCallback(
     async (anim: "initial" | "animate", method: "start" | "set" = "start") => {
       try {
@@ -406,8 +416,9 @@ function AnimateIcon({
   );
 
   const content = asChild ? (
-    <Slot
-      ref={inViewRef}
+    <Slot<HTMLSpanElement>
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={inViewRefCallback as any}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onPointerDown={handlePointerDown}
